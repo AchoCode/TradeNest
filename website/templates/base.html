@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,700&display=swap">
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="style"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+  <link 
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/mystyle.css')}}"
+  />
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+  <script src="https://kit.fontawesome.com/044032d169.js" crossorigin="anonymous"></script>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/"><img class="logo" alt="logo" src="{{url_for('static', filename='images/logo white bg.png')}}"></a>
+
+      <ul class="nav-links">
+      <i class="fa-solid fa-xmark hideMenu"></i>  
+      <li><a href="/">Home</a></li>
+      {% if usr.is_authenticated %}        
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        {% else %}
+        <li><a href="/login-Signup">Register</a></li>
+        <li><a href="/login-Signup">Login</a></li>
+        {% endif %}
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <i class="fa-solid fa-bars showMenu"></i>
+    </nav>
+  </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alert-danger alter-dismissable fade show message" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
+        <div class="alert alert-success alter-dismissable fade show message" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    {% block content %}{% endblock %}
+
+<button id="backToTopBtn" class="btn"><i class="fa-solid fa-arrow-up"></i></button>
+<script
+src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"
+></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"
+></script>
+<script
+src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"
+></script>
+
+<script
+type="text/javascript"
+src="{{ url_for('static', filename='javascript/index.js') }}"
+defer></script>
+</body>
+
+</html>

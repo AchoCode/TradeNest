@@ -1,0 +1,59 @@
+{%  extends 'ProfileBase.html' %}
+{%  block title %} Withdrawal {%  endblock %}
+
+{% block content %}
+
+
+<div class="pwd-wrapper">
+    <div class="spinner-border text-warning"></div>
+
+    <div class="Overlay"></div>  
+    <div class="pop-up">
+        <div class="content">
+            <h4 align="center">Are you sure you want to cancel the transaction?</h4> 
+            <div class="pop-up-btn">
+                <button onclick="CloseAlert()" class="btn">No</button>
+                <a class="btn" href="/withdraw-request">Yes</a>
+            </div>
+        </div>
+    </div>
+    <div class="details">
+
+
+        <span><i class="fa-solid fa-xmark" onclick="PopUpAlert()"></i>          
+        <h3>{{amount}}0 USD</h3></span>
+        <div class="detail-box">
+            <ul>
+                <li class="heading">
+                    <p>Amount</p> <p>{{amount}}0 USD</p>
+                </li>
+                <li class="heading">
+                    <p>Wallet</p> <p>{{Wallet_address}}</p>
+                </li>
+                <li class="heading">
+                    <p>Transaction Fee</p> <p>{{fee}} USD</p>
+                </li>
+            </ul>
+        </div>
+        <div class="alert">
+            <p>You will be charged ${{fee}} for this transaction</p>
+        </div>
+        <div class="cta-btn">
+            <button class="btn" onclick="Active()">Proceed</button>
+        </div>
+    </div>
+    <div class="password-input">
+        <form method="POST">
+            <input type="hidden" name="form_type" value="pwd-submit">
+            <div class="withdraw-input-box">
+                <input type="text" class="form-control" name="pwd" id="pwd">
+                    <label for="pwd">Enter password</label>
+            </div>
+
+            <div class="cta-btn mt-5">
+                <button type="submit" class="btn" id="Withdraw">Withdraw</button>
+            </div>
+        </form>
+    </div>
+</div>
+{%  endblock %}

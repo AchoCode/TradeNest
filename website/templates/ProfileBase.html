@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="style"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+  <link 
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/profilestyle.css')}}"
+  />
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+  <script src="https://kit.fontawesome.com/044032d169.js" crossorigin="anonymous"></script>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <div class="profile-wrapper">
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alter-dismissable fade show message error" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
+        <div class="alert alter-dismissable fade show message success" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+          
+
+            {% block content %}{% endblock %}
+            <div class="navigation">
+                <ul>
+                  <li class="list active">
+                    <a href="/profile">
+                      <span class="icon"><i class="fa-solid fa-address-card icon "></i> </span>
+                      <span class="text">Account</span>
+                    </a>
+                  </li>
+                    <li class="list ">
+                      <a href="/trade">
+                        <span class="icon"><i class="fa-solid fa-chart-simple icon"></i></span> 
+                        <span class="text">Trade</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="/withdraw-request">
+                        <span class="icon"><i class="fa-solid fa-money-bill-transfer icon"></i> </span>
+                        <span class="text">Withdraw</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="/settings">
+                        <span class="icon"><i class="fa-solid icon fa-user"></i> </span>
+                        <span class="text">Profile</span>
+                      </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+<script
+src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"
+></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"
+></script>
+<script
+src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"
+></script>
+
+<script
+type="text/javascript"
+src="{{ url_for('static', filename='javascript/profile.js') }}"
+defer></script>
+</body>
+
+</html>

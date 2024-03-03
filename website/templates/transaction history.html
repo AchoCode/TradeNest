@@ -1,0 +1,127 @@
+{% extends "ProfileBase.html" %}
+{% block title %} Transaction History {% endblock %} 
+
+{% block content %}
+<div class="transactions-info">
+    <a href="/profile">    
+        <span>      
+            <i class="fa-solid fa-xmark" href="/profile"></i>          
+        </span>
+    </a>
+    <h4>Transaction History</h4>
+</div>
+<div class="transactions">
+    <ul>
+        {% for record in record|reverse %}
+            {% if record.Title == "Deposit" %}
+                {% if record.Status == "Success" %}
+                    <li class="transaction-details flex">
+                        <div class="div1 flex">
+                            <div class="innerdiv1">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <div class="innerdiv2">
+                                <h3>Deposit</h3>
+                                <span class="date">Feb 12, 11:21:05</span>
+                            </div>
+                        </div>
+                        <div class="div2">
+                            <div class="amount">+${{record.Amount}}</div>
+                            <div class="category">Success</div>
+                        </div>
+                    </li>
+                    {% else %}
+                        <li class="transaction-details flex denied">
+                            <div class="div1 flex">
+                                <div class="innerdiv1">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div class="innerdiv2">
+                                    <h3>Deposit</h3>
+                                    <span class="date">Feb 12, 11:21:05</span>
+                                </div>
+                            </div>
+                            <div class="div2">
+                                <div class="amount">-${{record.Amount}}</div>
+                                <div class="category">Failed</div>
+                            </div>
+                        </li>
+                {% endif %}
+            {% else %}
+                    {% if record.Title == 'Withdrawal' %}
+                        {% if record.Status == "Success" %}
+                            <li class="transaction-details flex">
+                                <div class="div1 flex">
+                                    <div class="innerdiv1">
+                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                    </div>
+                                    <div class="innerdiv2">
+                                        <h3>Withdrawal</h3>
+                                        <span class="date">Feb 12, 11:21:05</span>
+                                    </div>
+                                </div>
+                                <div class="div2">
+                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="category">Successful</div>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="transaction-details flex denied">
+                                <div class="div1 flex">
+                                    <div class="innerdiv1">
+                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                    </div>
+                                    <div class="innerdiv2">
+                                        <h3>Withdrawal</h3>
+                                        <span class="date">Feb 12, 11:21:05</span>
+                                    </div>
+                                </div>
+                                <div class="div2">
+                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="category">Failed</div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        {% if record.Status == "Open" %}
+                            <li class="transaction-details flex">
+                                <div class="div1 flex">
+                                    <div class="innerdiv1">
+                                        <i class="fa-solid fa-chart-simple icon"></i>
+                                    </div>
+                                    <div class="innerdiv2">
+                                        <h3>Trade Alert</h3>
+                                        <span class="date">Feb 12, 11:21:05</span>
+                                    </div>
+                                </div>
+                                <div class="div2">
+                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="category">Successful</div>
+                                </div>
+                            </li>
+                        {% else %}
+                            {% if record.Status == "Closed" %}
+                            <li class="transaction-details flex">
+                                <div class="div1 flex">
+                                    <div class="innerdiv1">
+                                        <i class="fa-solid fa-chart-simple icon"></i>
+                                    </div>
+                                    <div class="innerdiv2">
+                                        <h3>Trade Profit</h3>
+                                        <span class="date">Feb 12, 11:21:05</span>
+                                    </div>
+                                </div>
+                                <div class="div2">
+                                    <div class="amount">+${{record.Amount}}</div>
+                                    <div class="category">Successful</div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <div class="scroll"></div>
+</div>
+{% endblock %}

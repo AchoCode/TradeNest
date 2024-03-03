@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %} 
+
+{% block content %}
+
+  <!---------------------------MODAL LOGIN/SIGNUP SECTION---------------------------------->
+  <div class="wrapper">
+    <div class="form-wrapper">
+        <div class="form-box login">
+
+                <i class="fa-solid fa-user"></i>
+                    <h2> Login </h2>
+
+            <form method="POST">
+
+                <div class="input-box">
+                    <input type="hidden" name="form-type" value="loginForm">
+                    <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email">
+                            <label for="email">Email</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><i class="fa-regular fa-eye-slash" onclick="HidePassword()"></i></span>
+                            <input type="text" class="form-control pwd" id="pwd" name="pwd">
+                                <label for="pwd">Password</label>
+                </div>
+
+                <div class="form-btn">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+
+                <div class="login-register">
+                    <p>Don't have an account? <a href="#" onclick="Modal()" id="signup-link">Register</a></p>
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="form-box register">
+                    <h2> Sign-up </h2>
+            <form method="POST">
+
+                <div class="form-row">
+                    <input type="hidden" name="form-type" value="signForm">
+                    <div class="input-box col-md">
+                            <input type="text" class="form-control" id="fname" name="fname" required>
+                                <label for="fname">Firstname</label>
+                    </div>
+                    <div class="input-box col-md ">
+                            <input type="text" class="form-control" id="lname" name="lname" required>
+                                <label for="lname">Lastname</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-box col-md">
+                        <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                                <label for="email">Email</label>
+                    </div>
+                    <div class="input-box col-md">
+                        <span class="icon"><i class="fa-solid fa-phone"></i></span>
+                            <input type="text" class="form-control" id="phone-no" name="phone-no" required>
+                                <label for="phone-no">Phone Number</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-box col-md  ">
+                        <span class="icon"><i class="fa-regular fa-eye-slash" onclick="HidePassword()"></i></span>
+                            <input type="text" class="form-control pwd" id="pwd1" name="pwd1" required>
+                                <label for="pwd1">Password</label>
+                    </div>
+     
+                    <div class="input-box col-md  ">
+                        <span class="icon"><i class="fa-regular fa-eye-slash" onclick="HidePassword()"></i></span>
+                            <input type="text" class="form-control pwd" id="pwd2" name="pwd2" required>
+                                <label for="pwd2">Confirm Password</label>
+                    </div>
+                </div>
+                
+                <div class="form-radio">
+                    <h4> Subscription Plan</h4>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio" value="Bronze" checked>Bronze
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio" value="Silver">Silver
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio" value="Gold"> Gold
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-btn">
+                    <button type="submit" class="btn">Register</button>
+                </div>
+
+                <div class="login-register">
+                    <p>Have an account? <a href="#" onclick="Modal()" id="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+     </div>
+
+    </div>     
+
+
+{% endblock %} 

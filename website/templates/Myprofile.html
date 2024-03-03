@@ -1,0 +1,169 @@
+{% extends "ProfileBase.html" %}
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+
+<div class="Account-info">
+    <div class="usrname">
+        <span><i class="fa-regular fa-user"></i></span>
+        <h4><i>Hello, {{usr.First_name}}</i></h4>
+    </div>
+    <div class="nav">
+        <ul>
+            <div class="nav-links">
+                <li>
+                    <a href="/">
+                        <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact">
+                        <span class="icon"><i class="fa-solid fa-headphones"></i></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notifications">
+                        <span class="icon"><i class="fa-regular fa-bell"></i></span>
+                        <span class="badge"></span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="details">
+        <div class="balance">
+            <h5> Avaliable Balance </h5>
+            <p>{{usr.Balance}}0 <span>USD</span></p>
+        </div>
+        <div class="transaction">
+            <a href="/history"> Transaction History <i class="fa-solid fa-clock-rotate-left"></i></a>
+            <div class="deposit">
+                <button class="btn" onclick="deposit({{usr.id}})">
+                    <i class="fa-solid fa-plus"></i> Deposit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="Overlay"></div>  
+
+<div class="wrapper">
+<button id="Close-deposit" onclick="CloseDeposit()" class="btn"><i  class="fa-solid fa-xmark"></i></button>
+    <div class="form-box">
+        <h4>BTC Trading Address</h4>
+        <div class="notice">
+        <h3>This address can only recieve BTC on the Bitcoin Network</h3>
+        <p> If another cryptocurrencey is sent to this address. The funds wont be recoverable</p>
+    </div>
+    <div class="address">
+        <input value="3A1fNzGyUYKdmDWne5CXVXRwGWoBLcvsRh" id="address" readonly/>
+    </div>
+    <button class="btn" id="copy" onclick="copyText()">Copy <i class="fa-regular fa-copy"></i></button>
+        <p><i>Ensure to copy the correct trading address to avoid lost of funds</i></p>
+    </div>
+</div>
+<div class="dashboard">
+    <div class="trade-analysis">
+        <div class="links">
+            <ul class="dash">
+                <li class="dash-link live">
+                    <button class="btn">Open </button>
+                </li>
+                <li class="dash-link ">
+                    <button class="btn ">Pending</button>
+                </li>
+                <li class="dash-link">
+                    <button class="btn ">Closed</button>
+                </li>
+                <div class="content">
+
+                    <div class=" Trade">
+                        {% if Number_of_trades == 0 %}
+                            <h2>No open Orders </h2>
+                        {% else %}
+                            <ul class="trade-box">
+                                {% for trade in Trade|reverse %}
+                                    {% if trade.Status == 'Open'%}
+                                        <li class="trade-item">
+                                            <div class="btc-icon2">
+                                                <i class="fa-brands fa-btc"></i>
+                                            </div> 
+                                            <div class="info">
+                                                <div class="amt">
+                                                    <ul>
+                                                        <li>Equity: ${{ trade.Amount}}.00  <span>Lot size: 0.01</span></li>
+                                                        <li></li>
+                                                        <li>Duration: 2 days<span>Estimated Return: $50</span></li>
+                                                        <li></li>
+                                                    </p> 
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}    
+                            </ul>
+                        {% endif%}
+                    </div>
+
+                    <div class="Trade">
+                        {% if Number_of_trades == 0 %}
+                            <h2>No Pending Orders </h2>
+                        {% else %}
+                            <ul class="trade-box">
+                                {% for trade in Trade|reverse %}
+                                    {% if trade.Status == 'Pending'%}
+                                    <li class="trade-item">
+                                        <div class="btc-icon2">
+                                            <i class="fa-brands fa-btc"></i>
+                                        </div> 
+                                        <div class="info">
+                                            <div class="amt">
+                                                <ul>
+                                                    <li>Equity: ${{ trade.Amount}}.00<span> Lot size: 0.01</span></li>
+                                                    <li></li>
+                                                    <li>Duration: --- <span>Estimated Return: $50</span></li>
+                                                    <li></li>
+                                                </p> 
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif%}
+                    </div>
+
+                    <div class="Trade">
+                        {% if Number_Closed_trades == 0 %}
+                            <h2>No Activity For the past 30 days </h2>
+                        {% else %}
+                            <ul class="trade-box">
+                                {% for trade in Closed_trades|reverse %}
+                                <li class="trade-item">
+                                    <div class="btc-icon2">
+                                        <i class="fa-brands fa-btc"></i>
+                                    </div> 
+                                    <div class="info">
+                                        <div class="amt">
+                                            <ul>
+                                                <li>Equity: ${{ trade.Amount}}.00<span> Lot size: 0.01</span></li>
+                                                <li></li>
+                                                <li>Date:17/feb/24<span>Profit: <span class="profit">50 USD</span></span></li>
+                                                <li></li>
+                                            </p> 
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %} 
+                                <div class="scroll"></div>
+                            </ul>
+                        {% endif %}   
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>    
+</div>
+
+{% endblock %}

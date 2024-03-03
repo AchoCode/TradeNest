@@ -1,0 +1,1117 @@
+:root {
+    --roboto:  roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+    --times: 'Times New Roman', Times, serif;
+    --google: 'Google Sans';
+    --outline: 2px solid red;
+    --image-overlay : linear-gradient(rgba(0,0,0,0.6),
+    rgba(0,0,0,0.8));
+    font-size: 100%;
+}
+body{
+    background-color:black;
+    overflow: hidden;
+}
+span{
+    color: gold;
+}
+.message {
+    position:absolute;
+    width: 380px;
+    z-index: 6;
+    left: 10px;
+    text-align: center;
+    font-family: var(--roboto);
+    font-weight: 600;
+    border-radius: 10px;
+
+}
+.message.success {
+    background-color: green;
+    color: white;
+}
+.message.error {
+    background-color: rgb(189, 52, 52);
+    color: white;
+    top: 10px;
+}
+
+/*--------------------PROFILE BASE-----------------*/
+.profile-wrapper{
+    position: relative;
+    margin: auto;
+    width: 400px;
+    background-color: transparent;
+    height: 100vh;
+}
+
+.profile-wrapper .navigation{
+    background-color: gold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom:0;
+    height: 60px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.navigation ul{
+    display: flex;
+    width: 100%;
+    margin-left: -40px;
+}
+.navigation ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+    height: 70px;
+    cursor: pointer;
+    z-index: 1;
+}
+.navigation ul li a{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.navigation ul li a .icon{
+    color: black;
+    display: block;
+    position: relative;
+    line-height: 85px;
+    font-size: 1.3rem;
+    text-align: center;
+    transition: 0.5s;
+}
+.navigation ul li a:hover{
+    text-decoration: none;
+}
+
+.navigation ul li:hover a .icon{
+    transform: translateY(-5px);
+}
+.navigation ul li a .text{
+    position: absolute;
+    color: black;
+    font-size: 1.2rem;
+    font-family: var(--roboto);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.5s;
+}
+.navigation ul li:hover a .text{
+    transform: translateY(15px);
+    opacity: 1;
+}
+
+
+/*-----------------ACCOUNT INFORMATION----------------*/
+
+.Account-info{
+    position: relative;
+    background-color: gold;
+    height: 100px;
+    color: black;
+    display: flex;
+    padding: 10px 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-family: var(--roboto);
+}
+.Account-info .usrname{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    column-gap: 10px;
+}
+.usrname span,
+.usrname h4 {
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.Account-info span{
+    color: black;
+}
+.Account-info .nav{
+    display: flex;
+    justify-items: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.nav-links li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-links li a .icon{
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.nav-links li a:hover{
+    text-decoration: none; 
+}
+
+.nav-links li a:hover .icon{
+    color: white;
+}
+
+.Account-info .details{
+    display: flex;
+    margin-top: -15px;
+    height: 90px;
+    background-color: black;
+    color: white ;
+    position: absolute;
+    top: 70px;
+    right: 12px;
+    border-radius: 20px;
+    width: 94%;
+    padding: 10px 20px 15px 20px;
+    border: 3px solid gold;   
+}
+.details .balance span{
+    color: gold;
+}
+.details .balance p{
+    text-align: center;
+    font-size: 1.3rem;
+    display: inline-block;
+    margin-right: 50px;
+}
+.details .transaction{
+    position: absolute;
+    right: 10px;
+}
+.details .transaction a{
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.details .transaction a:hover{
+    color: gold;
+}
+.details .transaction .btn{
+    color:  gold;
+    background-color:black;
+    font-size: 1rem;
+    font-weight: 500;
+    height: 40px;
+    width: 130px;
+    padding-bottom: 5px;
+    border: 2px solid gold;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-top: 5px;
+    margin-left: 10px;
+    transform: scale(0.9);
+}
+.details .transaction .btn:hover{
+    transform: scale(1);
+}
+
+
+/*------------ DASHBOARD STYLING----------*/
+
+.dashboard{
+    display: grid;
+    place-items: center;
+    margin-top: 50px;
+}
+.dashboard .trade-analysis{
+    margin-top: 10px;
+    background-color: white;
+    height: 300px;
+    width: 370px;
+    position: relative;
+    border-radius: 5px;
+}
+.trade-analysis .links{
+    position: relative;
+    height: 50px;
+}
+.dashboard .trade-analysis .dash{
+    display: flex;
+    width: 10%;
+    position: absolute;
+    top: 5px;
+    left: -30px;
+}
+.dashboard .trade-analysis .dash .dash-link{
+    position: relative;
+    left: 0;
+    list-style: none;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+}
+.dashboard .trade-analysis .dash li .btn{
+    color: black;
+    font-size: 1.3rem;
+    font-family: var(--roboto);
+}
+.dash-link.live ~ .content{
+    position: absolute;
+    top: 40px;
+    left: 30px;
+    padding: 20px 10px;
+    background-color: rgb(177, 177, 177);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 345px;
+    width: 370px;
+    overflow-y: auto;
+}
+.content::-webkit-scrollbar{
+    width: 5px;
+    overflow: hidden;}
+
+.content .Trade h2 {
+    font-size: 1.5rem;
+    font-family: var(--roboto);
+}
+.Trade{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.trade-box{
+    padding-left: 0;
+}
+.Trade .trade-item{
+    background-color: black;
+    display: flex;
+    list-style: none;
+    color: white;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 70px;   
+}
+.btc-icon2 { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: gold;
+    color: black;
+    height: 100%;
+    width: 60px;
+}
+
+.btc-icon2 i {
+    font-size: 2rem;
+}
+.Trade .trade-item .info {
+    display: flex;
+    background-color: black;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 5px;
+}
+.amt {
+    font-family: var(--roboto);
+    display: grid;
+    place-items: center;
+}
+.amt ul {
+    padding-left: 10px;
+}
+.amt span{
+    margin-left: 10px;
+}
+.amt li {
+    list-style: none;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+.Trade .scroll {
+    height: 10px;
+}
+.profit{
+    color: green;
+    font-weight: 600;
+}
+.dash-link:nth-child(1).live ~ .content .Trade:nth-child(1),
+.dash-link:nth-child(2).live ~ .content .Trade:nth-child(2),
+.dash-link:nth-child(3).live ~ .content .Trade:nth-child(3){
+    display: block;
+}
+
+.dash-link.live{
+    background-color: rgb(177, 177, 177);
+    border-bottom: none;
+    border-radius: 5px;
+}
+.dash-link span {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    z-index: 4;
+    border: var(--outline);
+    border-radius: 50px;
+    padding: 2px 5px;
+    background-color: gold;
+    color: black;
+}
+.dash-link .btn {
+    display: flex;
+}
+/*--------------------------------------------------------------TRANSACTIONS PAGE---------------------------------------------------------------------------*/
+
+.transactions-info{
+    position: relative;
+    height: 100px;
+    color: gold;
+    text-align: center;
+    font-family: var(--roboto);
+    padding-top: 30px;
+}
+.transactions-info span{
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    font-size: 1.5rem;
+    transition: 0.5s;
+}
+.transactions-info span:hover{
+    transform: scale(1.20);
+}
+.transactions{
+    background-color: transparent;
+    height: 570px;
+    border-radius: 30px;
+    overflow-y: auto;
+}
+.transactions::-webkit-scrollbar{
+    width: 10px;
+    overflow: hidden;}
+.transactions::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+    padding: 20px;
+
+}
+
+.transactions::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ul .transaction-details{
+    width: 100%;
+    background: rgb(236, 219, 119);
+    border: 2px solid white;
+    list-style: none;
+    text-align: justify;
+    padding: 10px 20px;
+    margin: 15px -15px 0;
+    border-radius: 20px;
+}
+
+.transactions .scroll {
+    height: 150px;
+}
+
+.transaction-details .row .col-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    border-radius: 20px;
+}
+ul h3 {
+    font-size: 1.3rem;
+    font-family: var(--google);
+    font-weight: 600;
+}
+ul .amount{
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: var(--roboto);
+}
+ul .category {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--roboto);
+    color: green;
+}
+ul p{
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: left;
+}
+
+ul .date{
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+}
+.letter p {
+    position: relative;
+    font-weight: 600 ;
+}
+.letter .footer {
+    width: 100%;
+    background-color: rgb(235, 204, 34);
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 30px;
+    padding: 2.5px 10px;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.transaction-details.denied .category{
+    color: red;
+}
+.innerdiv2 {
+    margin: 0 20px;
+}
+.innerdiv1 i{
+    font-size: 1.5rem;
+}
+.div2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* ------------------------OVERLAY DIVISION------------------------ */
+
+.Overlay{
+    position: absolute;
+    display: none;
+}
+.Overlay.Blurred{
+    width: 100%;
+    margin: auto;
+    height: 100%;
+    background: transparent;
+    backdrop-filter: blur(5px);
+    z-index: 4;
+    display: block;
+}
+
+.wrapper{
+    background-color: black;
+    position: absolute;
+    top: 50px;
+    left: -25px;
+    width: 450px;
+    height: 400px ;
+    border: 2px solid gold;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: 0.5s ease;
+    z-index: 5;
+    overflow: hidden;
+    transform: scale(0);
+}
+.wrapper.active-popup{
+    transform: scale(0.9);
+}
+.wrapper #Close-deposit{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: gold;
+    border-bottom-left-radius: 20px;
+    transition: 0.5s;
+}
+.form-box{
+    backdrop-filter: blur(10px);
+    width: 450px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 30px;
+    font-family: var(--roboto);
+}
+.form-box h4,
+.form-box h3{
+    font-size: 1.5rem;
+}
+.form-box .notice{
+    text-align: center;
+}
+.form-box .address{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px;
+    border-radius: 20px;
+    width: 100%;
+}
+.form-box input{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 355px;
+    color: black;
+}
+#copy{
+    background-color: gold;
+    color: black;
+    margin: 10px 0;
+}
+.form-box p{
+    color: red;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------TRADE PAGE------------------------------------------------------ */
+
+.transactions .coin-pricing {
+    border: 3px solid gold;
+    border-radius: 10px;
+    margin-top: 100px;
+    list-style: none;
+    color: white;
+    padding: 0 20px 5px;
+    margin-right: 40px;
+}
+.transactions .coin-pricing h4 {
+    font-size: 1.2rem;
+    font-family: var(--roboto);
+    margin-top: -5px;
+}
+.transaction .total-bal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    right: -10px;
+    width: 200px;
+}
+.transaction .total-bal p {
+    font-size: 1.3rem;
+    text-align: center;
+}
+.transaction .total-bal span {
+    color: gold;
+}
+.info2 {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 50px;
+}
+.info2 i {
+    font-size: 2rem;
+}
+.info2 .price {
+    margin-top: 20px;
+}
+.btc-icon { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    height: 100%;
+    width: 100px;
+}
+.btc-icon p {
+    margin:  20px 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: var(--roboto);
+}
+.coin-pricing .info2 h4 {
+    font-size: 1.2rem;
+    font-family: var(--roboto);
+    margin-top: 15px;
+}
+.transactions .trade-info {
+    width: 100%;
+    color: white;
+    padding: 0 30px;
+}
+.trade-info .analysis {
+    border: 3px solid gold;
+    border-radius: 10px;
+    padding: 5px;
+}
+.analysis h3{
+    font-size: 1.3rem;
+    font-family: var(--times);
+}
+.analysis ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+}
+.analysis ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    font-size: 1.15rem;
+    font-family: var(--roboto);
+    width: 100%;
+}
+.analysis ul li span {
+    font-size: 0.99rem;
+    font-weight: 600;
+}
+.transactions .Auto-trade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px auto 0;
+    border: 1px solid gold;
+    width: 340px;
+    padding: 5px;
+    color: white;
+}
+.transactions .Auto-trade h5
+.transactions .btn {
+    background-color: gold;
+    color: black;
+    width: 200px;
+    font-family: var(--roboto);
+    font-size: 1.3rem;
+    border: 3px solid gold;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.transactions .btn:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.05);
+}
+
+/*--------------------------------------------------WITHDRAW-REQUEST PAGE------------------------------------------------------ */
+.withdraw-form-wrapper{
+    position: relative;
+    padding: 10px 30px;
+    color: white;
+}
+.withdraw-form {
+    margin: 100px 0;
+    position: relative;
+}
+.withdraw-form .withdraw-input-box {
+    position: relative;
+    margin-bottom: 30px; 
+}
+.withdraw-input-box input {
+    font-size: 1.05rem;
+    font-family: var(--roboto);
+    padding: 10px 15px 5px;
+    color: white;
+    height: 50px;
+    background: transparent;
+    border: 2px solid gold;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+#address {
+    background-color: transparent;
+    width: 100%;
+    color: white;
+    font-size: 1.15rem;
+}
+.withdraw-input-box .form-control {
+    border: 2px solid gold;
+    border-radius: 10px;
+    background-color: black;
+    color: white; 
+}
+
+.withdraw-input-box label {
+    position: absolute;
+    top: 12px;
+    left: 25px;
+    color: white;
+    font-family: var(--roboto);
+    font-size: 1.05rem;
+    font-weight: 500;
+    background-color: black;
+    padding: 0 7px;
+    transition: 0.3s;
+
+}
+
+.withdraw-input-box input:focus~label,
+.withdraw-input-box input:valid~label {
+    top: -14px;
+    left: 10px;
+    color: gold;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.withdraw-form .alert {
+    background-color: red;
+    text-align: center;
+    color: white;
+    font-size: 0.85rem;
+    height: 70px;
+    width: 100%;
+    margin: 0 auto;
+    font-weight: 600;
+    font-family: var(--google);
+}
+
+.withdraw-form .next-btn {
+    display: grid;
+    place-items: center;
+    padding: 25px 0;
+}
+.next-btn .btn {
+    background-color: gold;
+    color: black;
+    width: 130px;
+    font-family: var(--roboto);
+    font-size: 1.1rem;
+    border: 3px solid gold;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.next-btn .btn:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* --------------------------------------------------WITHDRAW PAGE--------------------------------------- */
+.pwd-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center ;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color:black;
+    color: white;
+    border: 3px solid gold;
+    border-radius: 20px;
+    z-index: 4;
+    padding: 100px 20px 20px;
+    /* overflow: hidden; */
+}
+.pwd-wrapper .details {
+    min-width: 340px;
+    height: 350px;
+    transition: 0.5s;
+}
+
+.pwd-wrapper .details span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    margin-bottom: 10px;
+}
+.pwd-wrapper .details span h3{
+    font-size: 1.5rem;
+}
+.pwd-wrapper .details span i{
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    font-size: 1.3rem;
+    
+}
+.pwd-wrapper .detail-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.pwd-wrapper .detail-box ul {
+    width: 100%;
+    padding-left: 0;
+}
+.pwd-wrapper .detail-box li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+}
+.pwd-wrapper .alert {
+    background-color: red;
+    text-align: center;
+    color: white;
+    font-size: 0.8rem;
+    height: 50px;
+    width: 300px;
+    margin: -15px auto 20px;
+    font-weight: 500;
+    border-radius: 10px;
+    font-family: var(--roboto);
+}
+.pwd-wrapper  .cta-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pwd-wrapper .btn{
+    width: 250px;
+    color: black;
+    border-radius: 20px;
+    font-family: var(--roboto);
+    background-color: gold;
+    font-weight: 600;
+}
+.password-input {
+    backdrop-filter: blur(10px);
+    position: absolute;
+    transform: translateY(400px);
+    width: 95%;
+    transition: 0.5s;
+    z-index: 4;
+    border-radius: 15px;
+}
+.password-input input{
+    width: 320px;
+    margin: 25px auto;
+}
+.password-input .withdraw-input-box input~label{
+    top: 37px;
+    left: 40px;
+    color: white;
+}
+.password-input .withdraw-input-box input:focus~label,
+.password-input .withdraw-input-box input:valid~label{
+    color: gold;
+    top: 10px;
+    left: 35px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.password-input.active {
+    transform: translateY(-50px);
+    min-width: 340px;
+}
+.password-input .btn {
+    margin-bottom: 50px;
+}
+.spinner-border {
+    z-index: 5;
+    position: absolute;
+    display: none;
+}
+
+.pop-up {
+    background-color: gold;
+    border-radius: 20px;
+    position: absolute;
+    padding: 10px;
+    z-index: 6;
+    left: 25px;
+    border: 2px solid black;
+    width: 350px;
+    height: 200px;
+    transform: scale(0);
+    transition: 0.1s;
+}
+.pop-up.alert {
+    background-color: gold;
+    border-radius: 20px;
+    position: absolute;
+    padding: 10px;
+    z-index: 6;
+    left: 25px;
+    color: black;
+    border: 2px solid black;
+    width: 350px;
+    height: 200px;
+    transition: 0.3s;
+    transform: scale(1);
+}
+.pop-up h4 {
+    font-family: var(--roboto);
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+.pop-up-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px ;
+}
+.pop-up-btn .btn{
+    width: 100px;
+    background-color: transparent;
+    color: black;
+    font-family: var(--google);
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.pop-up-btn .btn:hover{
+    background-color: black;
+    color: white;
+}
+
+
+/* ------------------------------SETTINGS PAGE-------------------------------- */
+
+.Account-setting {
+    position: relative;
+    height: 100px;
+    color: white;
+    display: flex;
+    padding: 30px 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-family: var(--roboto);
+}
+.Account-setting .acct-name{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    column-gap: 10px;
+    font-weight: bold;
+}
+.acct-name span,
+.acct-name h4 {
+    color: white;
+    font-size: 1.2rem;
+}
+.Account-setting span{
+    color: gold;
+}
+.Account-setting .nav{
+    display: flex;
+    justify-items: space-between;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    padding-right: 5px;
+}
+
+.Account-setting .details{
+    display: flex;
+    height: 90px;
+    background-color: black;
+    color: white ;
+    position: absolute;
+    top: 70px;
+    right: 12px;
+    border-radius: 20px;
+    width: 94%;
+    padding: 10px 20px 15px 20px;
+}
+.Account-setting .details .balance span{
+    color: gold;
+}
+.Account-setting .details h5{
+    font-size: 1.2rem;
+}
+.Account-setting .details  p{
+    text-align: right;
+    font-size: 1.3rem;
+    margin-right: 10px;
+}
+.Account-setting .details .transaction p{
+    text-align: right;
+    font-size: 1.3rem;
+    margin-right: 10px;
+    color: rgb(181,95,48);
+}
+
+.Account-setting .details .transaction{
+    position: absolute;
+    right: 10px;
+}
+
+.setting-wrapper {
+    padding: 0 10px;
+    margin-top: 15vh;
+    height: 85vh;
+}
+.setting-links {
+    width: 300px;
+    background-color: gold;
+    height: 85vh;
+    display: block;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: 30px 10px 10px;
+    margin: 0 auto;
+}
+.setting-links ul {
+    width: 100%;
+    padding-left: 0;
+}
+.setting-links ul li{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.setting-links ul li a::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: black;
+}
+.setting-links ul li a{
+    text-decoration: none;
+    font-size:  1.3rem;
+    color: black;
+    font-family: var(--roboto);
+    font-weight: 600;
+    transition: 0.3s;
+
+}
+.setting-links ul li:hover {
+    background-color: black;
+}
+.setting-links ul li:hover a {
+    color: white;
+    font-size: 1.4rem;
+}
+#bronze{
+    color: rgb(181,95,48);
+}
+#silver{
+    color: silver;
+}
+#gold {
+    color: gold;
+}
+/*-----------------RESPONSIVE CSS----------------*/
+
+@media(max-width: 700px){
+
+}

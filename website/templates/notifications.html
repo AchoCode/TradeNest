@@ -1,0 +1,82 @@
+{% extends "ProfileBase.html" %}
+
+{% block title %} Notifications {% endblock %} 
+
+{% block content %}
+
+<div class="transactions-info">
+    <a href="/profile">    
+        <span>      
+            <i class="fa-solid fa-xmark"></i>          
+        </span>
+    </a>
+    <h4>Notifications</h4>
+</div>
+<div class="transactions">
+    <ul>
+        {% for notice in notifications|reverse %}
+            {% if notice.Title == 'Deposit' %}
+                <li class="transaction-details">
+                <div class="letter">
+                    <h3> Account Credicted Successfully</h3>
+                    <p> Your TradeNest account has been credicted with ${{notice.Amount}} worth of bitcoin.
+                    </p>
+                    <div class="footer">
+                        <span class="date">{{notice.Date}}</span> 
+                    </div>
+                </div>
+            </li>
+            {% else %}
+                {% if notice.Title == 'Withdrawal' %}
+                    {% if notice.Status == 'Success' %}
+                        <li class="transaction-details">
+                            <div class="letter">
+                                <h3> Withdrawal successful</h3>
+                                <p> Successfully withdrew ${{notice.Amount}} from TradeNest. The recipient's wallet will be credited within 24 hours.
+                                </p>
+                                <div class="footer">
+                                    <span class="date">{{notice.Date}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="transaction-details">
+                                <div class="letter">
+                                    <h3> Withdrawal Denied</h3>
+                                    <p> Your withdrawal request of ${{notice.Amount}} has be denied due to lack of funds in your account.   </p>
+                                    <div class="footer">
+                                        <span class="date">{{notice.Date}}</span> 
+                                    </div>
+                                </div>
+                            </li>
+                {% endif%}
+                    {% else %}
+                            {% if notice.Title == 'Trade' %}
+                                <li class="transaction-details">
+                                    <div class="letter">
+                                        <h3> Trade Alert</h3>
+                                        <p> Following the deposit, A trade has been activated automatically. check dashboard for more info </p>
+                                        <div class="footer">
+                                            <span class="date">{{notice.Date}}</span> 
+                                        </div>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="transaction-details">
+                                    <div class="letter">
+                                        <h3> {{notice.Title}}</h3>
+                                        <p> {{notice.Message}} </p>
+                                        <div class="footer">
+                                            <span class="date">{{notice.Date}}</span> 
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        
+    </ul>
+    <div class="scroll"></div>
+</div>
+{% endblock %}

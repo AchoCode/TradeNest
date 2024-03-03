@@ -1,0 +1,88 @@
+{% extends "ProfileBase.html" %}
+{% block title %} Me {% endblock %}
+
+{% block content %}
+
+<div class="Account-setting">
+    <div class="acct-name">
+        <span><i class="fa-regular fa-user"></i></span>
+        <h4><i>{{usr.First_name}}</i></h4>
+    </div>
+    <div class="nav">
+        <ul>
+            <div class="nav-links">
+                <li>
+                    <a href="/">
+                        <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact">
+                        <span class="icon"><i class="fa-solid fa-headphones"></i></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notifications">
+                        <span class="icon"><i class="fa-regular fa-bell"></i></span>
+                        <span class="badge"></span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="details">
+        <div class="balance">
+            <h5> Total Balance </h5>
+            <p>{{usr.Total_balance}}0 <span>USD</span></p>
+        </div>
+        <div class="transaction">
+            <h5>Subscription Plan</h5>
+            {% if usr.Subscription_plan == 'Bronze' %}
+                <p id="bronze">{{usr.Subscription_plan}}</p>
+            {% else %}
+                {% if usr.Subscription_plan == 'Silver' %}
+                    <p id="silver">{{usr.Subscription_plan}}</p>
+                {% else %}
+                    {% if usr.Subscription_plan == 'Gold' %}   
+                        <p id="gold">{{usr.Subscription_plan}}</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="setting-wrapper">
+    <div class="setting-links">
+        <ul>
+            <li>
+                <a href="/history">
+                    Transaction History
+                </a>
+            </li>
+            <li>
+                <a href="/withdraw-request">
+                    Withdrawal
+                </a>
+            </li>
+            <li>
+                <a href="/upgrade">
+                    Upgrade Subscription
+                </a>
+            </li>
+            <li>
+                <a href="/faq">
+                    FAQ
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+{% endblock %}

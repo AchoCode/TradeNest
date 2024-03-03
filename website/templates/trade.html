@@ -1,0 +1,92 @@
+{% extends "ProfileBase.html" %}
+{% block title %} Trade {% endblock %} 
+
+{% block content %}
+<div class="Account-info">
+    <h3 align="center"> Trade </h3>
+    <div class="details">
+        <div class="balance">
+            <h5> Balance </h5>
+            <p>{{usr.Balance}}0 <span>USD</span></p>
+        </div>
+        <div class="transaction">
+            <div class="total-bal">
+                <h5> Earnings </h5>
+                <p>{{usr.Total_balance}}0 <span>USD</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="transactions">
+    <ul>
+        <li class="coin-pricing">
+            <div class="info2">
+                <span class="btc-icon">
+                    <i class="fa-brands fa-bitcoin"></i>
+                    <p> BTC </p>  
+                </span>  
+                <div class="price">
+                 <h4 id="price">$ 0.00</h4>
+                </div>
+            </div>
+           <h4>Bitcoin Vs US dollar</h4> 
+        </li>
+    </ul>
+
+    <div class="trade-info">
+        <div class="analysis"> 
+            <h3 align="center">Trade Analysis</h3>
+            <ul class="info-box">
+                {% if number_of_trades == 0 %}
+                    <li>Trade Status <span>INACTIVE</span></li>
+                    <li>Active Trade(s) <span>NONE</span></li>
+                {% else %}
+                    <li>Trade Status <span>ACTIVE</span></li>
+                    <li>Active Trade(s) <span>{{number_of_trades}}</span></li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="Auto-trade">
+        <h5> Experience Auto-trading at its best</h5>
+        <p><a href="#">Learn more</a> about auto Trading</p>
+    </div>
+
+</div>
+
+
+<script>
+    // let priceTag = document.getElementById('price')
+
+//     function fetchPrice(){
+//                 fetch('/btc-price')
+//                     .then(response => {
+//                             // Check if the request was successful (status code 200)
+//                             if (!response.ok) {
+//                                 throw new Error(`HTTP error! Status: ${response.status}`);
+//                             }
+                            
+//                             // Parse the JSON data from the response
+//                             return response.json();
+//                         })
+//                         .then(json => {
+//                             // Handle the data
+//                             let price = json
+//                             priceTag.innerHTML =`$ ${price}`
+                
+//                         })
+//                         .catch(error => {
+//                             // Handle errors
+//                             console.error('Error fetching data:', error);
+//                         });
+
+//     }    
+// window.addEventListener('load', fetchPrice)
+
+// setInterval(fetchPrice, 60000)
+
+// </script>
+{% endblock %}
