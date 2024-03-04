@@ -50,9 +50,9 @@
         align-items: center;
     }
     nav img {
-        margin-top: -12px;
+        margin-top: 0px;
         margin-left: 15px;
-        width: 110px;
+        width: 150px;
     }
     .nav-fixed {
         position: fixed;
@@ -125,7 +125,7 @@
         background-repeat: no-repeat;
         display: flex;
         background-size: cover;
-        min-height: 100dvh;
+        height: 100dvh;
         align-items: center;
         justify-content: center;
         margin: -50px 0 50px 0;

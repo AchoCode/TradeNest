@@ -1,0 +1,254 @@
+:root {
+    font-size: 100%;
+    --roboto:  roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+    --timesNR: 'Times New Roman', Times, serif;
+    --GoogleSans: 'Google Sans';
+    --outline: 2px solid red;
+    --image-overlay : linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+    --blue: rgb(10, 10, 148);
+    --offWhite: rgb(218, 218, 218);
+}
+@media (min-width: 700px){
+    body {
+        overflow: hidden;
+    }
+    span {
+        color: gold;
+    }
+    .message {
+        position:absolute;
+        width: 100%;
+    }
+    .heading {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        text-align: center;
+        font-size: 0.5rem;
+        font-family: var(--GoogleSans);
+        color: white;
+    }
+    .heading::before, .heading::after {
+        content: '';
+        height: 2px;
+        width: 90%;
+        margin: auto;
+        background: gold;
+        display: block;
+    }
+
+    /*-------------------------------------NAVIGATION SECTION-----------------------------*/
+
+    nav {
+        position: fixed;
+        top: 0;
+        height: 100dvh;
+        background-color: var(--blue);
+        padding: -1px 2%;
+        width: 145px;
+    }
+    nav img {
+        margin-top: -6px;
+        margin-left: -15px;
+        width: 130px;
+        height: 60px;
+    }
+
+    .nav-links {
+        flex: 1;
+        padding-left: 0;
+        width: 100%;
+
+    }
+    .nav-links .space {
+        height: 40px;
+    }
+    .nav-links .logo {
+        /* margin-bottom: 10px; */
+        background-color: var(--offWhite);
+    }
+    .nav-links li {
+        width: 100%;
+        list-style: none;
+        padding: 8px 12px;
+        position: relative;
+        transition: 0.3s;
+    }
+    .nav-links li a {
+        color: white;
+        text-decoration: none;
+        font-family: var(--roboto);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    /*----------------------NAV ICONS-------------------------------*/
+
+    .nav-links li::after {
+        content: '';
+        height: 2px;
+        width: 0%;
+        display: block;
+        margin: auto;
+        background: gold;
+        transition: 0.5s;
+    }
+    .nav-links li:hover {
+        transform: scale(1.10,1.10);
+    }
+    .nav-links li:hover::after {
+        width: 100%;
+    }
+
+    .title-bar{
+        height: 40px;
+        width: 100%;
+        background-color: var(--offWhite);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px 20px;
+        margin-bottom: 50px;
+        position: fixed;
+        top: 0;
+        z-index: -1;
+        font-family: var(--roboto);
+    }
+    .content-area{
+        height: 600px;
+        margin-top: 40px;
+        overflow: auto;
+        padding-left: 150px;
+        padding-right: 10px;
+        background-color: transparent;
+    }
+    
+    /* ---------------------------------DASHBOARD TAB----------------------------------- */
+    
+    .dashboard-box{
+        display: none;
+
+    }
+    .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 50px;
+        font-family: var(--roboto);
+    }
+    .dash-header .wlc-msg {
+        margin-left: 7px;
+    }
+    .dash-header .user-count {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 7px;
+        background-color: var(--offWhite);
+        width: 200px;
+        border-radius: 20px;
+    }
+    .dash-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        padding: 0 7px;
+        font-family: var(--roboto);
+    }
+    .dash-info .earnings,
+    .dash-info .payouts,
+    .dash-info .profits {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--offWhite);
+        border-radius: 20px;
+        padding: 2px 15px;
+        height: 70px;
+    }
+    label {
+        font-size: 1.4rem;
+        margin: 0 5px;
+    }
+    .mail-box {
+        margin: 50px 10px 0;
+        background-color: var(--offWhite);
+        padding: 20px;
+        border-radius: 20px;
+        width: 700px;
+    }
+    .mail-box .mail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .mail-box .recepient-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 65%;
+    }
+    .mail-header #recepient {
+        width: 80%;
+    }
+    .submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .submit-btn .btn {
+        background-color: var(--blue);
+        color: white;
+        margin-top: 15px;
+        width: 100px;
+    }
+
+    /* ------------------------------------------------------USERS TAB------------------------------------------------ */
+
+    .users-tab {
+        margin-top: 50px;
+    }
+    .user-search-bar {
+        margin: auto;
+        width: 450px;
+        border-radius: 30px;
+        /* border: 2px solid var(--offWhite); */
+        display: flex;
+        background-color: var(--offWhite);
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+    .user-search-bar input{
+        width: 100%;
+        border: none;
+        height: 35px;
+        margin-left: 50px;
+        outline: none;
+        background-color: transparent;
+    }
+    .user-table {
+        background-color: var(--offWhite);
+        padding: 20px;
+        margin: 30px 0;
+        position: relative;
+        height: 500px;
+    }
+    .user-table .table-heading{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--blue);
+        color: white;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        font-family: var(--roboto);
+    }
+    .user-list {
+        overflow: auto;
+    }
+}
