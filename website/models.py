@@ -9,6 +9,7 @@ class Admin(db.Model, UserMixin):
     Password = db.Column(db.String(100))
     
 #TODO: add earnings column and a pin
+#TODO: add an account status column
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     First_name = db.Column(db.String(100))    

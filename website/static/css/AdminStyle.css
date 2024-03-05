@@ -5,7 +5,7 @@
     --GoogleSans: 'Google Sans';
     --outline: 2px solid red;
     --image-overlay : linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
-    --blue: rgb(10, 10, 148);
+    --blue:#007bff;
     --offWhite: rgb(218, 218, 218);
 }
 @media (min-width: 700px){
@@ -116,19 +116,18 @@
     }
     .content-area{
         height: 600px;
-        margin-top: 40px;
-        overflow: auto;
+        margin-top: 60px;
         padding-left: 150px;
         padding-right: 10px;
         background-color: transparent;
+        overflow: hidden;
     }
     
     /* ---------------------------------DASHBOARD TAB----------------------------------- */
     
-    .dashboard-box{
-        display: none;
+    /* .dashboard-box{
 
-    }
+    } */
     .dash-header {
         display: flex;
         justify-content: space-between;
@@ -206,21 +205,20 @@
 
     /* ------------------------------------------------------USERS TAB------------------------------------------------ */
 
-    .users-tab {
-        margin-top: 50px;
-    }
-    .user-search-bar {
-        margin: auto;
+    /* .users-tab {
+    } */
+    .search-bar {
+        margin: 10px auto;
         width: 450px;
         border-radius: 30px;
-        /* border: 2px solid var(--offWhite); */
+        border: 2px solid var(--offWhite);
         display: flex;
-        background-color: var(--offWhite);
+        background-color: white;
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
     }
-    .user-search-bar input{
+    .search-bar input{
         width: 100%;
         border: none;
         height: 35px;
@@ -228,14 +226,30 @@
         outline: none;
         background-color: transparent;
     }
-    .user-table {
+    .user-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .users {
+        height: 600px;
+        overflow: auto;
+        height: 100%;
+    }
+    .users::-webkit-scrollbar{
+        width: 5px;
+        overflow: hidden;
+    }
+    .users-table {
         background-color: var(--offWhite);
         padding: 20px;
-        margin: 30px 0;
+        margin: 30px;
+        width: 600px;
         position: relative;
-        height: 500px;
+        height: 450px;
+        overflow: hidden;
+        border-radius: 20px;
     }
-    .user-table .table-heading{
+    .users-table .table-heading{
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -245,10 +259,116 @@
         position: absolute;
         top: 0;
         left: 0;
-        padding: 10px;
+        padding: 5px 2px;
         font-family: var(--roboto);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+
+    }
+    .users-table .table-heading h5{
+        margin: 5px 25px;
     }
     .user-list {
-        overflow: auto;
+        margin-top: 50px;
+    }
+    .user-list ul{
+        padding-left: 0;
+    }
+    .user{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 0 10px;
+        height: 50px;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+    .user .name {
+        margin-left: 40px;
+    }
+    .email p {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-top: 15px;
+    }
+    .user .btn {
+        background-color: var(--blue);
+        color: white;
+        padding: 5px 10px;
+        margin-right: 20px;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .card-information {
+        width: 600px;
+        height: 330px;
+        background-color: var(--offWhite);
+        margin: 30px 10px;
+        border-radius: 20px;
+    }
+    .card-information .table-heading{
+        background-color: var(--blue);
+        color: white;
+        padding: 5px 15px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        font-family: var(--roboto);
+
+    }
+    .card-information .table-heading h5{
+        margin-top: 3px;
+    }
+    .information-container {
+        padding: 5px;
+    }
+    .form-group{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .information-container label {
+        font-size: 1rem;
+        font-family: var(--roboto);
+        font-weight: 600;
+    }
+    .information-container .form-group input{
+        width: 50%;
+    }
+    #sub-plan,
+    #balance,
+    #total-bal,
+    #payout{
+        width: 90px;
+        text-align: center;
+    }
+    .card-components {
+        background-color: white;
+        height: 220px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .action-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 20px;
+    }
+
+    .action-btn .btn {
+        color: white;
+        transition: 0.3s;
+    }
+
+    /* ---------------------------------------COMMENT TAB------------------------------------------- */
+
+    .comment-btn {
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px;
     }
 }
