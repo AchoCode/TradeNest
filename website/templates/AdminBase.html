@@ -47,51 +47,75 @@
         <nav>
             <ul class="nav-links">
                 <div class="space"></div>                
-                <li>
-                    <a href="/admin/dashboard">
-                        Dashboard
+                <li class="tab active" id="dashboard">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <h6 class="text">Dashboard
+                            </h6>
+                        </div>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/users">
-                        Users
+                <li class="tab" id="users">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-users"></i>
+                            <h6 class="text">Users
+                            </h6>
+                        </div>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/comments">
-                        Comments
+                <li class="tab" id="comments">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-comments"></i><h6 class="text">Comments
+                            </h6>
+                        </div>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/posts">
-                        Posts
+                <li class="tab" id="post">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-note-sticky"></i>
+                            <h6 class="text">Posts
+                            </h6>
+                        </div>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/deposits">
-                        Deposits
+                <li class="tab" id="deposit">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-wallet"></i>
+                            <h6 class="text">Deposits
+                            </h6>
+                        </div>
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/withdrawal">
-                        Withdrawals
+                <li class="tab" id="withdrawal">
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                            <h6 class="text">Withdrawals
+                            </h6>
+                        </div>
                     </a>
                 </li>
+                <div class="tab-indicator"></div>
             </ul>
         </nav>
-    </header>
-
-    <div class="title-bar">
-        <div class="Admin-name">
-            <h5>Welcome, Admin <i class="fa-solid fa-circle-user"></i></h5>
+        
+        
+        <div class="content-area">
+            <div class="title-bar">
+                <div class="Admin-name">
+                    <h5>Welcome, Admin <i class="fa-solid fa-circle-user"></i></h5>
+                </div>
+            </div>
+            
+            {% block content %}{% endblock %}
+            
         </div>
-    </div>
-
-    <div class="content-area">
-        
-        {% block content %}{% endblock %}
-        
-    </div>
+    </header>
 
 <script
 src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
