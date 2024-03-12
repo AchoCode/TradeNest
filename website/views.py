@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
 from flask_login import login_required, current_user
-from .models import Comments, User, Transactions, Notifications
+from .newmodels import NewComments, NewUser, NewTransactions, NewNotifications
 from .functions import commit, secure_wallet
 from . import db
 import bcrypt
@@ -30,12 +30,12 @@ def contact():
         comment = request.form.get('text')
 
         #query database if user exists
-        usr = User.query.filter_by(Email=email).first()
+        usr = NewUser.query.filter_by(Email=email).first()
         if not usr:
           flash('Please Sign Up to drop a comment......', category='error')
         else:
            #if user exists, add the comment to the database
-           new_comment = Comments(User_name=username, Email=email, Comment=comment)
+           new_comment = NewComments(NewUser_name=username, Email=email, Comment=comment)
            db.session.add(new_comment)
            db.session.commit()
            flash('Comment Posted successfully....', category='success')
@@ -46,17 +46,17 @@ def contact():
 @login_required
 def profile():
     # usr_id = current_user.id
-    # new_trade1 = Transactions(Title='Trade', Amount='150', Status='Open', user_id=usr_id)
-    # new_trade2 = Transactions(Title='Trade', Amount='120', Status='Closed', user_id=usr_id)
-    # new_trade3 = Transactions(Title='Trade', Amount='190', Status='Pending', user_id=usr_id)
-    # new_trade4 = Transactions(Title='Trade', Amount='400', Status='Closed', user_id=usr_id)
+    # new_trade1 = NewTransactions(Title='Trade', Amount='150', Status='Open', user_id=usr_id)
+    # new_trade2 = NewTransactions(Title='Trade', Amount='120', Status='Closed', user_id=usr_id)
+    # new_trade3 = NewTransactions(Title='Trade', Amount='190', Status='Pending', user_id=usr_id)
+    # new_trade4 = NewTransactions(Title='Trade', Amount='400', Status='Closed', user_id=usr_id)
 
     # db.session.add_all([new_trade1,new_trade2,new_trade3,new_trade4])
     # db.session.commit()
     # print('added to database')
 
     #query database for Trade transactions associated with the leader
-    Trade = Transactions.query.filter_by(Title='Trade', user_id=current_user.id).all()
+    Trade = NewTransactions.query.filter_by(Title='Trade', user_id=current_user.id).all()
 
     #get all closed transactions and append to the list
     Closed_trades =[]
@@ -90,7 +90,7 @@ def deposit():
     usr_id = data['usrId']
     
     #query database to find user information
-    usr = User.query.get(usr_id)
+    usr = NewUser.query.get(usr_id)
     message = f'{usr.First_name} with email {usr.Email} is trying to make a deposit'
     if usr:
         print(message)
@@ -102,7 +102,7 @@ def notifications():
     #query database for all notifications associated with the user
 
     # usr_id = current_user.id
-    # usr = User.query.get(usr_id)
+    # usr = NewUser.query.get(usr_id)
     # current_bal = usr.Available_balance
     # usr.Available_balance = 2000.00 + current_bal
     # usr.Balance = 2000.00
@@ -110,30 +110,30 @@ def notifications():
     # db.session.commit()
     # print(SUCCESS)
 
-    # new_trade1 = Notifications(Title='Savings', Amount='Enhance your trading with savings', Status='Success', user_id=usr_id)
-    # new_trade2 = Notifications(Title='Withdrawal', Amount='200', Status='success', user_id=usr_id)
-    # new_trade3 = Notifications(Title='Trade', Amount='300', Status='Success', user_id=usr_id)
-    # new_trade4 = Notifications(Title='Withdrawal', Amount='500', Status=DENIED, user_id=usr_id)
+    # new_trade1 = NewNotifications(Title='Savings', Amount='Enhance your trading with savings', Status='Success', user_id=usr_id)
+    # new_trade2 = NewNotifications(Title='Withdrawal', Amount='200', Status='success', user_id=usr_id)
+    # new_trade3 = NewNotifications(Title='Trade', Amount='300', Status='Success', user_id=usr_id)
+    # new_trade4 = NewNotifications(Title='Withdrawal', Amount='500', Status=DENIED, user_id=usr_id)
 
     # db.session.add_all([new_trade2,new_trade3,new_trade4])
     # db.session.commit()
     # print('added to database')
 
-    notifications = Notifications.query.filter_by(user_id=current_user.id).all()
+    notifications = NewNotifications.query.filter_by(user_id=current_user.id).all()
     return render_template('notifications.html', usr=current_user, notifications=notifications)
 
 @views.route('/history', methods = ['GET', 'POST'])
 @login_required
 def Transaction_history():
     #query database for transactions related to the user
-    Record = Transactions.query.filter_by(user_id=current_user.id).all()
+    Record = NewTransactions.query.filter_by(user_id=current_user.id).all()
     return render_template('transaction history.html', usr=current_user, record=Record)
 
 @views.route('/trade', methods = ['GET', 'POST'])
 @login_required
 def trade():
     #query database for open trades related to the user
-    Trade = Transactions.query.filter_by(Title='Trade', Status='Open', user_id=current_user.id).all()
+    Trade = NewTransactions.query.filter_by(Title='Trade', Status='Open', user_id=current_user.id).all()
     return render_template('trade.html', usr=current_user, number_of_trades = len(Trade))
 
 @views.route('/withdraw-request', methods = ['GET', 'POST'])
@@ -178,36 +178,36 @@ def withdraw():
         password = request.form.get('pwd')
 
         #query database to get user and user info
-        usr = User.query.get(user_id)
+        usr = NewUser.query.get(user_id)
         avail_bal = float(usr.Available_balance)
         result_bal = avail_bal - Balance
 
         if bcrypt.checkpw(password.encode('utf-8'), usr.Password):
             #check if amt is greater than avail_bal and deny the withdrawal
             if Amt > avail_bal:
-                new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
-                new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
+                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
+                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
                 commit(new_transaction, new_notification)
                 flash('Transaction is being processed')
                 return redirect(url_for('views.profile'))
             elif result_bal < 0:
-                new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
-                new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
+                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
+                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
                 commit(new_transaction, new_notification)
                 flash('Transaction is being processed')
                 return redirect(url_for('views.profile'))
             #check if amt is equal to avail_bal or if it less than it and accept the transaction and update available balance
             elif Amt == avail_bal:
-                new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
-                new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
+                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
+                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
                 new_bal = avail_bal - Amt - fee_charge
                 usr.Available_balance = new_bal
                 commit(new_transaction, new_notification)
                 flash('Transaction is being processed')
                 return redirect(url_for('views.profile'))
             else:
-                new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
-                new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
+                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
+                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
                 new_bal = avail_bal - Amt - fee_charge
                 usr.Available_balance = new_bal
                 commit(new_transaction, new_notification)
