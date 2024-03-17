@@ -35,7 +35,7 @@ def contact():
           flash('Please Sign Up to drop a comment......', category='error')
         else:
            #if user exists, add the comment to the database
-           new_comment = NewComments(NewUser_name=username, Email=email, Comment=comment)
+           new_comment = NewComments(User_name=username, Email=email, Comment=comment)
            db.session.add(new_comment)
            db.session.commit()
            flash('Comment Posted successfully....', category='success')
@@ -45,15 +45,6 @@ def contact():
 @views.route('/profile', methods = ['GET', 'POST'])
 @login_required
 def profile():
-    # usr_id = current_user.id
-    # new_trade1 = NewTransactions(Title='Trade', Amount='150', Status='Open', user_id=usr_id)
-    # new_trade2 = NewTransactions(Title='Trade', Amount='120', Status='Closed', user_id=usr_id)
-    # new_trade3 = NewTransactions(Title='Trade', Amount='190', Status='Pending', user_id=usr_id)
-    # new_trade4 = NewTransactions(Title='Trade', Amount='400', Status='Closed', user_id=usr_id)
-
-    # db.session.add_all([new_trade1,new_trade2,new_trade3,new_trade4])
-    # db.session.commit()
-    # print('added to database')
 
     #query database for Trade transactions associated with the leader
     Trade = NewTransactions.query.filter_by(Title='Trade', user_id=current_user.id).all()
@@ -100,25 +91,6 @@ def deposit():
 @login_required
 def notifications():
     #query database for all notifications associated with the user
-
-    # usr_id = current_user.id
-    # usr = NewUser.query.get(usr_id)
-    # current_bal = usr.Available_balance
-    # usr.Available_balance = 2000.00 + current_bal
-    # usr.Balance = 2000.00
-    # usr.Total_balance = 500.00
-    # db.session.commit()
-    # print(SUCCESS)
-
-    # new_trade1 = NewNotifications(Title='Savings', Amount='Enhance your trading with savings', Status='Success', user_id=usr_id)
-    # new_trade2 = NewNotifications(Title='Withdrawal', Amount='200', Status='success', user_id=usr_id)
-    # new_trade3 = NewNotifications(Title='Trade', Amount='300', Status='Success', user_id=usr_id)
-    # new_trade4 = NewNotifications(Title='Withdrawal', Amount='500', Status=DENIED, user_id=usr_id)
-
-    # db.session.add_all([new_trade2,new_trade3,new_trade4])
-    # db.session.commit()
-    # print('added to database')
-
     notifications = NewNotifications.query.filter_by(user_id=current_user.id).all()
     return render_template('notifications.html', usr=current_user, notifications=notifications)
 

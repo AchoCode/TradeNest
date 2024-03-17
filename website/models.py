@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 #TODO: create a post schema, TITLE, MESSAGE, DATE and ID for admin post
 
 class Admin(db.Model, UserMixin):
-    # __bind_key__ = 'old_db'
+    __bind_key__ = 'old_db'
     id = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(100), unique=True) 
     Password = db.Column(db.String(100))
@@ -12,7 +12,7 @@ class Admin(db.Model, UserMixin):
 #TODO: add earnings column and a pin
 #TODO: add an account status column
 class User(db.Model, UserMixin):
-    # __bind_key__ = 'old_db'
+    __bind_key__ = 'old_db'
     id = db.Column(db.Integer, primary_key=True)
     First_name = db.Column(db.String(100))    
     Last_name = db.Column(db.String(100))   
@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
 #this model holds deposit, trade, withdrawal transactions
 #TODO: add a date column and  fee column
 class Transactions(db.Model):
-    # __bind_key__ = 'old_db'
+    __bind_key__ = 'old_db'
     id = db.Column(db.Integer, primary_key=True)
     Title = db.Column(db.String(100), nullable=False)
     Amount = db.Column(db.String(100), nullable=False)
@@ -42,7 +42,7 @@ class Transactions(db.Model):
 #this model holds deposit, trade, withdrawal transactions info for notification purposes
 #TODO: remove the message column. it will be in posts, edit the html template as well.
 class Notifications(db.Model):
-    # __bind_key__ = 'old_db'
+    __bind_key__ = 'old_db'
     id = db.Column(db.Integer, primary_key=True)
     Title = db.Column(db.String(100), nullable=False)
     Amount = db.Column(db.String(100), nullable=False)
@@ -53,7 +53,7 @@ class Notifications(db.Model):
 
 # TODO: add a date column
 class Comments(db.Model):
-    # __bind_key__ = 'old_db'
+    __bind_key__ = 'old_db'
     id = db.Column(db.Integer, primary_key=True)
     User_name = db.Column(db.String(100))   
     Email = db.Column(db.String(100))

@@ -2,20 +2,23 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from flask_mail import Mail
 
 
 db = SQLAlchemy()
 DB_NAME = "database3.db"
+mail = Mail()
 
 def create_all():
     app = Flask(__name__) 
 
     app.config['SECRET_KEY'] = 'princess'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-#     app.config['SQLALCHEMY_BINDS'] = {
-#     'old_db': 'sqlite:///database2.db'
-# }
+    app.config['SQLALCHEMY_BINDS'] = {
+    'old_db': 'sqlite:///database2.db'
+}
     db.init_app(app)
+    mail.init_app(app)
 
     from .views import views
     from .auth import auth
