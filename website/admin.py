@@ -27,6 +27,13 @@ def admin_dashboard():
 
             print(F'{form_type} submitted')
         elif form_type == 'User-form':
+
+            #query database for users
+            users = NewUser.query.all()
+            number_of_users = len(users)
+            number_of_active_user = len(users.is_active)
+
+
             print(F'{form_type} submitted')
         elif form_type == 'post-form':
             print(F'{form_type} submitted')
@@ -177,28 +184,11 @@ def migrate_database():
         else:
             print(f'No user found in {DB_NAME}')
 
+        #for admins
         admin_comments(admins)
+
+        #for comments
         admin_comments(comments)
-        # if admins:
-        #     print(f'{DB_NAME} Admin users')
-        #     print(f"Number of Admin users: {len(admin)}")
-        #     i = 0
-        #     for admin in admins:
-        #         i += 1
-        #         print(f'{i}. {admin.First_name} {admin.Last_name} {admin.Email}')
-        # else:
-        #     print(f'No Admin user found in {DB_NAME}')
-        
-        
-        # if comments:
-        #     print(f'{DB_NAME} comments')
-        #     print(f"Number of Comments: {len(comments)}")
-        #     i = 0
-        #     for comment in comments:
-        #         i += 1
-        #         print(f'{i}. {comment.First_name} {comment.Last_name} {comment.Email}')
-        # else:
-        #     print(f'No comment found in {DB_NAME}')
         
         #for transactions
         transaction_notification(transactions)
