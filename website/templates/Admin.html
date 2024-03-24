@@ -85,12 +85,23 @@
         <div class="users-table">
             <div class="table-heading">
                 <h5>Users</h5>
-                <h5>Count: 200 Active users</h5>
+                <h5>{{active_user}} Active users</h5>
             </div>
             <div class="users">
                 <div class="user-list">
                     <ul>
+                        {% for client in clients %}
                         <li class="user">
+                            <div class="name">
+                                <h5>{{client.First_name}}</h5>
+                            </div>
+                            <div class="email">
+                                <p><i>{{client.Email}}</i></p>
+                            </div>
+                            <button type="button" class="btn"> Details </button>
+                        </li> 
+                        {% endfor %}
+                        <!-- <li class="user">
                             <div class="name">
                                 <h5>Okonkwo Precious</h5>
                             </div>
@@ -179,16 +190,7 @@
                                 <p><i>precious@gmail.com</i></p>
                             </div>
                             <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
+                        </li>  -->
                     </ul>
                 </div>
             </div>

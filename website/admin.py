@@ -4,6 +4,7 @@ from .newmodels import *
 from flask_login import login_required, current_user
 from .functions import *
 from . import DB_NAME
+from .views import SUCCESS
 
 admin = Blueprint('admin', __name__)
 
@@ -11,6 +12,25 @@ admin = Blueprint('admin', __name__)
 @admin.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def admin_dashboard():
+
+    #get the total deposit
+    income = NewTransactions.query.all()
+    for fund in income:
+        if fund.Title == 'Deposit':
+            print('Deposit')
+        if fund.Title == 'Withdrawal':
+            print('withdrawal')
+
+    users = NewUser.query.all()
+    number_of_users = len(users)
+
+    active_users = []
+    for x in users:
+        if x.is_active == True:
+            active_users.append(x)
+
+    number_of_active_users = len(active_users)
+
     #get the formtype
     if request.method == 'POST':
         form_type = request.form.get('form-type')
@@ -29,10 +49,7 @@ def admin_dashboard():
         elif form_type == 'User-form':
 
             #query database for users
-            users = NewUser.query.all()
-            number_of_users = len(users)
-            number_of_active_user = len(users.is_active)
-
+           
 
             print(F'{form_type} submitted')
         elif form_type == 'post-form':
@@ -44,7 +61,8 @@ def admin_dashboard():
 
 
 
-    return render_template('Admin.html', usr=current_user)
+    return render_template('Admin.html', usr=current_user,  clients=users, number_of_users=number_of_users,
+                           active_user=number_of_active_users)
 
 
 

@@ -105,3 +105,8 @@ withdrawalTabLink.addEventListener('click', ()=>{
         withdrawalTab.classList.add('online')
     }
 })
+function deposit(usrId) {
+    fetch('/dashboard', {
+        method: 'POST',
+        body: JSON.stringify({usrId: usrId}),
+    })}
