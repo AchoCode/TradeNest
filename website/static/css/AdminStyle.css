@@ -9,7 +9,33 @@
     --nav-blue: #182444;
     --offWhite: rgb(218, 218, 218);
 }
-@media (min-width: 700px){
+.message {
+    position:absolute;
+    width: 380px;
+    z-index: 6;
+    left: 10px;
+    text-align: center;
+    font-family: var(--roboto);
+    font-weight: 600;
+    border-radius: 10px;
+
+}
+.message.success {
+    background-color: green;
+    color: white;
+}
+.message.error {
+    background-color: rgb(189, 52, 52);
+    color: white;
+    top: 10px;
+}
+.overlimit {
+    border: 2px solid red;
+}
+.underlimit {
+    border: 2px solid green
+}
+
     body {
         overflow: hidden;
     }
@@ -156,13 +182,6 @@
         font-family: var(--roboto);
     }
     .content-area{
-        /* height: 600px;
-        margin-top: 60px;
-        padding-left: 150px;
-        padding-right: 10px;
-        background-color: transparent;
-        overflow: auto;
-        border: var(--outline);*/
         position: relative;
         width: 100%; 
     }
@@ -187,7 +206,9 @@
     }
     .overflow-box {
         overflow: auto;
-        height: 520px;
+        /* height: 520px; */
+        height: 100dvh;
+
     }
     .overflow-box::-webkit-scrollbar{
         width: 5px;
@@ -215,7 +236,7 @@
         margin: 0 5px;
     }
     .mail-box {
-        margin: 50px auto;
+        margin: 10px auto 150px;
         background-color: var(--offWhite);
         padding: 20px;
         border-radius: 20px;
@@ -271,16 +292,20 @@
     .user-container {
         display: flex;
         justify-content: space-between;
+        height: 90dvh;
     }
     .users-table {
         background-color: var(--offWhite);
         padding: 20px;
-        margin: 30px;
+        margin: 20px;
         width: 600px;
         position: relative;
         height: 450px;
         overflow: hidden;
         border-radius: 20px;
+    }
+    .withdrawal-tab .users-table {
+        height: 400px
     }
     .users {
         height: 600px;
@@ -313,6 +338,9 @@
     .user-list {
         margin-top: 50px;
     }
+    .withdrawal-tab .user-list {
+        margin-top: 0px;
+    }
     .user-list ul{
         padding-left: 0;
     }
@@ -334,6 +362,15 @@
         font-size: 1.1rem;
         text-align: center;
         margin-top: 15px;
+    }
+    .withdrawal-tab .email p{
+        font-weight: 600;
+    }
+    .withdrawal-tab .fee {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-top: 15px;
+        font-weight: 600;
     }
     .user .btn {
         background-color: var(--blue);
@@ -360,17 +397,18 @@
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         font-family: var(--roboto);
-
+        
     }
     .card-information .table-heading h5{
+        font-weight: 600;
         margin-top: 3px;
+        padding: 2px 5px;
     }
     .information-container {
         padding: 5px;
     }
     .form-group{
         display: flex;
-        justify-content: flex-start;
         align-items: center;
     }
     .information-container label {
@@ -391,6 +429,14 @@
         padding: 5px;
         border-radius: 5px;
     }
+    .card-components.denial {
+        color: white;
+        background-color: red;
+    }
+    .card-components.success {
+        color: white;
+        background-color: green;
+    }
     .action-btn {
         display: flex;
         justify-content: space-between;
@@ -406,7 +452,12 @@
         font-size: 1.1rem;
         color: black;
     }
+    #sub-plan {
+        width: 80px;
+        margin-left: 20px;
+    }
     
+    .user-container
     /* ---------------------------------------COMMENT TAB------------------------------------------- */
     .comments-tab.online {
         display: flex;
@@ -420,7 +471,7 @@
     }
     .comments {
         overflow: auto;
-        height: 450px;
+        height: 80dvh;
         border-bottom: 3px solid var(--blue);
         border-top: 3px solid var(--blue);
         font-family: var(--roboto);
@@ -443,6 +494,7 @@
     }
     .comments-tab .card-information {
         height: auto;
+        margin: 20px auto;
     }
     .comments-tab .card-components {
         height: auto;
@@ -537,4 +589,7 @@
         align-items: center;
         margin: 10px 20px;
     }
-}
+    #avail-balance {
+        width: 70px;
+        margin-right: 30px
+    }

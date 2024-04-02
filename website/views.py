@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
 from flask_login import login_required, current_user
-from .newmodels import NewComments, NewUser, NewTransactions, NewNotifications
+from .models import Comments, User, Transactions, Notifications
 from .functions import commit, secure_wallet
 from . import db
 import bcrypt
@@ -30,12 +30,12 @@ def contact():
         comment = request.form.get('text')
 
         #query database if user exists
-        usr = NewUser.query.filter_by(Email=email).first()
+        usr = User.query.filter_by(Email=email).first()
         if not usr:
           flash('Please Sign Up to drop a comment......', category='error')
         else:
            #if user exists, add the comment to the database
-           new_comment = NewComments(User_name=username, Email=email, Comment=comment)
+           new_comment = Comments(User_name=username, Email=email, Comment=comment)
            db.session.add(new_comment)
            db.session.commit()
            flash('Comment Posted successfully....', category='success')
@@ -47,7 +47,7 @@ def contact():
 def profile():
 
     #query database for Trade transactions associated with the leader
-    Trade = NewTransactions.query.filter_by(Title='Trade', user_id=current_user.id).all()
+    Trade = Transactions.query.filter_by(Title='Trade', user_id=current_user.id).all()
 
     #get all closed transactions and append to the list
     Closed_trades =[]
@@ -81,7 +81,7 @@ def deposit():
     usr_id = data['usrId']
     
     #query database to find user information
-    usr = NewUser.query.get(usr_id)
+    usr = User.query.get(usr_id)
     message = f'{usr.First_name} with email {usr.Email} is trying to make a deposit'
     if usr:
         print(message)
@@ -91,21 +91,21 @@ def deposit():
 @login_required
 def notifications():
     #query database for all notifications associated with the user
-    notifications = NewNotifications.query.filter_by(user_id=current_user.id).all()
+    notifications = Notifications.query.filter_by(user_id=current_user.id).all()
     return render_template('notifications.html', usr=current_user, notifications=notifications)
 
 @views.route('/history', methods = ['GET', 'POST'])
 @login_required
-def Transaction_history():
+def NewTransaction_history():
     #query database for transactions related to the user
-    Record = NewTransactions.query.filter_by(user_id=current_user.id).all()
+    Record = Transactions.query.filter_by(user_id=current_user.id).all()
     return render_template('transaction history.html', usr=current_user, record=Record)
 
 @views.route('/trade', methods = ['GET', 'POST'])
 @login_required
 def trade():
     #query database for open trades related to the user
-    Trade = NewTransactions.query.filter_by(Title='Trade', Status='Open', user_id=current_user.id).all()
+    Trade = Transactions.query.filter_by(Title='Trade', Status='Open', user_id=current_user.id).all()
     return render_template('trade.html', usr=current_user, number_of_trades = len(Trade))
 
 @views.route('/withdraw-request', methods = ['GET', 'POST'])
@@ -127,7 +127,8 @@ def withdraw_request():
            flash('Please enter a valid number')
 
         session['amount'] = Amt
-        session['wallet-address'] = Wallet_address    
+        session['wallet-address'] = Wallet_address  
+  
         return redirect(url_for('views.withdraw'))   
            
     return render_template('Withdraw-request.html', usr=current_user)
@@ -140,9 +141,8 @@ def withdraw():
     Amt = session['amount']
     wallet_address = session['wallet-address']
     wallet = secure_wallet(wallet_address)
-    fee_charge = 0.05 * Amt
+    fee_charge = round(0.05 * Amt, 2)
     Balance = Amt + fee_charge
-
     if request.method == 'POST':
         user_id = current_user.id
         
@@ -150,41 +150,46 @@ def withdraw():
         password = request.form.get('pwd')
 
         #query database to get user and user info
-        usr = NewUser.query.get(user_id)
+        usr = User.query.get(user_id)
         avail_bal = float(usr.Available_balance)
         result_bal = avail_bal - Balance
 
         if bcrypt.checkpw(password.encode('utf-8'), usr.Password):
+            new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=PENDING, Wallet=wallet_address,Fee=fee_charge, user_id=user_id)
+            db.session.add(new_transaction)
+            db.session.commit()
+            flash(f'Withdrawal of {Amt} is being processed')
+            return redirect(url_for('views.profile'))
             #check if amt is greater than avail_bal and deny the withdrawal
-            if Amt > avail_bal:
-                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
-                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
-                commit(new_transaction, new_notification)
-                flash('Transaction is being processed')
-                return redirect(url_for('views.profile'))
-            elif result_bal < 0:
-                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=DENIED, Wallet=wallet_address, user_id=user_id)
-                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=DENIED, user_id=user_id)
-                commit(new_transaction, new_notification)
-                flash('Transaction is being processed')
-                return redirect(url_for('views.profile'))
-            #check if amt is equal to avail_bal or if it less than it and accept the transaction and update available balance
-            elif Amt == avail_bal:
-                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
-                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
-                new_bal = avail_bal - Amt - fee_charge
-                usr.Available_balance = new_bal
-                commit(new_transaction, new_notification)
-                flash('Transaction is being processed')
-                return redirect(url_for('views.profile'))
-            else:
-                new_transaction = NewTransactions(Title='Withdrawal', Amount=Amt, Status=SUCCESS, Wallet=wallet_address, user_id=user_id)
-                new_notification = NewNotifications(Title='Withdrawal', Amount=Amt, Status=SUCCESS, user_id=user_id)
-                new_bal = avail_bal - Amt - fee_charge
-                usr.Available_balance = new_bal
-                commit(new_transaction, new_notification)
-                flash('Transaction is being processed')
-                return redirect(url_for('views.profile'))
+            # if Amt > avail_bal:
+            #     new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=PENDING, Wallet=wallet_address, user_id=user_id)
+            #     new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=PENDING, user_id=user_id)
+            #     commit(new_transaction, new_notification)
+            #     flash('NewTransaction is being processed, bigger')
+            #     return redirect(url_for('views.profile'))
+            # elif result_bal < 0:
+            #     new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=PENDING, Wallet=wallet_address, user_id=user_id)
+            #     new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=PENDING, user_id=user_id)
+            #     commit(new_transaction, new_notification)
+            #     flash('NewTransaction is being processed, lesser')
+            #     return redirect(url_for('views.profile'))
+            # #check if amt is equal to avail_bal or if it less than it and accept the transaction and update available balance
+            # elif Amt == avail_bal:
+            #     new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=PENDING, Wallet=wallet_address, user_id=user_id)
+            #     new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=PENDING, user_id=user_id)
+            #     # new_bal = avail_bal - Amt - fee_charge
+            #     # usr.Available_balance = new_bal
+            #     commit(new_transaction, new_notification)
+            #     flash('NewTransaction is being processed middle')
+            #     return redirect(url_for('views.profile'))
+            # else:
+            #     new_transaction = Transactions(Title='Withdrawal', Amount=Amt, Status=PENDING, Wallet=wallet_address, user_id=user_id)
+            #     new_notification = Notifications(Title='Withdrawal', Amount=Amt, Status=PENDING, user_id=user_id)
+            #     # new_bal = avail_bal - Amt - fee_charge
+            #     # usr.Available_balance = new_bal
+            #     commit(new_transaction, new_notification)
+            #     flash('NewTransaction is being processed check')
+            #     return redirect(url_for('views.profile'))
         else:
             flash('Incorrect Password! Try again.', category='error')
        

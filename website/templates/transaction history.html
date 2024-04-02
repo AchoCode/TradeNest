@@ -30,7 +30,7 @@
                             <div class="category">Success</div>
                         </div>
                     </li>
-                    {% else %}
+                    {% else %}                    
                         <li class="transaction-details flex denied">
                             <div class="div1 flex">
                                 <div class="innerdiv1">
@@ -57,15 +57,16 @@
                                     </div>
                                     <div class="innerdiv2">
                                         <h3>Withdrawal</h3>
-                                        <span class="date">Feb 12, 11:21:05</span>
+                                        <span class="date">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
-                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="amount category">-${{record.Amount}}</div>
                                     <div class="category">Successful</div>
                                 </div>
                             </li>
                         {% else %}
+                            {% if record.Status == 'Pending' %}
                             <li class="transaction-details flex denied">
                                 <div class="div1 flex">
                                     <div class="innerdiv1">
@@ -73,14 +74,31 @@
                                     </div>
                                     <div class="innerdiv2">
                                         <h3>Withdrawal</h3>
-                                        <span class="date">Feb 12, 11:21:05</span>
+                                        <span class="date">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
-                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="amount category">${{record.Amount}}</div>
+                                    <div class="category">Pending</div>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="transaction-details flex denied">
+                                <div class="div1 flex">
+                                    <div class="innerdiv1">
+                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                    </div>
+                                    <div class="innerdiv2">
+                                        <h3>Withdrawal</h3>
+                                        <span class="date">{{record.Date}}</span>
+                                    </div>
+                                </div>
+                                <div class="div2">
+                                    <div class="amount category">${{record.Amount}}</div>
                                     <div class="category">Failed</div>
                                 </div>
                             </li>
+                            {% endif %}
                         {% endif %}
                     {% else %}
                         {% if record.Status == "Open" %}

@@ -6,7 +6,7 @@ from flask_mail import Mail
 
 
 db = SQLAlchemy()
-DB_NAME = "database3.db"
+DB_NAME = "database.db"
 mail = Mail()
 
 def create_all():
@@ -14,9 +14,9 @@ def create_all():
 
     app.config['SECRET_KEY'] = 'princess'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SQLALCHEMY_BINDS'] = {
-    'old_db': 'sqlite:///database2.db'
-}
+    # app.config['SQLALCHEMY_BINDS'] = {
+    # 'old_db': 'sqlite:///database3.db'
+    # }
     db.init_app(app)
     mail.init_app(app)
 
@@ -33,14 +33,14 @@ def create_all():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(api, url_prefix='/')
 
-    from .newmodels import NewUser
+    from .models import User
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
     @login_manager.user_loader
     def load_user(id):
-        user = NewUser.query.get(int(id))
+        user = User.query.get(int(id))
         #if no user is gotten from the user table, the admin table is queried
         # if not user:
         #     user = Admin.query.get(int(id))

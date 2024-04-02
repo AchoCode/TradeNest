@@ -11,6 +11,7 @@ tabs.forEach(tab=>{
     tab.addEventListener('click', activeTab)
 })
 
+
 // ------------------------dashboard tab------------------------
 const dashboardTabLink = document.querySelector('#dashboard')
 const dashboardTab = document.querySelector('.dashboard-box')
@@ -42,6 +43,41 @@ userTabLink.addEventListener('click', ()=>{
 
     }
 })
+
+//for users tab, user form details api
+function getUser(usrId) {
+    fetch('/admin/get-user', {
+        method: 'POST',
+        body: JSON.stringify({usrId: usrId}),
+    })
+    .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Parse the JSON response
+            return response.json();
+        })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    console.log(data)
+                    document.getElementById('email').value = data.Email;
+                    document.getElementById('sub-plan').value = data.Subscription;
+                    document.getElementById('username').innerHTML = data.Username;
+                    document.getElementById('phone_no').value = data.PhoneNumber;
+                    document.getElementById('balance').value = data.Balance;
+                    document.getElementById('total-bal').value = data.TotalBalance;
+                    document.getElementById('avail-balance').value = data.AvailableBalance;
+                    document.getElementById('date').value = data.DateJoined;
+                    if (data.ActiveStatus == true){
+                        document.getElementById('active').checked = true
+                    }else{
+                        document.getElementById('unactive').checked = true;
+                    }
+                }
+            })
+}
 
 // ------------------------comments tab------------------------
 const commentTabLink = document.querySelector('#comments')
@@ -105,8 +141,44 @@ withdrawalTabLink.addEventListener('click', ()=>{
         withdrawalTab.classList.add('online')
     }
 })
-function deposit(usrId) {
-    fetch('/dashboard', {
+
+
+function getTransaction(TransactionId) {
+    fetch('/admin/get-withdrawwal', {
         method: 'POST',
-        body: JSON.stringify({usrId: usrId}),
-    })}
+        body: JSON.stringify({TransactionId: TransactionId}),
+    })
+    .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Parse the JSON response
+            return response.json();
+        })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    console.log(data)
+                    let informationheading = document.querySelector('.withdrawal-tab .table-heading')
+                    document.querySelector('.withdrawal-tab #id').value = data.id
+                    document.querySelector('.withdrawal-tab #avail-balance').value = data.User_avail_balance
+                    document.querySelector('.withdrawal-tab #username').innerHTML = data.Username
+                    document.querySelector('.withdrawal-tab #usr-email').innerHTML = data.Email
+                    document.querySelector('.withdrawal-tab #wallet').value = data.Wallet
+                    document.querySelector('.withdrawal-tab #amount').value = data.Amount
+                    document.querySelector('.withdrawal-tab #fee').value = data.Fee_charge
+                    document.querySelector('.withdrawal-tab #date').value = data.Date
+                    let feeCharge = parseFloat(data.Fee_charge)
+                    let Amount = parseFloat(data.Amount)
+                    let UserAvailBal = parseFloat(data.User_avail_balance)
+                    if(feeCharge + Amount >  UserAvailBal){
+                        informationheading.style.backgroundColor = 'red'
+                    }else{
+                        informationheading.style.backgroundColor = 'green'
+                    }
+                }
+            })
+        }
+
+
