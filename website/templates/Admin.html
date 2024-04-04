@@ -5,7 +5,7 @@
 {% block content %} 
 
 <!-- ------------------------------------DASHBOARD TAB-------------------------------------------> 
-<div class="dashboard-box online">
+<div class="dashboard-box">
     <div class="overflow-box">
         
         <div class="heading">
@@ -93,148 +93,69 @@
                         {% for client in clients %}
                         <li class="user">
                             <div class="name">
-                                <h5>{{client.First_name}}</h5>
+                                <h5>{{client.First_name}} {{client.Last_name}}</h5>
                             </div>
                             <div class="email">
                                 <p><i>{{client.Email}}</i></p>
                             </div>
-                            <button type="button" class="btn"> Details </button>
+                            <button type="button" class="btn" onclick="getUser({{client.id}})"> Details </button>
                         </li> 
                         {% endfor %}
-                        <!-- <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li> 
-                        <li class="user">
-                            <div class="name">
-                                <h5>Okonkwo Precious</h5>
-                            </div>
-                            <div class="email">
-                                <p><i>precious@gmail.com</i></p>
-                            </div>
-                            <button type="button" class="btn"> Details </button>
-                        </li>  -->
                     </ul>
                 </div>
             </div>
         </div>
 
             
-            <div class="card-information">
-                <div class="table-heading">
-                    <h5>Okonkwo Precious</h5>
-                </div>
-                <div class="information-container">
-                    <form method="POST">
-                        <input type="hidden" name="form-type" value="User-form">
-                        <div class="card-components">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                    <input type="text" class="form-control" name="email" id="email">
-                                <label for="sub-plan">Subscription</label>
-                                    <input type="text" class="form-control" name="sub-plan" id="sub-plan">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone_no">Phone number</label>
-                                    <input type="text" class="form-control" id="phone_no" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="balance">Balance</label>
-                                    <input type="text" class="form-control" name="balance" id="balance">
-                                <label for="total-bal">Total balance</label>
-                                    <input type="text" class="form-control" id="total-bal" readonly>
-                                <label for="payout">Payout</label>
-                                    <input type="text" class="form-control" id="payout"readonly>
-                            </div> 
-                            <div class="form-group">
-                                <label for="date">Date joined</label>
-                                <input type="text" class="form-control" id="date" readonly>
-                            </div>
-                        </div>
-                        <div class="action-btn">
-                            <button type="button" class="btn btn-danger" id="deleteBtn">Delete user</button>
-                            <button type="submit" class="btn btn-primary">Update user</button>
-                        </div>
-                    </form>
-                </div>
+        <div class="card-information">
+            <div class="table-heading">
+                <h5 id="username">Username</h5>
             </div>
+            <div class="information-container">
+                <form method="POST">
+                    <input type="hidden" name="form-type" value="User-form">
+                    <div class="card-components">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="email">
+                            <label for="sub-plan">Subscription</label>
+                                <input type="text" class="form-control" name="sub-plan" id="sub-plan">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_no">Phone number</label>
+                                <input type="text" class="form-control" id="phone_no" readonly>
+                            
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" value="True" id="active">Active
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" id="unactive" value="false">Inactive
+                                    </label>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="balance">Balance</label>
+                                <input type="text" class="form-control" name="balance" id="balance">
+                            <label for="avail-balance">Avail-Balance</label>
+                                <input type="text" class="form-control" name="avail-balance" id="avail-balance">
+                            <label for="total-bal">Total balance</label>
+                                <input type="text" class="form-control" id="total-bal" readonly>
+                        </div> 
+                        <div class="form-group">
+                            <label for="date">Date joined</label>
+                            <input type="text" class="form-control" id="date" readonly>
+                        </div>
+                    </div>
+                    <div class="action-btn">
+                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete user</button>
+                        <button type="submit" class="btn btn-primary">Update user</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -332,7 +253,7 @@
                     <div class="card-components">
                         <div class="form-group">
                             <label for="post-title">Title</label>
-                                <input type="text" class="form-control" name="email" id="post-title">
+                                <input type="text" class="form-control" name="post-title" id="post-title">
                         </div>
                             <label for="phone_no">Message</label>
                                 <textarea type="text" class="form-control" name="post-body" id="msg"></textarea>
@@ -415,47 +336,132 @@
 
 <!-- ----------------------------------------------------------------WITHDRAWAL TAB-------------------------------------------- -->
 
-<div class="withdrawal-tab">
+<div class="withdrawal-tab online">
     <div class="heading">
         <h3> Withdrawal Requests</h3>
     </div>
 
     <div class="request-count">
-        <h5 align="center"> Number of Requests: 3</h5>
+        <h5 align="center"> Number of Requests: {{number_of_requests}}</h5>
     </div>
-    <div class="container">
+    <div class="user-container">
+
+        <div class="users-table">
+            <div class="users">
+                <div class="user-list">
+                    {% if number_of_requests == 0 %}
+                        <div class="no-request">
+                            <h3>No requests</h3>
+                        </div>
+                    {% else %}
+                    <ul>
+                        {% for transaction in transaction_details|reverse %}
+                            <li class="user">
+                                <div class="name">
+                                    <h5>{{transaction.Title}}</h5>
+                                </div>
+                                <div class="email">
+                                    <p>Amount: {{transaction.Amount}} </p>
+                                </div>
+                                <div class="fee">
+                                    <p>Fee: {{transaction.Fee}} </p>
+                                </div>
+                                <button type="button" class="btn" onclick="getTransaction({{transaction.id}})"> Details </button>
+                            </li> 
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+            
+        <div class="card-information">
+            <div class="table-heading">
+                <h5 id="username">Username</h5>
+                <h5 id="usr-email">Email</h5>
+            </div>
+            <div class="information-container">
+                <form method="POST">
+                    <input type="hidden" name="form-type" value="withdrawal-form">
+                    <input type="hidden" id="id" name="transaction-id">
+                    <div class="card-components">
+                        <div class="form-group">                            
+                            <label for="avail-balance">Avail-Balance</label>
+                                <input type="text" class="form-control" name="avail-balance" id="avail-balance" readonly>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" id="pending" checked>Pending
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" id="success" value="Success">Success
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" id="denied" value="Denied">Denied
+                                    </label>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Wallet</label>
+                            <input type="text" class="form-control" name="wallet" id="wallet" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="balance">Amount</label>
+                                <input type="text" class="form-control" name="amount" id="amount" readonly>
+                            
+                            <label for="total-bal">Fee</label>
+                                <input type="text" class="form-control" id="fee" readonly>
+                        </div> 
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="text" class="form-control" id="date" readonly>
+                        </div>
+                    </div>
+                    <div class="action-btn">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="comments">
-
-            <div class="card-information">
+            <!-- {% for transaction in transaction_details|reverse %}
+            <div class="card-information 
+               }">
 
                 <div class="table-heading">
-                    <h5>From: Okonkwo Precious</h5>
-                    <h5>Available Balance: 200USD</h5>
+                    <h5>From: {{transaction.Username}}</h5>
+                    <h5>Available Balance: {{transaction.User_avail_balance}}USD</h5>
                 </div>
 
                         
                 <div class="information-container">
                     <form method="POST">
                         <input type="hidden" name="form-type" value="withdrawal-form">
+                        <input type="hidden" name="transaction-id" value="{{transaction.id}}">
+<input type="hidden" id="avail-bal" value="{{transaction.User_avail_balance}}">
 
                         <div class="card-components">
         
                             <div class="form-group">
                                 <label>Amount</label>
-                                    <input type="text" class="form-control info" name="amount">
+                                    <input type="text" id="amt" class="form-control info" name="amount" value='{{transaction.Amount}}' readonly>
                                 <label>Fee</label>
-                                    <input type="text" class="form-control info" name="fee" value="2.00" readonly>
+                                    <input type="text" id="fee" class="form-control info" name="fee" value='{{transaction.Fee_charge}}' readonly>
                                 <label>Balance</label>
-                                    <input type="text" class="form-control info" name="balance" value="2.00" readonly>
+                                    <input type="text" class="form-control info" name="balance" value="{{transaction.User_balance}}" readonly>
                             </div> 
                             <div class="form-group">
                                 <label>Wallet</label>
-                                <input type="text" class="form-control" name="wallet" id="wallet" value="" readonly>
+                                <input type="text" class="form-control" name="wallet" id="wallet" value='{{transaction.Wallet}}' readonly>
                             </div>
                             <div class="form-row">
                                 <div class="col">
-                                    <select class="form-control" id="sex"  name="sex" required>
+                                    <select class="form-control" id="status"  name="status" required>
                                         <option>Pending</option>
                                         <option>Success</option>
                                         <option>Denied</option>
@@ -463,7 +469,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <h5>Date of request: 24 feb 2024</h5>
+                                        <h5>Date of request: {{transaction.Date}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -476,56 +482,8 @@
                 </div>
 
             </div>
-
-            <div class="card-information">
-
-                <div class="table-heading">
-                    <h5>From: Okonkwo Precious</h5>
-                    <h5>Available Balance: 200USD</h5>
-                </div>
-
-                        
-                <div class="information-container">
-                    <form method="POST">
-                        <div class="card-components">
-                            <div class="form-group">
-                                <label>Amount</label>
-                                    <input type="text" class="form-control info" name="amount">
-                                <label>Fee</label>
-                                    <input type="text" class="form-control info" name="fee" value="2.00" readonly>
-                                <label>Balance</label>
-                                    <input type="text" class="form-control info" name="balance" value="2.00" readonly>
-                            </div> 
-                            <div class="form-group">
-                                <label>Wallet</label>
-                                <input type="text" class="form-control" name="wallet" id="wallet" value="" readonly>
-                            </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <select class="form-control" id="sex"  name="sex" required>
-                                        <option>Pending</option>
-                                        <option>Success</option>
-                                        <option>Denied</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <h5>Date of request: 24 feb 2024</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="action-btn">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                
-            </div>
-        
+            {% endfor %} -->
         </div>
-
     </div>
 </div>
 {% endblock %}

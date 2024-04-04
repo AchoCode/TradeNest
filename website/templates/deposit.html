@@ -1,9 +1,65 @@
-{% extends "base.html" %}
+{% extends "ProfileBase.html" %}
 {% block title %} Deposit {% endblock %} 
 
 {% block content %}
+<div class="Account-info">
+    <h3 align="center"> Top up Wallet </h3>
+    <div class="details">
+        <div class="balance">
+            <h5> Balance </h5>
+            <p>{{usr.Balance}}0 <span>USD</span></p>
+        </div>
+        <div class="transaction">
+            <div class="total-bal">
+                <h5> Earnings </h5>
+                <p>{{usr.Total_balance}}0 <span>USD</span></p>
+            </div>
+        </div>
+    </div>
+</div>
 
+<section class="deposit-details">
+    <div class="spinner-border text-warning"></div>
 
+    <div class="withdraw-form-wrapper box inactive">
+        <div class="withdraw-form">
+            <form method="POST">
+                <input type="hidden" name="usr-id" value="{{ usr.id }}">
+                <div class="withdraw-input-box">
+                    <input type="text" class="form-control"  name="amount" id="amount" required>
+                        <label for="amount">Enter amount</label>
+                </div>
+    
+                <div class="withdraw-input-box">
+                    <input type="text" class="form-control" id="w-address" name="wallet-address" required>
+                        <label for="w-address">Enter Recipient wallet address</label>
+                </div>
 
+                
+                <div class="next-btn">
+                    <button type='submit' class="btn" > Next </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <div class="wrapper box active">
+        <div class="form-box">
+                <h4>BTC Trading Address</h4>
+                <div class="notice">
+                <h3>This address can only recieve BTC on the Bitcoin Network</h3>
+                <p> If another cryptocurrencey is sent to this address. The funds wont be recoverable</p>
+            </div>
+            <div class="address">
+                <p id="deposit-address">3A1fNzGyUYKdmDWne5CXVXRwGWoBLcvsRh</p>
+            </div>
+            <button class="btn" id="copy" onclick="copyText()">Copy <i class="fa-regular fa-copy"></i></button>
+                <p><i>Ensure to copy the correct trading address to avoid lost of funds</i></p>
+        </div>
+    </div>
+    
+    <div class="copy-alert">
+        <h5>wallet copied!</h5>
+    </div>
+</section>
 {% endblock %} 

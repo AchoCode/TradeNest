@@ -1,6 +1,6 @@
 from . import db
 from . import DB_NAME
-from .newmodels import *
+from .models import *
 #function to commit to database
 def commit(arg1,arg2):
     db.session.add_all([arg1,arg2])
@@ -24,7 +24,7 @@ def transaction_notification(model):
             for transaction in model:
                 i += 1
                 usr_id = transaction.user_id
-                usr = NewUser.query.get(usr_id)
+                usr = User.query.get(usr_id)
                 print(f'{i}. User: {usr.First_name} {usr.Email}: {transaction.Title} {transaction.Title} {transaction.Amount} {transaction.Status}')
         else:
             print(f'No Transactions found in {DB_NAME}')
@@ -36,7 +36,7 @@ def transaction_notification(model):
             for notification in model:
                 i += 1
                 usr_id = notification.user_id
-                usr = NewUser.query.get(usr_id)
+                usr = User.query.get(usr_id)
                 print(f'{i}. User: {usr.First_name} {usr.Email}: {notification.Title} {notification.Title} {notification.Amount} {notification.Status}')
         else:
             print(f'No Notification found in {DB_NAME}')

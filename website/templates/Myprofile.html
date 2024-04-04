@@ -33,36 +33,19 @@
     <div class="details">
         <div class="balance">
             <h5> Avaliable Balance </h5>
-            <p>{{usr.Balance}}0 <span>USD</span></p>
+            <p>{{usr.Available_balance}} <span>USD</span></p>
         </div>
         <div class="transaction">
             <a href="/history"> Transaction History <i class="fa-solid fa-clock-rotate-left"></i></a>
             <div class="deposit">
-                <button class="btn" onclick="deposit({{usr.id}})">
+                <a href="/deposit" class="btn">
                     <i class="fa-solid fa-plus"></i> Deposit
-                </button>
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="Overlay"></div>  
-
-<div class="wrapper">
-<button id="Close-deposit" onclick="CloseDeposit()" class="btn"><i  class="fa-solid fa-xmark"></i></button>
-    <div class="form-box">
-        <h4>BTC Trading Address</h4>
-        <div class="notice">
-        <h3>This address can only recieve BTC on the Bitcoin Network</h3>
-        <p> If another cryptocurrencey is sent to this address. The funds wont be recoverable</p>
-    </div>
-    <div class="address">
-        <input value="3A1fNzGyUYKdmDWne5CXVXRwGWoBLcvsRh" id="address" readonly/>
-    </div>
-    <button class="btn" id="copy" onclick="copyText()">Copy <i class="fa-regular fa-copy"></i></button>
-        <p><i>Ensure to copy the correct trading address to avoid lost of funds</i></p>
-    </div>
-</div>
 <div class="dashboard">
     <div class="trade-analysis">
         <div class="links">

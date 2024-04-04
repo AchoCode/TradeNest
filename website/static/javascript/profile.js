@@ -45,9 +45,13 @@ function CloseDeposit(){
 }
 
 function copyText() {
-    var copyText = document.getElementById("address")
-    navigator.clipboard.writeText(copyText.value).then(function() {
-      alert("Copied the text: " + copyText.value);
+    var copyText = document.getElementById("deposit-address")
+    let alert = document.querySelector('.copy-alert')
+    navigator.clipboard.writeText(copyText.innerHTML).then(function() {
+      alert.classList.add('copied');
+      setTimeout(()=>{
+        alert.classList.remove('copied');
+    },2000)
     }).catch(function(err) {
       console.error('Unable to copy text', err);
     });

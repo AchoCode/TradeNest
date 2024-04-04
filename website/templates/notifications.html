@@ -40,6 +40,17 @@
                             </div>
                         </li>
                     {% else %}
+                        {% if notice.Status == 'Pending' %}
+                        <li class="transaction-details">
+                            <div class="letter">
+                                <h3> Withdrawal Pending</h3>
+                                <p> Your withdrawal request of ${{notice.Amount}} is being processed. You will be notified Shortly</p>
+                                <div class="footer">
+                                    <span class="date">{{notice.Date}}</span> 
+                                </div>
+                            </div>
+                        </li>
+                        {% else %}
                         <li class="transaction-details">
                                 <div class="letter">
                                     <h3> Withdrawal Denied</h3>
@@ -49,6 +60,7 @@
                                     </div>
                                 </div>
                             </li>
+                        {% endif%}
                 {% endif%}
                     {% else %}
                             {% if notice.Title == 'Trade' %}

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db 
-from .newmodels import NewUser
+from .models import User
 import bcrypt
 
 auth = Blueprint('auth', __name__ )
@@ -21,7 +21,7 @@ def login():
             password = request.form.get('pwd')
 
             #query database to see if user exists
-            usr = NewUser.query.filter_by(Email=email).first()
+            usr = User.query.filter_by(Email=email).first()
             if usr:
                 #check if password is correct
                 if bcrypt.checkpw(password.encode('utf-8'), usr.Password):
@@ -45,7 +45,7 @@ def login():
             subscription = request.form.get('optradio')
 
             #query database to see if user exists
-            usr = NewUser.query.filter_by(Email=email).first()
+            usr = User.query.filter_by(Email=email).first()
 
             #checks
             if usr:
@@ -58,7 +58,7 @@ def login():
             elif password1 != password2:
                 flash('Passwords do not Match!...... Please Try Again.', category='error')
             else:
-                new_usr = NewUser(First_name=firstname, Last_name=lastname, Email=email, 
+                new_usr = User(First_name=firstname, Last_name=lastname, Email=email, 
                                Phone_number=phone_number, Subscription_plan=subscription,
                                Password=bcrypt.hashpw(password1.encode('utf-8'), bcrypt.gensalt()))
                 db.session.add(new_usr)
