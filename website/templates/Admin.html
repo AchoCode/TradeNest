@@ -346,34 +346,14 @@
     </div>
     <div class="user-container">
 
-        <div class="users-table">
-            <div class="users">
-                <div class="user-list">
-                    {% if number_of_requests == 0 %}
-                        <div class="no-request">
-                            <h3>No requests</h3>
-                        </div>
-                    {% else %}
-                    <ul>
-                        {% for transaction in transaction_details|reverse %}
-                            <li class="user">
-                                <div class="name">
-                                    <h5>{{transaction.Title}}</h5>
-                                </div>
-                                <div class="email">
-                                    <p>Amount: {{transaction.Amount}} </p>
-                                </div>
-                                <div class="fee">
-                                    <p>Fee: {{transaction.Fee}} </p>
-                                </div>
-                                <button type="button" class="btn" onclick="getTransaction({{transaction.id}})"> Details </button>
-                            </li> 
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+        <div class="comments">
+
+            <div class="card-information">
+
+                <div class="table-heading">
+                    <h5>From: Okonkwo Precious</h5>
+                    <h5>Available Balance: 200USD</h5>
                 </div>
-            </div>
-        </div>
 
             
         <div class="card-information">

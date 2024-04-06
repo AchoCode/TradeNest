@@ -141,10 +141,8 @@ withdrawalTabLink.addEventListener('click', ()=>{
         withdrawalTab.classList.add('online')
     }
 })
-
-
-function getTransaction(TransactionId) {
-    fetch('/admin/get-withdrawal', {
+function deposit(usrId) {
+    fetch('/dashboard', {
         method: 'POST',
         body: JSON.stringify({TransactionId: TransactionId}),
     })

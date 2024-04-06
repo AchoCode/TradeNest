@@ -73,7 +73,7 @@ def profile():
                            Number_of_Open_trades=len(Open_trades), Number_of_Pending_trades=len(Pending_trades))  
 
 @views.route('/deposit', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def deposit():
     # #load data from json
     # data = json.loads(request.data)
