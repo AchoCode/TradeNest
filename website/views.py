@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from .models import Comments, User, Transactions, Notifications
-from .functions import commit, secure_wallet
+from .functions import secure_wallet
 from . import db
 import bcrypt
 import requests
@@ -75,10 +75,15 @@ def profile():
 @views.route('/deposit', methods=['GET', 'POST'])
 @login_required
 def deposit():
-    # #load data from json
-    # data = json.loads(request.data)
-    # usr_id = data['usrId']
-    
+    #load data from json
+    try:
+        if request.is_json:
+            data = json.loads(request.data)
+            usr_id = data['usrId']
+        else:
+            print('empty')
+    except Exception as e:
+        print(str(e))
     # #query database to find user information
     # usr = User.query.get(usr_id)
     # message = f'{usr.First_name} with email {usr.Email} is trying to make a deposit'

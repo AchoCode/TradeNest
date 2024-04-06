@@ -27,24 +27,16 @@ dashBtn.forEach((btn)=>{
 
 // -------------------------Deposit overlay---------------------------
 
-const depositBtn = document.querySelectorAll('.deposit');
-const Overlay = document.querySelector('.Overlay');
+const depositSection = document.querySelectorAll('.deposit-details');
 const Wrapper = document.querySelector('.wrapper');
-
-// depositBTn.addEventListener('click', ()=>{
-//     Wrapper.classList.add('active-popup');
-//     Overlay.classList.add('Blurred')
-// })
-
-
-function CloseDeposit(){
-
-    Wrapper.classList.remove('active-popup');
-    Overlay.classList.remove('Blurred')
-
-}
+const depositForm = document.querySelector('.deposit-details .withdraw-form-wrapper')
 
 function copyText() {
+    // fetch('/deposit',{
+    //     method: 'POST',
+    //     body: JSON.stringify({usrId: usrId})
+    // })
+    // console.log(usrId)
     var copyText = document.getElementById("deposit-address")
     let alert = document.querySelector('.copy-alert')
     navigator.clipboard.writeText(copyText.innerHTML).then(function() {
@@ -57,7 +49,19 @@ function copyText() {
     });
 }
   
-
+function user(usrId){
+    fetch('/deposit',{
+        method: 'POST',
+        body: JSON.stringify({usrId: usrId})
+    })    
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Parse the JSON response
+        return response.json();
+    })
+}
 function Active(){
     const PwdInput = document.querySelector('.password-input');
     const detailBox = document.querySelector('.pwd-wrapper .details');
@@ -84,11 +88,14 @@ function CloseAlert(){
     Overlay.classList.remove('Blurred')
 
 }
-function deposit(usrId) {
-    fetch('/deposit', {
-        method: 'POST',
-        body: JSON.stringify({usrId: usrId}),
-    })
-    Wrapper.classList.add('active-popup');
-    Overlay.classList.add('Blurred')
-}
+// function deposit() {
+//     let depositAmount = document.querySelector('#deposit-amount')
+//     if(depositAmount.value === ""){
+
+//     }else{
+//         event.preventDefault()
+//         Wrapper.classList.add('active');
+//         depositForm.classList.add('inactive')
+//     }
+// }
+

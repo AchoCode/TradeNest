@@ -7,7 +7,7 @@
     rgba(0,0,0,0.8));
     font-size: 100%;
 }
-@media (min-width: 700px){
+@media (min-width: 100px){
 body{
     background-color:black;
     overflow: hidden;
@@ -507,22 +507,10 @@ ul .date{
     z-index: 4;
     display: block;
 }
-.deposit-details {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-.deposit-details .box {
-    min-width: 400px;
-}
-.deposit-details .withdraw-form-wrapper.inactive {
-    transform: translateX(-400px)
-}
-.wrapper.active{
-    transform: translateX(-400px);
-}
+
 .wrapper{
     background-color: black;
+    min-width: 400px;
     height: 350px ;
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -531,6 +519,7 @@ ul .date{
     align-items: center;
     color: white;
     transition: 0.5s ease;
+    margin-top: 70px;
 }
 
 .form-box{
@@ -717,6 +706,7 @@ ul .date{
     position: relative;
     padding: 10px 30px;
     color: white;
+    transition: 0.3s;
 }
 .withdraw-form {
     margin: 100px 0;
