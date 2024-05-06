@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %} 
+
+{% block content %}
+ 
+  <!---------------------------MODAL LOGIN/SIGNUP SECTION---------------------------------->
+  <div class="wrapper">
+    <div class="form-wrapper">
+        <div class="form-box forgot-pwd {% if resetForm == True %}active{% endif %}">
+            <span class="forgot-pwd-icon">
+                <i class="fa-solid fa-arrow-right" onclick="pwdFormToggle()"></i>
+            </span>
+            <h2 class="">Forgot password?</h2>
+            <div class="pwd-info">
+                <span>
+                    <p class="mb-4 text-center">
+                        Please enter your email. A password reset link will be sent to your email..
+                    </p>
+                </span>
+            </div>
+            <form method="POST">
+
+                <div class="input-box">
+                    <input type="hidden" name="form-type" value="resetForm">
+                    <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email">
+                            <label for="email">Email</label>
+                </div>
+                <div class="form-btn mt-5">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="form-box login {% if resetForm == True %}active{% endif %}">
+
+                <i class="fa-solid fa-user"></i>
+                    <h2> Login </h2>
+
+            <form method="POST">
+
+                <div class="input-box">
+                    <input type="hidden" name="form-type" value="loginForm">
+                    <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email">
+                            <label for="email">Email</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="pwd-icon">
+                        <i class="fa-regular fa-eye" id="show" onclick="HidePassword()"></i>
+                    </span>
+                            <input type="password" class="form-control pwd" id="pwd" name="pwd">
+                                <label for="pwd">Password</label>
+                </div>
+
+                <div class="form-btn">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+
+                <div class="login-register">
+                    <p>Don't have an account? <a href="/register" id="signup-link">Register</a></p>
+                </div>
+
+            </form>
+            <div class="forgot-pwd d-flex justify-content-center">
+                <a href="#" onclick="pwdFormToggle()"><span>Forgot password?</span></a>
+            </div>
+        </div>
+
+     </div>
+
+    </div>     
+
+
+{% endblock %} 

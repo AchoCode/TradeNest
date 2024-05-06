@@ -1,0 +1,27 @@
+{% extends 'trade-activation.html' %}
+
+{% block image %}
+<img src="
+    https://images.pexels.com/photos/8369782/pexels-photo-8369782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+" style="height: 150px; width: 100%;">
+
+{% endblock %}
+
+{% block sub_heading %}
+{% endblock %}
+
+{% block msg %}
+<div class="msg" style="text-align: center; font-weight: 500;">
+    Dear {{usr}}, your deposit of 500 USD has been confirmed and credited to your account balance.
+    Following this deposit, a trade session will be activated.
+    <br/>
+    visit your profile for more information.
+</div>
+{% endblock %}
+{% block footer %}
+    <div style="padding: 2px 0; text-align: center; font-style: italic;">
+        <p>if you have more question, please contact us through our customer care.<br/>
+            Thank your for choosing TradeNest!
+        </p>
+    </div>
+{% endblock %}

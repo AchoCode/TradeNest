@@ -19,10 +19,10 @@
                 <li class="transaction-details">
                 <div class="letter">
                     <h3> Account Credicted Successfully</h3>
-                    <p> Your TradeNest account has been credicted with ${{notice.Amount}} worth of bitcoin.
+                    <p> Your TradeNest account has been credicted with ${{notice.Amount}}.
                     </p>
                     <div class="footer">
-                        <span class="date">{{notice.Date}}</span> 
+                        <span class="date dates">{{notice.Date}}</span> 
                     </div>
                 </div>
             </li>
@@ -35,7 +35,7 @@
                                 <p> Successfully withdrew ${{notice.Amount}} from TradeNest. The recipient's wallet will be credited within 24 hours.
                                 </p>
                                 <div class="footer">
-                                    <span class="date">{{notice.Date}}</span>
+                                    <span class="date dates">{{notice.Date}}</span>
                                 </div>
                             </div>
                         </li>
@@ -46,7 +46,7 @@
                                 <h3> Withdrawal Pending</h3>
                                 <p> Your withdrawal request of ${{notice.Amount}} is being processed. You will be notified Shortly</p>
                                 <div class="footer">
-                                    <span class="date">{{notice.Date}}</span> 
+                                    <span class="date dates">{{notice.Date}}</span> 
                                 </div>
                             </div>
                         </li>
@@ -56,7 +56,7 @@
                                     <h3> Withdrawal Denied</h3>
                                     <p> Your withdrawal request of ${{notice.Amount}} has be denied due to lack of funds in your account.   </p>
                                     <div class="footer">
-                                        <span class="date">{{notice.Date}}</span> 
+                                        <span class="date dates">{{notice.Date}}</span> 
                                     </div>
                                 </div>
                             </li>
@@ -64,25 +64,39 @@
                 {% endif%}
                     {% else %}
                             {% if notice.Title == 'Trade' %}
-                                <li class="transaction-details">
-                                    <div class="letter">
-                                        <h3> Trade Alert</h3>
-                                        <p> Following the deposit, A trade has been activated automatically. check dashboard for more info </p>
-                                        <div class="footer">
-                                            <span class="date">{{notice.Date}}</span> 
+                                {% if notice.Status == 'Open' %}
+                                    <li class="transaction-details">
+                                        <div class="letter">
+                                            <h3> Trade Alert</h3>
+                                            <p> Following the deposit, A trade has been activated automatically. check dashboard for more info </p>
+                                            <div class="footer">
+                                                <span class="date dates">{{notice.Date}}</span> 
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                {% else %}
+                                    <li class="transaction-details">
+                                        <div class="letter">
+                                            <h3> Trade Alert</h3>
+                                            <p> Trade Ended, Profit Added!
+
+                                                Your trade is complete, and profits are in! Check your balance now. Happy trading! 📈 </p>
+                                            <div class="footer">
+                                                <span class="date dates">{{notice.Date}}</span> 
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endif %}
                             {% else %}
-                                <li class="transaction-details">
-                                    <div class="letter">
-                                        <h3> {{notice.Title}}</h3>
-                                        <p> {{notice.Message}} </p>
-                                        <div class="footer">
-                                            <span class="date">{{notice.Date}}</span> 
+                                    <li class="transaction-details">
+                                        <div class="letter">
+                                            <h3> {{notice.Title}}</h3>
+                                            <p> {{notice.Message}} </p>
+                                            <div class="footer">
+                                                <span class="date dates">{{notice.Date}}</span> 
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
                             {% endif %}
                 {% endif %}
             {% endif %}

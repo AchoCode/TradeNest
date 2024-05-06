@@ -22,30 +22,14 @@
                             </div>
                             <div class="innerdiv2">
                                 <h3>Deposit</h3>
-                                <span class="date">Feb 12, 11:21:05</span>
+                                <span class="date dates">{{record.Date}}</span>
                             </div>
                         </div>
                         <div class="div2">
-                            <div class="amount">+${{record.Amount}}</div>
-                            <div class="category">Success</div>
+                            <div class="amount category">+${{record.Amount}}</div>
+                            <div class="category">Successful</div>
                         </div>
                     </li>
-                    {% else %}                    
-                        <li class="transaction-details flex denied">
-                            <div class="div1 flex">
-                                <div class="innerdiv1">
-                                    <i class="fa-solid fa-building-columns"></i>
-                                </div>
-                                <div class="innerdiv2">
-                                    <h3>Deposit</h3>
-                                    <span class="date">Feb 12, 11:21:05</span>
-                                </div>
-                            </div>
-                            <div class="div2">
-                                <div class="amount">-${{record.Amount}}</div>
-                                <div class="category">Failed</div>
-                            </div>
-                        </li>
                 {% endif %}
             {% else %}
                     {% if record.Title == 'Withdrawal' %}
@@ -56,8 +40,9 @@
                                         <i class="fa-solid fa-money-bill-transfer"></i>
                                     </div>
                                     <div class="innerdiv2">
-                                        <h3>Withdrawal</h3>
-                                        <span class="date">{{record.Date}}</span>
+                                        <h3 class="mb-1">Withdrawal</h3>
+                                        <h6 >Fee: <span class="category">${{record.Fee}}</span></h6>
+                                        <span class="mt-1 date dates">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
@@ -73,8 +58,9 @@
                                         <i class="fa-solid fa-money-bill-transfer"></i>
                                     </div>
                                     <div class="innerdiv2">
-                                        <h3>Withdrawal</h3>
-                                        <span class="date">{{record.Date}}</span>
+                                        <h3 class="mb-1">Withdrawal</h3>
+                                        <h6 >Withdrawal fee: <span class="category">${{record.Fee}}</span></h6>
+                                        <span class="date dates">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
@@ -89,8 +75,9 @@
                                         <i class="fa-solid fa-money-bill-transfer"></i>
                                     </div>
                                     <div class="innerdiv2">
-                                        <h3>Withdrawal</h3>
-                                        <span class="date">{{record.Date}}</span>
+                                        <h3 class="mb-1">Withdrawal</h3>
+                                        <h6 >Withdrawal fee: <span class="category">${{record.Fee}}</span></h6>
+                                        <span class="date dates">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
@@ -109,11 +96,11 @@
                                     </div>
                                     <div class="innerdiv2">
                                         <h3>Trade Alert</h3>
-                                        <span class="date">Feb 12, 11:21:05</span>
+                                        <span class="date dates">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
-                                    <div class="amount">-${{record.Amount}}</div>
+                                    <div class="amount category">-${{record.Amount}}</div>
                                     <div class="category">Successful</div>
                                 </div>
                             </li>
@@ -126,11 +113,11 @@
                                     </div>
                                     <div class="innerdiv2">
                                         <h3>Trade Profit</h3>
-                                        <span class="date">Feb 12, 11:21:05</span>
+                                        <span class="date dates">{{record.Date}}</span>
                                     </div>
                                 </div>
                                 <div class="div2">
-                                    <div class="amount">+${{record.Amount}}</div>
+                                    <div class="amount category">+${{record.Profit}}</div>
                                     <div class="category">Successful</div>
                                 </div>
                             </li>

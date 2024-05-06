@@ -3,15 +3,20 @@
     --times: 'Times New Roman', Times, serif;
     --google: 'Google Sans';
     --outline: 2px solid red;
+    --blue: rgb(12, 46, 168);
     --image-overlay : linear-gradient(rgba(0,0,0,0.6),
     rgba(0,0,0,0.8));
+    --offwhite: rgb(216, 216, 216);
+    --span-green: rgb(8, 201, 8);
     font-size: 100%;
 }
 @media (min-width: 100px){
 body{
-    background-color:black;
+    background-color: black;
     overflow: hidden;
 }
+
+
 span{
     color: gold;
 }
@@ -29,24 +34,48 @@ span{
 .message.success {
     background-color: green;
     color: white;
+    top: 5px;
 }
 .message.error {
     background-color: rgb(189, 52, 52);
     color: white;
     top: 10px;
 }
-
+.no-request {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 130px;
+}
+/* for the bell notification badge */
+.fa-bell::after {
+    content: attr(data-count);
+    height: 25px;
+    width: 25px;
+    display: grid;
+    place-content: center;
+    background-color: red;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    position: absolute;
+    top: -3px;
+    right: -5px;
+}
+.fa-bell.inactive::after{
+    display: none;
+}
 /*--------------------PROFILE BASE-----------------*/
 .profile-wrapper{
     position: relative;
     margin: auto;
     width: 400px;
     background-color: transparent;
-    height: 100vh;
+    height: 100dvh;
 }
 
 .profile-wrapper .navigation{
-    background-color: gold;
+    background-color: var(--blue);
     color: white;
     display: flex;
     justify-content: center;
@@ -91,20 +120,27 @@ span{
 .navigation ul li a:hover{
     text-decoration: none;
 }
-
+.Security-form{
+    height: auto;
+}
 .navigation ul li:hover a .icon{
+    color: white;
+}
+.navigation ul li.active a .icon{
+    color: white;
     transform: translateY(-5px);
 }
 .navigation ul li a .text{
     position: absolute;
-    color: black;
+    color: white;
     font-size: 1.2rem;
     font-family: var(--roboto);
     opacity: 0;
     transform: translateY(30px);
     transition: 0.5s;
 }
-.navigation ul li:hover a .text{
+/* .navigation ul li:hover a .text, */
+.navigation ul li.active a .text{
     transform: translateY(15px);
     opacity: 1;
 }
@@ -114,11 +150,11 @@ span{
 
 .Account-info{
     position: relative;
-    background-color: gold;
+    background-color: var(--blue);
     height: 100px;
-    color: black;
+    color: white;
     display: flex;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     font-family: var(--roboto);
@@ -131,20 +167,20 @@ span{
 }
 .usrname span,
 .usrname h4 {
-    color: black;
+    color: white;
     font-size: 1.2rem;
     font-weight: 600;
 }
 .Account-info span{
-    color: black;
+    color: white;
 }
 .Account-info .nav{
     display: flex;
     justify-items: space-between;
     align-items: center;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 10px;
 }
 .nav-links li{
     list-style: none;
@@ -178,11 +214,11 @@ span{
     right: 12px;
     border-radius: 20px;
     width: 94%;
-    padding: 10px 20px 15px 20px;
-    border: 3px solid gold;   
+    padding: 10px 30px 15px 50px;
+    border: 3px solid var(--blue);   
 }
 .details .balance span{
-    color: gold;
+    color: var(--span-green);
 }
 .details .balance p{
     text-align: center;
@@ -200,18 +236,16 @@ span{
     text-decoration: none;
     transition: 0.3s;
 }
-.details .transaction a:hover{
-    color: gold;
-}
-.details .transaction .btn{
-    color:  gold;
-    background-color:black;
+
+.details .transaction .btn{ 
+    color:  white;
+    background-color:var(--blue);
     font-size: 1rem;
     font-weight: 500;
     height: 40px;
     width: 130px;
     padding-bottom: 5px;
-    border: 2px solid gold;
+    border: 2px solid var(--blue);
     border-radius: 20px;
     transition: 0.5s;
     margin-top: 5px;
@@ -267,7 +301,7 @@ span{
     top: 40px;
     left: 30px;
     padding: 20px 10px;
-    background-color: rgb(177, 177, 177);
+    background-color: var(--offwhite);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -299,7 +333,8 @@ span{
     color: white;
     margin-bottom: 15px;
     width: 100%;
-    height: 70px;   
+    height: 70px;  
+    border-radius: 10px; 
 }
 .btc-icon2 { 
     display: flex;
@@ -308,12 +343,15 @@ span{
     justify-content: center;
     background-color: gold;
     color: black;
+    border: 2px solid black;
+    border-radius: 10px;
     height: 100%;
     width: 60px;
 }
 
 .btc-icon2 i {
     font-size: 2rem;
+    font-weight: 600;
 }
 .Trade .trade-item .info {
     display: flex;
@@ -337,6 +375,7 @@ span{
     list-style: none;
     font-size: 0.9rem;
     margin-top: 5px;
+    font-weight: 600;
 }
 .Trade .scroll {
     height: 10px;
@@ -352,7 +391,7 @@ span{
 }
 
 .dash-link.live{
-    background-color: rgb(177, 177, 177);
+    background-color: var(--offwhite);
     border-bottom: none;
     border-radius: 5px;
 }
@@ -375,7 +414,7 @@ span{
 .transactions-info{
     position: relative;
     height: 100px;
-    color: gold;
+    color: var(--offwhite);
     text-align: center;
     font-family: var(--roboto);
     padding-top: 30px;
@@ -412,8 +451,8 @@ span{
 }
 ul .transaction-details{
     width: 100%;
-    background: rgb(236, 219, 119);
-    border: 2px solid white;
+    background: var(--offwhite);
+    border: 2px solid var(--blue);
     list-style: none;
     text-align: justify;
     padding: 10px 20px;
@@ -451,13 +490,17 @@ ul .category {
 }
 ul p{
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     text-align: left;
 }
-
 ul .date{
     background-color: transparent;
     color: black;
+    font-weight: bold;
+}
+ul .footer .date{
+    background-color: transparent;
+    color: white;
     font-weight: bold;
 }
 .letter p {
@@ -466,7 +509,7 @@ ul .date{
 }
 .letter .footer {
     width: 100%;
-    background-color: rgb(235, 204, 34);
+    background-color: var(--blue);
     display: flex;
     justify-content: flex-end;
     border-radius: 30px;
@@ -483,6 +526,7 @@ ul .date{
 .innerdiv2 {
     margin: 0 20px;
 }
+
 .innerdiv1 i{
     font-size: 1.5rem;
 }
@@ -507,8 +551,18 @@ ul .date{
     z-index: 4;
     display: block;
 }
+.deposit-details {
+    display: flex;
+    overflow: hidden;
+}
+.deposit-details .withdraw-form-wrapper{
+    min-width: 400px;
+}
+.deposit-details .withdraw-form-wrapper.inactive {
+    transform: translateX(-400px);
 
-.wrapper{
+}
+.deposit-details .wrapper{
     background-color: black;
     min-width: 400px;
     height: 350px ;
@@ -521,7 +575,9 @@ ul .date{
     transition: 0.5s ease;
     margin-top: 70px;
 }
-
+.wrapper.active {
+    transform: translateX(-400px)
+}
 .form-box{
     width: 100%;
     height: 300px;
@@ -542,15 +598,16 @@ ul .date{
 }
 #deposit-address {
     color: white;
-    border: 2px solid gold;
+    border: 2px solid var(--blue);
     padding: 5px 10px;
     border-radius: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.05rem;
 }
 #copy{
-    background-color: gold;
-    color: black;
+    background-color: var(--blue);
+    color: white;
+    font-weight: 600;
     margin: 10px 0;
 }
 .form-box p{
@@ -571,19 +628,41 @@ ul .date{
     display: grid;
     place-items: center;
     transition: 0.3s;
+    border-radius: 10px;
 }
 .copy-alert.copied{
     opacity: 1;
     transform: translateY(-40px)
 }
+.deposit-info {
+    background-color: var(--offwhite);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding: 10px; 
+    border-radius: 5px;
+    border: 2px solid var(--blue);
+}
+.deposit-info p {
+    background-color: red;
+    color: white;
+    font-size: 1.05rem;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
 /* --------------------------------------------------TRADE PAGE------------------------------------------------------ */
 
 .transactions .coin-pricing {
-    border: 3px solid gold;
+    border: 3px solid var(--blue);
+    background-color: var(--offwhite);
     border-radius: 10px;
     margin-top: 100px;
     list-style: none;
-    color: white;
+    color: black;
     padding: 0 20px 5px;
     margin-right: 40px;
 }
@@ -594,11 +673,11 @@ ul .date{
 }
 .transaction .total-bal {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    right: -10px;
+    right: -100px;
     width: 200px;
 }
 .transaction .total-bal p {
@@ -606,7 +685,7 @@ ul .date{
     text-align: center;
 }
 .transaction .total-bal span {
-    color: gold;
+    color: var(--span-green);
 }
 .info2 {
     display: flex;
@@ -615,23 +694,38 @@ ul .date{
     height: 50px;
 }
 .info2 i {
-    font-size: 2rem;
+    font-size: 3.5rem;
+    margin-top: 30px;
+    margin-left: -10px;
 }
-.info2 .price {
-    margin-top: 20px;
+#price,
+#price .fa-dollar-sign {
+    font-size: 1.4rem;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+#percent {
+    margin-top: -12px;
+    font-size: 0.99rem;
+    margin-left: 40px;
+
+}
+#tag{
+    margin-left: 50px;
 }
 .btc-icon { 
     display: flex;
     align-items: center;
     justify-content: center;
-    color: gold;
+    color: var(--blue);
     height: 100%;
     width: 100px;
 }
 .btc-icon p {
     margin:  20px 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: 600;
     font-family: var(--roboto);
 }
 .coin-pricing .info2 h4 {
@@ -639,15 +733,20 @@ ul .date{
     font-family: var(--roboto);
     margin-top: 15px;
 }
+.price{
+    margin-right: -10px;
+}
 .transactions .trade-info {
     width: 100%;
     color: white;
     padding: 0 30px;
 }
 .trade-info .analysis {
-    border: 3px solid gold;
+    border: 3px solid var(--blue);
     border-radius: 10px;
     padding: 5px;
+    background-color: var(--offwhite);
+    color: black;
 }
 .analysis h3{
     font-size: 1.3rem;
@@ -672,40 +771,26 @@ ul .date{
 .analysis ul li span {
     font-size: 0.99rem;
     font-weight: 600;
+    color: var(--blue);
 }
 .transactions .Auto-trade {
     display: flex;
+    background-color: var(--offwhite);
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 30px auto 0;
-    border: 1px solid gold;
+    margin: 20px auto 0;
+    border-radius: 10px;
+    border: 3px solid var(--blue);
     width: 340px;
     padding: 5px;
-    color: white;
-}
-.transactions .Auto-trade h5
-.transactions .btn {
-    background-color: gold;
     color: black;
-    width: 200px;
-    font-family: var(--roboto);
-    font-size: 1.3rem;
-    border: 3px solid gold;
-    border-radius: 10px;
-    transition: 0.3s;
 }
-.transactions .btn:hover {
-    background-color: black;
-    color: white;
-    transform: scale(1.05);
-}
-
 /*--------------------------------------------------WITHDRAW-REQUEST PAGE------------------------------------------------------ */
 .withdraw-form-wrapper{
     position: relative;
     padding: 10px 30px;
-    color: white;
+    color: black;
     transition: 0.3s;
 }
 .withdraw-form {
@@ -720,10 +805,10 @@ ul .date{
     font-size: 1.05rem;
     font-family: var(--roboto);
     padding: 10px 15px 5px;
-    color: white;
+    color: black;
     height: 50px;
-    background: transparent;
-    border: 2px solid gold;
+    background-color: var(--offwhite);
+    border: 2px solid var(--blue);
     border-radius: 10px;
     margin: 5px 0;
 }
@@ -734,21 +819,20 @@ ul .date{
     font-size: 1.15rem;
 }
 .withdraw-input-box .form-control {
-    border: 2px solid gold;
+    border: 2px solid var(--blue);
     border-radius: 10px;
-    background-color: black;
-    color: white; 
+    background-color: var(--offwhite);
+    color: black; 
 }
 
 .withdraw-input-box label {
     position: absolute;
     top: 12px;
     left: 25px;
-    color: white;
+    color: black;
     font-family: var(--roboto);
-    font-size: 1.05rem;
-    font-weight: 500;
-    background-color: black;
+    font-size: 1.1rem;
+    background-color: transparent;
     padding: 0 7px;
     transition: 0.3s;
 
@@ -756,9 +840,9 @@ ul .date{
 
 .withdraw-input-box input:focus~label,
 .withdraw-input-box input:valid~label {
-    top: -14px;
+    top: -25px;
     left: 10px;
-    color: gold;
+    color: white;
     font-size: 1rem;
     font-weight: 500;
 }
@@ -767,12 +851,13 @@ ul .date{
     background-color: red;
     text-align: center;
     color: white;
-    font-size: 0.85rem;
+    font-size: 1rem;
     height: 70px;
     width: 100%;
     margin: 0 auto;
     font-weight: 600;
-    font-family: var(--google);
+    font-style: italic;
+    font-family: var(--roboto);
 }
 
 .withdraw-form .next-btn {
@@ -781,21 +866,29 @@ ul .date{
     padding: 25px 0;
 }
 .next-btn .btn {
-    background-color: gold;
-    color: black;
+    background-color: var(--blue);
+    color: white;
     width: 130px;
     font-family: var(--roboto);
     font-size: 1.1rem;
-    border: 3px solid gold;
+    border: 3px solid var(--offwhite);
     border-radius: 10px;
     transition: 0.3s;
 }
 .next-btn .btn:hover {
-    background-color: black;
-    color: white;
+    background-color: var(--offwhite);
+    color: black;
     transform: scale(1.05);
 }
-
+#float {
+    color: red;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: -20px;
+    transition: 0.3s;
+    font-style: italic;
+    display: none;
+}
 /* --------------------------------------------------WITHDRAW PAGE--------------------------------------- */
 .pwd-wrapper {
     display: flex;
@@ -805,13 +898,12 @@ ul .date{
     position: relative;
     width: 100%;
     height: 100vh;
-    background-color:black;
-    color: white;
-    border: 3px solid gold;
+    background-color: var(--blue);
+    color: black;
+    border: 3px solid var(--offwhite);
     border-radius: 20px;
     z-index: 4;
-    padding: 100px 20px 20px;
-    /* overflow: hidden; */
+    padding: 0px 20px 20px;
 }
 .pwd-wrapper .details {
     min-width: 340px;
@@ -834,14 +926,22 @@ ul .date{
     position: absolute;
     top: 0px;
     left: 10px;
-    font-size: 1.3rem;
-    
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+.pwd-wrapper .details span i:hover{
+    transform: scale(1.30);
 }
 .pwd-wrapper .detail-box {
     display: flex;
     align-items: center;
+    width: 370px;
+    background-color: var(--offwhite);
+    padding: 10px 20px;
+    border-radius: 10px;
     justify-content: space-between;
     margin-bottom: 50px;
+    color: black;
 }
 .pwd-wrapper .detail-box ul {
     width: 100%;
@@ -876,10 +976,11 @@ ul .date{
     color: black;
     border-radius: 20px;
     font-family: var(--roboto);
-    background-color: gold;
+    background-color: var(--offwhite);
     font-weight: 600;
 }
 .password-input {
+    background-color: var(--offwhite);
     backdrop-filter: blur(10px);
     position: absolute;
     transform: translateY(400px);
@@ -887,19 +988,21 @@ ul .date{
     transition: 0.5s;
     z-index: 4;
     border-radius: 15px;
+    opacity: 0;
 }
 .password-input input{
     width: 320px;
-    margin: 25px auto;
+    margin: 35px auto;
 }
 .password-input .withdraw-input-box input~label{
-    top: 37px;
+    top: 50px;
     left: 40px;
-    color: white;
+    color: black;
+    font-weight: 600;
 }
 .password-input .withdraw-input-box input:focus~label,
 .password-input .withdraw-input-box input:valid~label{
-    color: gold;
+    color: black;
     top: 10px;
     left: 35px;
     border-top-right-radius: 5px;
@@ -908,8 +1011,11 @@ ul .date{
 .password-input.active {
     transform: translateY(-50px);
     min-width: 340px;
+    opacity: 1;
 }
 .password-input .btn {
+    background-color: var(--blue);
+    color: white;
     margin-bottom: 50px;
 }
 .spinner-border {
@@ -919,7 +1025,7 @@ ul .date{
 }
 
 .pop-up {
-    background-color: gold;
+    background-color: var(--blue);
     border-radius: 20px;
     position: absolute;
     padding: 10px;
@@ -932,14 +1038,14 @@ ul .date{
     transition: 0.1s;
 }
 .pop-up.alert {
-    background-color: gold;
+    background-color: var(--offwhite);
     border-radius: 20px;
     position: absolute;
     padding: 10px;
     z-index: 6;
     left: 25px;
     color: black;
-    border: 2px solid black;
+    border: 2px solid var(--blue);
     width: 350px;
     height: 200px;
     transition: 0.3s;
@@ -958,12 +1064,11 @@ ul .date{
 }
 .pop-up-btn .btn{
     width: 100px;
-    background-color: transparent;
-    color: black;
-    font-family: var(--google);
+    background-color: var(--blue);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.2rem;
     font-weight: 500;
-    border: 2px solid black;
     border-radius: 10px;
     transition: 0.3s;
 }
@@ -978,6 +1083,7 @@ ul .date{
 .Account-setting {
     position: relative;
     height: 100px;
+    background-color: var(--blue);
     color: white;
     display: flex;
     padding: 30px 20px;
@@ -991,6 +1097,8 @@ ul .date{
     align-items: baseline;
     column-gap: 10px;
     font-weight: bold;
+    color: black;
+    margin-top: -20px;
 }
 .acct-name span,
 .acct-name h4 {
@@ -998,47 +1106,45 @@ ul .date{
     font-size: 1.2rem;
 }
 .Account-setting span{
-    color: gold;
+    color: white;
 }
 .Account-setting .nav{
     display: flex;
     justify-items: space-between;
     align-items: center;
     position: absolute;
-    top: 20px;
-    right: 0;
+    top: 3px;
+    right: 5px;
     padding-right: 5px;
 }
 
 .Account-setting .details{
     display: flex;
     height: 90px;
-    background-color: black;
     color: white ;
     position: absolute;
-    top: 70px;
+    top: 50px;
     right: 12px;
+    background-color: black;
+    border: 2px solid silver;
     border-radius: 20px;
     width: 94%;
     padding: 10px 20px 15px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .Account-setting .details .balance span{
     color: gold;
 }
 .Account-setting .details h5{
-    font-size: 1.2rem;
+    font-size: 1.27rem;
 }
 .Account-setting .details  p{
     text-align: right;
     font-size: 1.3rem;
     margin-right: 10px;
+
 }
-.Account-setting .details .transaction p{
-    text-align: right;
-    font-size: 1.3rem;
-    margin-right: 10px;
-    color: rgb(181,95,48);
-}
+
 
 .Account-setting .details .transaction{
     position: absolute;
@@ -1046,64 +1152,139 @@ ul .date{
 }
 
 .setting-wrapper {
-    padding: 0 10px;
-    margin-top: 15vh;
+    margin: 12vh;
     height: 85vh;
 }
 .setting-links {
-    width: 300px;
-    background-color: gold;
+    width: 100%;
     height: 85vh;
-    display: block;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    padding: 30px 10px 10px;
     margin: 0 auto;
+    padding-left: 10px;
 }
 .setting-links ul {
     width: 100%;
     padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .setting-links ul li{
     list-style: none;
     display: flex;
+    margin: 10px 0;
     align-items: center;
-    justify-content: center;
-    height: 60px;
-    border-radius: 20px;
+    justify-content: flex-start;
+    height: 50px;
+    width: 350px;
+    background-color:var(--offwhite);
+    border: 2px solid var(--blue) ;
+    border-radius: 10px;
     transition: 0.3s;
+    padding-left: 20px;
 }
-.setting-links ul li a::after{
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: black;
-}
-.setting-links ul li a{
-    text-decoration: none;
-    font-size:  1.3rem;
-    color: black;
-    font-family: var(--roboto);
-    font-weight: 600;
-    transition: 0.3s;
 
+.setting-links ul  a{
+    text-decoration: none;
+    font-size:  1.1rem;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
 }
 .setting-links ul li:hover {
-    background-color: black;
-}
-.setting-links ul li:hover a {
+    transform: scale(1.03);
+    background-color: var(--blue);
     color: white;
-    font-size: 1.4rem;
+}
+.setting-links .btn{
+    font-weight: 600;
+}
+.setting-links a .btn:hover{
+    color: white;
+}
+#bronze,
+#silver,
+#gold{
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    width: 100px;
+    margin: auto;
 }
 #bronze{
-    color: rgb(181,95,48);
+    background-color: rgb(133,82,0);
+    color: white
 }
 #silver{
-    color: silver;
+    background-color: rgb(222, 221, 221);
+    color: black;
 }
 #gold {
-    color: gold;
+    color: white;
+    background-color: rgb(205, 175, 7);
 }
-
+    .Security-form{
+        width: 350px;
+        padding: 10px 20px;
+        min-height: 200px;
+        background-color: var(--blue);
+        color: white;
+        border-radius: 10px;
+        transition: 0.3;
+        transform: translateY(-100px);
+        display: none;
+    }
+    .Security-form .action-btn{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .Security-form .btn{
+        background-color: var(--offwhite);
+        color: black;
+    }
+    .Security-form.active{
+        width: 350px;
+        padding: 10px 20px;
+        min-height: 200px;
+        background-color: var(--blue);
+        color: white;
+        border-radius: 10px;
+        display: block;
+        transform: translateY(0);
+    }
+    .profile-settings{
+        background-color: var(--offwhite);
+        color: black;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        margin-bottom: 40px;
+    }
+    .email-verify p{
+        margin-top: 15px;
+    }
+    .email-verify span {
+        background-color: rgba(114, 114, 114, 0.438);  
+        padding: 2px 10px;
+        border-radius: 50px;
+        color: rgb(3, 77, 3);
+    }
+    .email-verify:hover span{
+        color: white;
+        background-color: rgba(236, 236, 236, 0.438);  
+        cursor: pointer;
+    }
+    .email-msg {
+        color: white;
+        background-color: rgb(3, 77, 3);
+        padding: 10px;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 30px;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .email-msg.active {
+        bottom: 150px;
+        opacity: 1;
+    }
 }

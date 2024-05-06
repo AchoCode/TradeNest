@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %} Registration {% endblock %} 
+
+{% block content %}
+<div class="wrapper">
+    <div class="form-wrapper ">
+        <div class="spinner-border text-warning"></div>
+        
+                    <div class="Overlay"></div>
+
+        <div class="form-box register ">  
+        
+                <h2>Registration </h2>
+                <form method="POST">
+                    
+                    <div class="form-box register-wrapper">
+                        <div class="register-box1 p-3">
+                            <div class="step">
+                                <h6><span>Step 1 of 3</span></h6>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="input-box col-md">
+                                        <input type="text" class="form-control" id="fname" name="fname" required>
+                                            <label for="fname">Firstname</label>
+                                </div>
+                                <div class="input-box col-md ">
+                                        <input type="text" class="form-control" id="lname" name="lname" required>
+                                            <label for="lname">Lastname</label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                
+                                <div class="input-box col-md">
+                                    <span class="icon"><i class="fa-solid fa-phone"></i></span>
+                                        <input type="text" class="form-control" id="phone-no" name="phone-no" required>
+                                        <label for="phone-no">Phone Number</label>
+                                </div>
+                            </div>
+                                <div class="form-radio">
+                                    <h4> Subscription Plan</h4>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="optradio" value="Bronze" checked>Bronze
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="optradio" value="Silver"{% if selected_plan == 'silver' %}checked{% endif %}>Silver
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="optradio" value="Gold"{% if selected_plan == 'gold' %}checked{% endif %}> Gold
+                                        </label>
+                                    </div>
+                                </div>    
+                            
+                            <div class="form-btn">
+                                <button type="button" class="btn" onclick="Modal()">Next</button>
+                            </div>
+                        </div>
+                        <div class="register-box2 p-3">
+                            <span class="back-arrow">
+                                <i class="fa-solid fa-arrow-left" onclick="Modal()"></i>
+                            </span>
+                            <div class="step">
+                                <h6><span>Step 2 of 3</span></h6>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-box">
+                                    <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                            <label for="email">Email</label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="input-box col-md  ">
+                                    <span class="icon"><i class="fa-regular fa-eye-slash" onclick="HidePassword()"></i></span>
+                                        <input type="password" class="form-control pwd" id="pwd1" name="pwd1" required>
+                                            <label for="pwd1">Password</label>
+                                </div>
+
+                                <div class="input-box col-md  ">
+                                        <input type="password" class="form-control pwd" id="pwd2" name="pwd2" required>
+                                            <label for="pwd2">Confirm Password</label>
+                                </div> 
+                            </div>
+                            
+                            <div class="form-btn">
+                                <button type="submit" class="btn">Verify email</button>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="login-register">
+                            <p>Have an account? <a href="/login" id="login-link">Login</a></p>
+                        </div>
+                </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

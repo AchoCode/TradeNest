@@ -29,18 +29,12 @@
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
         messages %} {% for category, message in messages %} {% if category ==
         'error' %}
-        <div class="alert alter-dismissable fade show message error" role="alert">
+        <div class="alert alter-dismissable fade show message error" id="alert-msg" role="alert">
           {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         {% else %}
-        <div class="alert alter-dismissable fade show message success" role="alert">
+        <div class="alert alter-dismissable fade show message success" id="alert-msg" role="alert">
           {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         {% endif %} {% endfor %} {% endif %} {% endwith %}
           
@@ -48,25 +42,25 @@
             {% block content %}{% endblock %}
             <div class="navigation">
                 <ul>
-                  <li class="list active">
+                  <li class="list {% if active_page == 'dashboard' %}active{% endif %}">
                     <a href="/profile">
                       <span class="icon"><i class="fa-solid fa-address-card icon "></i> </span>
                       <span class="text">Account</span>
                     </a>
                   </li>
-                    <li class="list ">
+                    <li class="list {% if active_page == 'trade' %}active{% endif %}">
                       <a href="/trade">
                         <span class="icon"><i class="fa-solid fa-chart-simple icon"></i></span> 
                         <span class="text">Trade</span>
                       </a>
                     </li>
-                    <li class="list">
+                    <li class="list {% if active_page == 'withdraw' %}active{% endif %}">
                       <a href="/withdraw-request">
                         <span class="icon"><i class="fa-solid fa-money-bill-transfer icon"></i> </span>
-                        <span class="text">Withdraw</span>
+                        <span class="text">Cashout</span>
                       </a>
                     </li>
-                    <li class="list">
+                    <li class="list {% if active_page == 'profile' %}active{% endif %}">
                       <a href="/settings">
                         <span class="icon"><i class="fa-solid icon fa-user"></i> </span>
                         <span class="text">Profile</span>

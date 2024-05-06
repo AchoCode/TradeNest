@@ -5,7 +5,7 @@
 {% block content %} 
 
 <!-- ------------------------------------DASHBOARD TAB-------------------------------------------> 
-<div class="dashboard-box">
+<div class="dashboard-box  {% if active_page != 'Overview' %}{% else %} online {% endif %}">
     <div class="overflow-box">
         
         <div class="heading">
@@ -16,26 +16,26 @@
                 <div class="col">
                     <div class="overview">
                         <h5>Total Income</h5>
-                        <h3><i class="fa-solid fa-dollar-sign"></i> 12,000</h3>
+                        <h3><i class="fa-solid fa-dollar-sign"></i> {{income}}</h3>
                     </div>
                     
                 </div>
                 <div class="col">
                     <div class="overview">
                         <h5>Total Payouts</h5>
-                        <h3><i class="fa-solid fa-dollar-sign"></i> 12,000</h3>
+                        <h3><i class="fa-solid fa-dollar-sign"></i> {{payouts}}</h3>
                     </div>
                 </div>
                 <div class="col">
                     <div class="overview">
                         <h5>Total Profit</h5>
-                        <h3><i class="fa-solid fa-dollar-sign"></i> 12,000</h3>
+                        <h3><i class="fa-solid fa-dollar-sign"></i> {{profit}}</h3>
                     </div>
                 </div>
                 <div class="col">
                     <div class="overview">
                         <h5> Number of Clients</h5>
-                        <h3>12,000</h3>
+                        <h3>{{number_of_users}}</h3>
                     </div>
                 </div>
             </div>
@@ -72,15 +72,29 @@
     </div>
 </div>
 
+
 <!------------------------------------USERS TAB------------------------------------------->
-<div class="users-tab">
+<div class="users-tab {% if active_page == 'UserTab' %} online {% else %} {% endif %}">
+    
+    <div class="delete-note">
+        <div class="warning">
+            <p>
+                This action will delete everything about this user<br>
+                <span id="userName">username</span><br>
+                The data cant be recovered. Do you wish to continue?
+            </p>
+            <div class="action-btn">
+                <button type="button" class="btn bg-danger" onclick="abortDelete()">No</button>
+                <button type="button" class="btn bg-primary" onclick="continueDelete()">Yes</button>
+            </div>
+        </div>
+    </div>
 
     <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="search-bar" placeholder="Search User by Email or name">
     </div>
-
-    <div class="user-container">
+    <div class="user-container ">
         
         <div class="users-table">
             <div class="table-heading">
@@ -92,13 +106,22 @@
                     <ul>
                         {% for client in clients %}
                         <li class="user">
-                            <div class="name">
-                                <h5>{{client.First_name}} {{client.Last_name}}</h5>
-                            </div>
-                            <div class="email">
+                            <div class="pl-3">
+                                <h5 class="pt-3">{{client.First_name}} {{client.Last_name}}
+                                    {% if  client.is_verified == True %}
+                                    <i class="fa-solid fa-circle-check text-success"></i></span>
+                                    {% endif %}
+                
+                                </h5>
+                           
+                            
                                 <p><i>{{client.Email}}</i></p>
                             </div>
-                            <button type="button" class="btn" onclick="getUser({{client.id}})"> Details </button>
+                            <div class="action-btn">
+                                <button type="button" class="btn btn-danger" onclick="deleteNote('{{client.id}}' , '{{client.First_name}}', '{{client.Last_name}}')" id="deleteBtn">Delete</button>
+                                <button type="button" class="btn btn-primary" onclick="getUser({{client.id}})"> Details </button>
+                                <button type="button" class="btn btn-success" onclick="setTrade({{client.id}})"> Trade</button>
+                            </div>
                         </li> 
                         {% endfor %}
                     </ul>
@@ -141,16 +164,15 @@
                                 <input type="text" class="form-control" name="balance" id="balance">
                             <label for="avail-balance">Avail-Balance</label>
                                 <input type="text" class="form-control" name="avail-balance" id="avail-balance">
-                            <label for="total-bal">Total balance</label>
+                            <label for="total-bal">Earnings</label>
                                 <input type="text" class="form-control" id="total-bal" readonly>
                         </div> 
                         <div class="form-group">
-                            <label for="date">Date joined</label>
-                            <input type="text" class="form-control" id="date" readonly>
+                            <label for="date">Date joined:</label>
+                            <label id="usr-date"></label>
                         </div>
                     </div>
                     <div class="action-btn">
-                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete user</button>
                         <button type="submit" class="btn btn-primary">Update user</button>
                     </div>
                 </form>
@@ -158,92 +180,128 @@
         </div>
 
     </div>
+    
+     <div class="user-trade">
+
+        <div class="card-information  mr-5 ml-1">
+            <div class="table-heading">
+                    <h5 id="username">Username</h5>
+                    <h5 id="subscription-plan" class="mt-2 mr-5">Subscription</h5>
+            </div>
+            <div class="information-container">
+                <form method="POST">
+                    <input type="hidden" name="form-type" value="Trade-form">
+                    <input type="hidden" name="usr-id" id="usr-id">
+                    <div class="card-components">
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                                <input type="text" class="form-control" name="amount" id="trade-amount">
+                            <label for="profit">Profit</label>
+                                <input type="text" class="form-control" name="profit" id="profit">
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="balance">Balance</label>
+                                <input type="text" class="form-control" id="trade-balance" readonly>
+                            <label for="duration">Duration</label>
+                                <input type="text" class="form-control" name="duration" id="duration">
+                        </div> 
+                    </div>
+                    <div class="action-btn">
+                        <button type="submit" class="btn btn-success">Activate trade</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="users-table">
+            <div class="table-heading">
+                <h5>Trades</h5>
+            </div>
+            <div class="users">
+                <div class="user-list inactive">
+                    {% for trade in Trades %}
+                        <ul>
+                            <li class="user bg-dark text-white">
+                                <div class="trade-info">
+                                    <input type="hidden" class="trade-usr-id" value="{{trade.user_id}}">
+                                    <div class="general-info">
+                                        <div class="equity-profit">
+                                            <label class="mr-5"> <span>Equity</span>: {{trade.Amount}}</label>
+                                            <label class="ml-5"><span>Profit</span>: {{trade.Profit}}</label>
+                                        </div>
+                                        <div class="lot-date">
+                                            <label class="mr-5"> <span>Lot size</span>: {{trade.Lot_size}}</label>
+                                            <label class="ml-5"><span>Duration</span>: {{trade.Duration}} days</label>
+                                        </div>
+                                    </div>
+                                    <div class="date">
+                                        <label><span>Date of trade</span>: <span class="dates text-white">{{trade.Date}}</span></label>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="closeTrade({{trade.id}})" class="btn btn-danger">Close</button>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    </div> 
+    
 </div>
 
  <!--------------------------------------------COMMENTS TAB---------------------------------------------------->
-<div class="comments-tab">
+<div class="comments-tab {% if active_page == 'CommentTab' %} online {% else %} {% endif %}">
     <div class="comment-information">
         <div class="heading">
-            <h5> Users Comments </h5>
+            <h3> Users Comments </h3>
         </div>
     </div>
     <div class="comments">
-        
-        <div class="card-information">
-            <div class="table-heading">
-                <h5>From: Okonkwo Precious</h5>
+        {% if number_of_comments == 0 %}
+            <div class="no-request">
+                <h5>No comments at the moment</h5>
             </div>
-            <div class="information-container">
-                <p class="email"><i>Email: precious@gmail.com</i></p>
-                    <div class="card-components">
-                        <div class="comment-body">
-                            <p>"The vibrant colors and dynamic composition truly bring this artwork to life. The artist's meticulous attention to detail is evident,
-                                creating a captivating visual experience. The interplay of light and shadow adds depth, making each element pop. It's a masterpiece
-                                that seamlessly</p>
-                        </div>
+        {% else %}
+             {% for comment in comments|reverse %}
+            
+                <div class="card-information">
+                    <div class="table-heading">
+                        <h5>From: {{comment.User_name}}</h5>
                     </div>
-                    <div class="comment-btn">
-                        <div class="date">
-                            <h5>Date of comment: 12 feb 2024</h5>
-                        </div>
-                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete comment</button>
-                    </div> 
-            </div>            
-        </div>
+                    <div class="information-container">
+                        <p class="email"><i>Email: {{comment.Email}}</i></p>
+                            <div class="card-components">
+                                <div class="comment-body">
+                                    <p>{{comment.Comment}}</p>
+                                </div>
+                            </div>
+                            <div class="comment-btn">
+                                <div class="date">
+                                    <h5 class="dates">Date of comment: {{comment.Date}}</h5>
+                                </div>
+                                <button type="button" class="btn btn-danger" onclick="DeleteComment({{comment.id}})" >Delete comment</button>
+                            </div> 
+                    </div>            
+                </div>
 
-        <div class="card-information">
-            <div class="table-heading">
-                <h5>From: Okonkwo Precious</h5>
-            </div>
-            <div class="information-container">
-                <p class="email"><i>Email: precious@gmail.com</i></p>
-                    <div class="card-components">
-                        <div class="comment-body">
-                            <p>"The vibrant colors and dynamic composition truly bring this artwork to life. The artist's meticulous attention to detail is evident,
-                                    creating a captivating visual experience. The interplay of light and shadow adds depth, making each element pop. It's a masterpiece
-                                    that seamlessly</p>
-                        </div>
-                    </div>
-                    <div class="comment-btn">
-                        <div class="date">
-                            <h5>Date of comment: 12 feb 2024</h5>
-                        </div>
-                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete comment</button>
-                    </div>
-            </div>
-        </div>
-
-        <div class="card-information">
-            <div class="table-heading">
-                <h5>From: Okonkwo Precious</h5>
-            </div>
-            <div class="information-container">
-                <p class="email"><i>Email: precious@gmail.com</i></p>
-                    <div class="card-components">
-                        <div class="comment-body">
-                            <p>"Captivating and insightful, your words weave a tapestry of wisdom that resonates deeply. A pleasure to read and reflect upon."</p>
-                        </div>
-                    </div>
-                    <div class="comment-btn">
-                        <div class="date">
-                            <h5>Date of comment: 12 feb 2024</h5>
-                        </div>
-                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete comment</button>
-                    </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% endif %}
     </div> 
 </div>
     
 <!-----------------------------------------------------------POST TAB---------------------------------------------------------------------->
 
-<div class="post-tab">
+<div class="post-tab {% if active_page == 'PostTab' %} online {% else %} {% endif %}">
     
     <div class="heading">
         <h3>Post a Notice</h3>
     </div>
     
     <div class="container">
+        <div class="post-container mt-1">
         <div class="card-information">
             <div class="table-heading">
             </div>
@@ -264,79 +322,80 @@
                 </div>
             </form>
         </div>
+        {% for post in posts|reverse %}
+            <div class="card-information ">
+                <div class="table-heading">
+                    <h5>{{post.Title}}</h5>
+                </div>
+                <div class="card-components m-2">
+                    <div class="information-container pl-3">
+                        <p>{{post.Message}}</p>
+                    </div>
+                </div>
+                <div class="action-btn">
+                    <div class="date mr-5"> <span class="dates text-dark">{{post.Date}}</span></div>
+                    <button type="button" class="btn btn-danger mb-2" onclick="deletePost({{post.id}})">delete post</button>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="scroll">
+
+        </div>
+        </div>
     </div> 
+    
+
 
 </div>   
     
 <!-- ----------------------------------------------------------------DEPOSIT TAB--------------------------------------------> 
 
-<div class="deposit-tab">
+<div class="deposit-tab {% if active_page == 'DepositTab' %} online {% else %} {% endif %}">
         
     <div class="heading">
         <h3>Deposit Requests</h3>
     </div>
         
     <div class="request-count">
-        <h5 align="center"> Number of Request: 3</h5>
+        <h5 align="center"> Number of Request: {{number_of_deposits}}</h5>
     </div>
 
     <div class="comments">
         
         <div class="container">
-            <div class="card-information">
-                <div class="table-heading">
-                    <h5>From: Ekene Destiny</h5>
+            {% if number_of_deposits == 0 %}
+                <div class="no-request">
+                    <h5>No deposit requests at the moment</h5>
                 </div>
-                <div class="information-container">
-                    <div class="card-components">
-                        <ul>
-                            <li class="deposit-list">
-                                Amount: 200 USD
-                            </li>
-                            <li class="deposit-list">
-                                Email: <i> Ekenedestiny@gmail.com </i>
-                            </li>
-                            <li class="deposit-list">
-                                Date: 24 feb 2024
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="action-btn">
-                        <button type="submit" class="btn btn-success">Appprove</button>
-                    </div>
-                </div>
-            </div>
+            {% else %}
+                {% for deposit in deposit_details|reverse %}
                 <div class="card-information">
                     <div class="table-heading">
-                        <h5>From: Ekene Destiny</h5>
+                        <h5 class="dates">{{deposit.Date}}</h5>
                     </div>
                     <div class="information-container">
                         <div class="card-components">
-                            <ul>
-                                <li class="deposit-list">
-                                    Amount: 200 USD
-                                </li>
-                                <li class="deposit-list">
-                                    Email: <i> Ekenedestiny@gmail.com </i>
-                                </li>
-                                <li class="deposit-list">
-                                    Date: 24 feb 2024
-                                </li>
-                            </ul>
+                            <h4 class="deposit_msg">
+                            User: <span class="text-success">{{deposit.Username}}</span> with email <span class="text-secondary">{{deposit.Email}}</span> is attempting to make a Deposit
+                            of amount <span class="text-success">{{deposit.Amount}} USD</span></h4>
                         </div>
                         <div class="action-btn">
-                            <button type="submit" class="btn btn-success">Appprove</button>
+                            <button type="button" class="btn btn-danger mr-5" onclick="Delete({{deposit.id}})">Delete</button>
+                            <button type="button" class="btn btn-success" onclick="Approve({{deposit.id}})">Approve</button>
                         </div>
                     </div>
                 </div>
-            </div>
+                {% endfor %}
+            {% endif %}
         </div>
+
     </div>
+</div>
 
 
 <!-- ----------------------------------------------------------------WITHDRAWAL TAB-------------------------------------------- -->
 
-<div class="withdrawal-tab online">
+<div class="withdrawal-tab {% if active_page == 'WithdrawalTab' %} online {% else %} {% endif %}">
     <div class="heading">
         <h3> Withdrawal Requests</h3>
     </div>
@@ -346,15 +405,34 @@
     </div>
     <div class="user-container">
 
-        <div class="comments">
-
-            <div class="card-information">
-
-                <div class="table-heading">
-                    <h5>From: Okonkwo Precious</h5>
-                    <h5>Available Balance: 200USD</h5>
+            <div class="users-table">
+                <div class="users">
+                    <div class="user-list">
+                        {% if number_of_requests == 0 %}
+                            <div class="no-request">
+                                <h4>No withdrawal requests</h4>
+                            </div>
+                        {% else %}
+                            <ul>
+                                {% for transaction in transaction_details %}
+                                    <li class="user">
+                                        <div class="name">
+                                            <h5>{{transaction.Title}}</h5>
+                                        </div>
+                                        <div class="email">
+                                            <p>Amount: <i>{{transaction.Amount}}</i></p>
+                                        </div>
+                                        <div class="fee">
+                                            <p>Fees: {{transaction.Fee}}</p>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="getTransaction({{transaction.id}})"> Details </button>
+                                    </li> 
+                                {% endfor %}
+                            </ul>
+                        {% endif %} 
+                    </div>
                 </div>
-
+            </div>
             
         <div class="card-information">
             <div class="table-heading">
@@ -368,7 +446,7 @@
                     <div class="card-components">
                         <div class="form-group">                            
                             <label for="avail-balance">Avail-Balance</label>
-                                <input type="text" class="form-control" name="avail-balance" id="avail-balance" readonly>
+                                <input type="text" class="form-control" name="avail-balance" id="with-avail-balance"  readonly>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="optradio" id="pending" checked>Pending
@@ -398,7 +476,7 @@
                         </div> 
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="text" class="form-control" id="date" readonly>
+                            <input type="text" class="form-control" id="with-date" readonly>
                         </div>
                     </div>
                     <div class="action-btn">
@@ -407,62 +485,6 @@
                 </form>
             </div>
         </div>
-
-        <div class="comments">
-            <!-- {% for transaction in transaction_details|reverse %}
-            <div class="card-information 
-               }">
-
-                <div class="table-heading">
-                    <h5>From: {{transaction.Username}}</h5>
-                    <h5>Available Balance: {{transaction.User_avail_balance}}USD</h5>
-                </div>
-
-                        
-                <div class="information-container">
-                    <form method="POST">
-                        <input type="hidden" name="form-type" value="withdrawal-form">
-                        <input type="hidden" name="transaction-id" value="{{transaction.id}}">
-<input type="hidden" id="avail-bal" value="{{transaction.User_avail_balance}}">
-
-                        <div class="card-components">
-        
-                            <div class="form-group">
-                                <label>Amount</label>
-                                    <input type="text" id="amt" class="form-control info" name="amount" value='{{transaction.Amount}}' readonly>
-                                <label>Fee</label>
-                                    <input type="text" id="fee" class="form-control info" name="fee" value='{{transaction.Fee_charge}}' readonly>
-                                <label>Balance</label>
-                                    <input type="text" class="form-control info" name="balance" value="{{transaction.User_balance}}" readonly>
-                            </div> 
-                            <div class="form-group">
-                                <label>Wallet</label>
-                                <input type="text" class="form-control" name="wallet" id="wallet" value='{{transaction.Wallet}}' readonly>
-                            </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <select class="form-control" id="status"  name="status" required>
-                                        <option>Pending</option>
-                                        <option>Success</option>
-                                        <option>Denied</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <h5>Date of request: {{transaction.Date}}</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="action-btn">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            {% endfor %} -->
         </div>
     </div>
 </div>

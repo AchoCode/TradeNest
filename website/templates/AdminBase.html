@@ -28,18 +28,12 @@
       {% with messages = get_flashed_messages(with_categories=true) %} {% if
           messages %} {% for category, message in messages %} {% if category ==
           'error' %}
-          <div class="alert alert-danger alter-dismissable fade show message" role="alert">
+          <div class="alert alert-danger alter-dismissable fade show message" id="alert-msg" role="alert">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           {% else %}
-          <div class="alert alert-success alter-dismissable fade show message" role="alert">
+          <div class="alert alert-success alter-dismissable fade show message" id="alert-msg" role="alert">
             {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           {% endif %} {% endfor %} {% endif %} {% endwith %}
     
@@ -47,7 +41,7 @@
         <nav>
             <ul class="nav-links">
                 <div class="space"></div>                
-                <li class="tab active" id="dashboard">
+                <li class="tab {% if active_page != 'Overview' %}{% else %} active {% endif %}" id="dashboard">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-chart-simple"></i>
@@ -56,7 +50,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="tab" id="users">
+                <li class="tab {% if active_page == 'UserTab' %}active{% else %} {% endif %}" id="users">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-users"></i>
@@ -65,15 +59,19 @@
                         </div>
                     </a>
                 </li>
-                <li class="tab" id="comments">
+                <li class="tab {% if active_page == 'CommentTab' %}active{% else %} {% endif %}" id="comments">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-comments"></i><h6 class="text">Comments
                             </h6>
                         </div>
                     </a>
+                    {% if number_of_comments > 0 %}
+                    <div class="badge">
+                    </div>
+                    {% endif %}
                 </li>
-                <li class="tab" id="post">
+                <li class="tab {% if active_page == 'PostTab' %}active{% else %} {% endif %}" id="post">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-note-sticky"></i>
@@ -82,7 +80,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="tab" id="deposit">
+                <li class="tab {% if active_page == 'DepositTab' %}active{% else %} {% endif %}" id="deposit">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-wallet"></i>
@@ -90,25 +88,86 @@
                             </h6>
                         </div>
                     </a>
+                    {% if number_of_deposits > 0 %}
+                    <div class="badge">
+                    </div>
+                    {% endif %}
+
                 </li>
-                <li class="tab" id="withdrawal">
+                <li class="tab {% if active_page == 'WithdrawalTab' %}active{% else %} {% endif %}" id="withdrawal">
                     <a href="#">
                         <div class="icon">
                             <i class="fa-solid fa-money-check-dollar"></i>
                             <h6 class="text">Withdrawals
                             </h6>
                         </div>
+                        {% if number_of_requests > 0 %}
+                        <div class="badge">
+                        </div>
+                        {% endif %}
                     </a>
                 </li>
                 <div class="tab-indicator"></div>
             </ul>
         </nav>
         
-        
+        <div class="overlay {% if form_status == True %}blurred{% else %}{% endif %}"></div>
         <div class="content-area">
             <div class="title-bar">
                 <div class="Admin-name">
                     <h5>Welcome, Admin <i class="fa-solid fa-circle-user"></i></h5>
+                </div>
+            </div>
+            <div class="admin-settings {% if form_status == True %}{% else %}inactive{% endif %}">
+                <div class="gear-icon {% if form_status == True %}{% else %}active{% endif %}">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div class="admin-content {% if form_status == True %}{% else %}inactive{% endif %}">
+                <span class="icon"><i class="fa-solid fa-x"></i></span>
+                <div class="admin-settings-form">
+                    <div class="admin-info">
+                        <h5>Website Email address: <i><a href="mailto:TradeNestXchange@gmail.com">TradeNestXchange@gmail.com</a></i></h5>
+                        {% for admin in admins %}
+                            {% if admin.Email == usr.Email %}
+                                <h5>Admin Email: <i>{{admin.Email}}</i></h5>
+                            {% endif %}
+                        {% endfor %}
+                        {% for wallet in wallet %}
+                            <h5>Admin Wallet: <i>{{wallet.Wallet}}</i></h5>
+                        {% endfor %}
+                        <a href="/logout" class="btn text-white bg-success mb-1">Sign out</a>
+                    </div>
+                    <div class="admin-form mt-4">
+                        <form method="post">
+                        <div class="admin-form-wrapper">
+                            <input type="hidden" name="form-type" value="admin-form">
+                            <div class="input-box">
+                                <label for="">Register Admin User</label>
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email" >
+                            </div>
+                            <div class="input-box">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="password" name="pwd1" class="form-control" placeholder="Enter Password" visible>
+                                    </div>
+                                    <div class="col">
+                                        <input type="password" name="pwd2" class="form-control" placeholder="Confirm Password" visible>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <label for="">Add Wallet Address</label><br/>
+                                <input type="text" name="wallet" class="form-control" placeholder="Enter your Bitcoin wallet">
+                            </div>
+                            <div class="action-btn">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
                 </div>
             </div>
             

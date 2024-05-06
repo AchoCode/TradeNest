@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,700&display=swap">
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="style"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+  <script src="https://kit.fontawesome.com/044032d169.js" crossorigin="anonymous"></script>
+ <title> {% block title %}Trade activation{% endblock %}</title>
+</head>
+<body>
+  <div class="email-wrapper" style="width: 450px; margin: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div class="header" style="background-color: blue; color: white; height: 40px; font-weight: 600;">
+        <!-- <p style="text-align: center; margin-top: 15px;">TradeNestXchange</p> -->
+    </div>
+    <div class="image-box" style="width: 100%;">
+      {% block image %}
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0lYrPpEqcUZQwqv8isAOz8fo6yr-12wnhwRe1kAYnBA&s" style="height: 150px; width: 100%;">
+      {% endblock %}
+    </div>
+    <div class="information-box" style="padding: 10px 0">
+      {% block sub_heading %}
+      <div class="sub-heading" style="font-weight: 600; text-align: center; font-size: 1.1rem;">
+          Trade Activation !!
+        </div>
+        {% endblock %}
+      {% block msg %}
+        <div class="msg" style="text-align: center; font-weight: 600;">
+            A trading session has been activated successfully. Your Estimated profit will be added
+            to your available balance and your trade equity will be saved. Visit your profile dashboard
+            for more information.
+          </div>
+        {% endblock %}
+      <div class="link-btn" style=" margin: 15px auto 5px; background-color: blue;width: 100px; color: white; 
+      transition: 0.2s; border-radius: 10px; padding: 8px 40px;">
+          <a href="{{profile_link}}" style="color: white; text-decoration: none; padding-left: 20px;">Visit profile</a>
+      </div>
+    </div>
+    {% block footer %}
+    <div class="footer"  style="text-align: center; font-style: italic; font-size: 0.9rem;">
+      For further inquiries, please contact our customer support through our <a href="{{website_link}}">Website</a>
+      or email: TradeNestXchange@gmail.com
+    </div>
+    {% endblock %}
+  </div>
+</body>
+</html>

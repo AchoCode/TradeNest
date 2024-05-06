@@ -23,51 +23,39 @@
                 </li>
                 <li>
                     <a href="/notifications">
-                        <span class="icon"><i class="fa-regular fa-bell"></i></span>
-                        <span class="badge"></span>
+                        <span class="icon"><i data-count="{{number_of_notices}}" class="fa-regular fa-bell {% if number_of_notices == 0 %} inactive {% endif %}"></i></span>
                     </a>
                 </li>
             </div>
         </ul>
     </div>
-    <div class="details">
+    <div class="details pl-3 pr-3 ">
         <div class="balance">
-            <h5> Balance </h5>
-            <p>{{usr.Balance}} <span>USD</span></p>
+            <h5>Balance </h5>
+            <p> <span><i class="fa-solid fa-dollar-sign"></i></span> {{usr.Balance}}0</p>
         </div>
         <div class="transaction">
             <div class="total-bal">
-                <h5> Available Balance </h5>
-                <p>{{usr.Available_balance}} <span>USD</span></p>
+                <h5> Cash Out </h5>
+                <p><span><i class="fa-solid fa-dollar-sign"></i></span> {{usr.Available_balance}}0</p>
             </div>
         </div>
     </div>
 </div>
 
 <div class="Overlay"></div>  
-<div class="wrapper">  
-<button id="Close-deposit" onclick="CloseDeposit()" class="btn"><i  class="fa-solid fa-xmark"></i></button> 
-    <div class="form-box">
-        <h4>BTC Trading Address</h4>
-        <div class="notice">
-        <h3>This address can only recieve BTC on the Bitcoin Network</h3>
-        <p> If another cryptocurrencey is sent to this address. The funds wont be recoverable</p>
-    </div>
-    <div class="address">
-        <input value="3A1fNzGyUYKdmDWne5CXVXRwGWoBLcvsRh" id="address" readonly/>
-    </div>
-    <button class="btn" id="copy" onclick="copyText()">Copy <i class="fa-regular fa-copy"></i></button>
-        <p><i>Ensure to copy the correct trading address to avoid lost of funds</i></p>
-    </div>
-</div>
 
 <div class="withdraw-form-wrapper">
     <div class="withdraw-form">
+
         <form method="POST">
             <div class="withdraw-input-box">
-                <input type="text" class="form-control"  name="amount" id="amount" required>
-                    <label for="amount">Enter amount</label>
+                <input type="text" class="form-control"  name="amount" id="w-amount" required>
+                <label for="amount" id="w-label">Enter amount</label>
             </div>
+            <label id="float">
+                <i class="fa-solid fa-circle-exclamation"></i> Please enter whole numbers only. Decimals are not allowed in this field
+            </label>
 
             <div class="withdraw-input-box">
                 <input type="text" class="form-control" id="w-address" name="wallet-address" required>
@@ -80,7 +68,7 @@
             </div>
             
             <div class="next-btn">
-                <button type='submit' class="btn" > Next </button>
+                <button type='submit' class="btn" id="w-btn"> Next </button>
             </div>
         </form>
     </div>

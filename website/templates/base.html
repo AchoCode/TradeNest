@@ -36,8 +36,8 @@
         <li><a href="/profile">Profile</a></li>
         <li><a href="/logout">Logout</a></li>
         {% else %}
-        <li><a href="/login-Signup">Register</a></li>
-        <li><a href="/login-Signup">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
         {% endif %}
         <li><a href="/contact">Contact Us</a></li>
       </ul>
@@ -48,18 +48,12 @@
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
         messages %} {% for category, message in messages %} {% if category ==
         'error' %}
-        <div class="alert alert-danger alter-dismissable fade show message" role="alert">
+        <div class="alert error alter-dismissable fade show message text-center" id="alert-msg" role="alert">
           {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         {% else %}
-        <div class="alert alert-success alter-dismissable fade show message" role="alert">
+        <div class="alert success alter-dismissable fade show message text-center" id="alert-msg" role="alert">
           {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         {% endif %} {% endfor %} {% endif %} {% endwith %}
 

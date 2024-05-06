@@ -29,17 +29,114 @@
     color: white;
     top: 10px;
 }
-.overlimit {
-    border: 2px solid red;
-}
-.underlimit {
-    border: 2px solid green
-}
+
 .no-request{
     width: 100%;
     height: 50dvh;
     display: grid;
     place-items: center;
+} 
+.scroll {
+    height: 150px;
+}
+.overlay.blurred{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+    margin-top: 50px;
+    backdrop-filter: blur(2px);
+}
+
+/* --------------------------------------------------------------FOR THE ADMIN FORM------------------------------------------ */
+
+.admin-settings{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 55px;
+    right: 5px;
+    background-color: var(--nav-blue);
+    width: 530px;
+    height: 500px;
+    z-index: 5;
+    padding: 30px;
+    border-radius: 30px;
+    border-top-right-radius: 5px;
+    transition: 0.3s;
+}
+.admin-settings.inactive{
+    width: 0;
+    height: 0;
+    top: 40px;
+    right: -10px;
+    transform: scale(0.6);
+}
+.gear-icon.active {
+    display: block;
+}
+.gear-icon.active i{
+    color: white;
+    cursor: pointer;
+    animation: rotate 5s linear infinite;
+}
+.gear-icon {
+    display: none;
+}
+@keyframes rotate{
+    from{
+        transform: rotateX(0deg) scale(2);
+    }to{
+        transform: rotate(360deg) scale(2);
+    }
+}
+.admin-content.inactive{
+    display: none;
+}
+.admin-info {
+    color: white;
+    font-family: var(--roboto);
+
+}
+.admin-info h5{
+    font-size: 1.10rem;
+    font-weight: 600;
+
+}
+.admin-info i,
+.admin-info a {
+    color: gold;
+    font-size: 1.05rem;
+    font-weight: 600;
+
+}
+.admin-settings .icon{
+    position: absolute;
+    top: 20px;
+    right:20px;
+    color: white;
+    cursor: pointer;
+}
+.admin-settings .icon i{
+    font-size: 1.25rem;
+    transition: 0.3s;
+    font-weight: 600;
+}
+.admin-settings .icon i:hover {
+    transform: scale(1.30);
+    color: var(--offWhite);
+}
+.admin-form {
+    background-color: var(--offWhite);
+    padding:5px 15px;
+    border-radius: 10px;
+}
+.admin-form-wrapper .input-box {
+    margin: 10px 5px;
+}
+.admin-form-wrapper .input-box input{
+    width: 100%;
 }
     body {
         overflow: hidden;
@@ -172,6 +269,15 @@
         place-content: center;
         flex-direction: column;
     }
+    .badge {
+        background-color: red;
+        height: 10px;
+        width: 10px;
+        display: block;
+        position: absolute;
+        top: 5px;
+        right: 30px;
+    }
     /*----------------------NAV ICONS-------------------------------*/
 
     .title-bar{
@@ -274,7 +380,39 @@
     }
 
     /* ------------------------------------------------------USERS TAB------------------------------------------------ */
-
+    .delete-note.active{
+        transform: scale(1)
+    }
+    .delete-note{
+        display: grid;
+        place-content: center;
+        background-color: #091023;
+        color: white;
+        width: 500px;
+        margin: 0 auto;
+        position: absolute;
+        top: 100px;
+        left: 300px;
+        z-index: 7;
+        border-radius: 20px;
+        padding: 30px;
+        transition: 0.4s;
+        transform: scale(0);
+    }
+    .warning{
+        font-family: var(--roboto);
+    }
+    .warning p{
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    .warning .action-btn {
+        width: 300px;
+        margin: 5px auto;
+    }
+    .warning .btn{
+        width: 100px;
+    }
     .search-bar {
         margin: 0px auto;
         width: 450px;
@@ -293,17 +431,20 @@
         margin-left: 50px;
         outline: none;
         background-color: transparent;
+        font-weight: 600;
     }
+
     .user-container {
         display: flex;
         justify-content: space-between;
         height: 90dvh;
     }
+
     .users-table {
         background-color: var(--offWhite);
         padding: 20px;
-        margin: 20px;
-        width: 600px;
+        margin: 20px 0;
+        width: 570px;
         position: relative;
         height: 450px;
         overflow: hidden;
@@ -355,8 +496,7 @@
         align-items: center;
         justify-content: space-between;
         background-color: white;
-        padding: 0 10px;
-        height: 50px;
+        padding: 0;
         margin: 10px 0;
         border-radius: 5px;
     }
@@ -378,7 +518,6 @@
         font-weight: 600;
     }
     .user .btn {
-        background-color: var(--blue);
         color: white;
         padding: 5px 10px;
         margin-right: 20px;
@@ -387,21 +526,26 @@
     .btn:hover {
         transform: scale(1.05);
     }
-
-    .card-information {
-        width: 600px;
+    .users-tab .card-information{
         height: 340px;
+
+    }
+    .card-information {
+        width: 570px;
         background-color: var(--offWhite);
         margin: 30px 10px;
+        height: 360px;
         border-radius: 20px;
     }
     .card-information .table-heading{
         background-color: var(--blue);
         color: white;
         padding: 5px 15px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         font-family: var(--roboto);
+        display: flex;
+        justify-content: space-between;
         
     }
     .card-information .table-heading h5{
@@ -430,7 +574,6 @@
     }
     .card-components {
         background-color: white;
-        height: 230px;
         padding: 5px;
         border-radius: 5px;
     }
@@ -461,8 +604,39 @@
         width: 80px;
         margin-left: 20px;
     }
-    
-    .user-container
+    .user-trade {
+        position: absolute;
+        top: 35px;
+        right: -600px;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .user-trade.active{
+        right: -35px;
+        opacity: 1;
+    }
+    .user-trade .card-information{
+        height: 235px;
+    }
+    .user-container .card-information.inactive {
+        opacity: 0;
+        display: none;
+    }
+    .user-trade .users-table {
+        height:200px;
+    }
+    .user-trade .user{
+        height: auto;
+        padding: 4px;
+    }
+    .user .trade-info{
+        width: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .trade-info label{
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
     /* ---------------------------------------COMMENT TAB------------------------------------------- */
     .comments-tab.online {
         display: flex;
@@ -476,6 +650,7 @@
     }
     .comments {
         overflow: auto;
+        width: 90%;
         height: 80dvh;
         border-bottom: 3px solid var(--blue);
         border-top: 3px solid var(--blue);
@@ -522,21 +697,32 @@
         height: auto;
         
     }
-
+    .post-tab .post-container{
+        overflow: auto;
+        height: 100dvh;
+    }
     /* ---------------------------------------DEPOSIT TAB------------------------------------------- */
+    .deposit-tab.online {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
 
+    }
     .deposit-tab .table-heading{
         height: 40px;
     }
     .deposit-tab .action-btn {
         justify-content: flex-end;
     }
-    .container {
+    .deposit-tab .container {
         margin: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 100%;
     }
     .deposit-tab .card-information {
         height: auto;
@@ -560,7 +746,11 @@
         margin: auto;
         width: 50%;
     }
-
+    .deposit_msg{
+        font-size: 1.30rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+    }
     /* ---------------------------------------WITHDRAWAL TAB------------------------------------------- */
 
     .withdrawal-tab .table-heading {
@@ -594,7 +784,15 @@
         align-items: center;
         margin: 10px 20px;
     }
-    #avail-balance {
+    #avail-balance,
+    #balance,
+    #total-bal,
+    #with-avail-balance {
         width: 70px;
-        margin-right: 30px
+        margin-right: 10px;
+    }
+    #phone_no{
+        width: 150px;
+        text-align: center;
+        margin-right: 50px;
     }

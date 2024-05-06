@@ -23,8 +23,7 @@
                 </li>
                 <li>
                     <a href="/notifications">
-                        <span class="icon"><i class="fa-regular fa-bell"></i></span>
-                        <span class="badge"></span>
+                        <span class="icon"><i data-count="{{number_of_notices}}" class="fa-regular fa-bell {% if number_of_notices == 0 %} inactive {% endif %}"></i></span>
                     </a>
                 </li>
             </div>
@@ -32,8 +31,8 @@
     </div>
     <div class="details">
         <div class="balance">
-            <h5> Avaliable Balance </h5>
-            <p>{{usr.Available_balance}} <span>USD</span></p>
+            <h5> Your Balance </h5>
+            <p><span><i class="fa-solid fa-dollar-sign"></i></span>{{usr.Balance}}</p>
         </div>
         <div class="transaction">
             <a href="/history"> Transaction History <i class="fa-solid fa-clock-rotate-left"></i></a>
@@ -62,36 +61,36 @@
                 <div class="content">
 
                     <div class=" Trade">
-                        {% if Number_of_trades == 0 %}
-                            <h2>No open Orders </h2>
-                        {% else %}
-                            <ul class="trade-box">
-                                {% for trade in Trade|reverse %}
-                                    {% if trade.Status == 'Open'%}
-                                        <li class="trade-item">
-                                            <div class="btc-icon2">
-                                                <i class="fa-brands fa-btc"></i>
-                                            </div> 
-                                            <div class="info">
-                                                <div class="amt">
-                                                    <ul>
-                                                        <li>Equity: ${{ trade.Amount}}.00  <span>Lot size: 0.01</span></li>
-                                                        <li></li>
-                                                        <li>Duration: 2 days<span>Estimated Return: $50</span></li>
-                                                        <li></li>
-                                                    </p> 
+                        {% if Number_of_Open_trades == 0 %}
+                            <h2 class="no-request">No open Orders </h2>
+                            {% else %}
+                                <ul class="trade-box">
+                                    {% for trade in Trade|reverse %}
+                                        {% if trade.Status == 'Open'%}
+                                            <li class="trade-item">
+                                                <div class="btc-icon2">
+                                                    <i class="fa-brands fa-btc"></i>
+                                                </div> 
+                                                <div class="info">
+                                                    <div class="amt">
+                                                        <ul>
+                                                            <li>Equity: ${{ trade.Amount}}  <span class="ml-5">Lot size: {{trade.Lot_size}}</span></li>
+                                                            
+                                                            <li>Duration: {{trade.Duration}} days<span>Estimated Profit: ${{trade.Profit}}</span></li>
+                                                            
+                                                        </p> 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}    
-                            </ul>
-                        {% endif%}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}    
+                                </ul>
+                            {% endif%}
                     </div>
 
                     <div class="Trade">
-                        {% if Number_of_trades == 0 %}
-                            <h2>No Pending Orders </h2>
+                        {% if Number_of_Pending_trades == 0 %}
+                            <h2 class="no-request">No Pending Orders </h2>
                         {% else %}
                             <ul class="trade-box">
                                 {% for trade in Trade|reverse %}
@@ -103,10 +102,8 @@
                                         <div class="info">
                                             <div class="amt">
                                                 <ul>
-                                                    <li>Equity: ${{ trade.Amount}}.00<span> Lot size: 0.01</span></li>
-                                                    <li></li>
-                                                    <li>Duration: --- <span>Estimated Return: $50</span></li>
-                                                    <li></li>
+                                                    <li>Equity: ${{ trade.Amount}}<span class="ml-5"> Lot size: {{trade.Lot_size}}</span></li>
+                                                    <li>Duration: --- <span>Estimated Return: ${{trade.Profit}}</span></li>
                                                 </p> 
                                             </div>
                                         </div>
@@ -119,7 +116,7 @@
 
                     <div class="Trade">
                         {% if Number_Closed_trades == 0 %}
-                            <h2>No Activity For the past 30 days </h2>
+                            <h2 class="no-request">No Activity For the past 30 days </h2>
                         {% else %}
                             <ul class="trade-box">
                                 {% for trade in Closed_trades|reverse %}
@@ -130,10 +127,9 @@
                                     <div class="info">
                                         <div class="amt">
                                             <ul>
-                                                <li>Equity: ${{ trade.Amount}}.00<span> Lot size: 0.01</span></li>
-                                                <li></li>
-                                                <li>Date:17/feb/24<span>Profit: <span class="profit">50 USD</span></span></li>
-                                                <li></li>
+                                                <li>Equity: ${{ trade.Amount}}<span class="ml-5"> Lot size: {{trade.Lot_size}}</span></li>
+                                                <li><span class="dates ml-0 text-white">{{trade.Date}}</span><span>Profit: <span class="profit">{{trade.Profit}} USD</span></span></li>
+                                                
                                             </p> 
                                         </div>
                                     </div>

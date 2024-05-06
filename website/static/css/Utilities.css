@@ -1,0 +1,140 @@
+:root {
+    --roboto:  roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+    --times: 'Times New Roman', Times, serif;
+    --google: 'Google Sans';
+    --outline: 2px solid red;
+    --blue: rgb(12, 46, 168);
+    --image-overlay : linear-gradient(rgba(0,0,0,0.6),
+    rgba(0,0,0,0.8));
+    --offwhite: rgb(216, 216, 216);
+    font-size: 100%;
+}
+.message {
+    position:absolute;
+    width: 380px;
+    z-index: 6;
+    left: 10px;
+    text-align: center;
+    font-family: var(--roboto);
+    font-weight: 600;
+    border-radius: 10px;
+
+}
+.message.success {
+    background-color: green;
+    color: white;
+}
+.message.error {
+    background-color: rgb(189, 52, 52);
+    color: white;
+    top: 5px;
+}
+.heading.hide,
+.hide {
+    display: none;
+}
+body{
+    background-color: black;
+}
+.wrapper{
+    position: relative;
+    margin: auto;
+    width: 400px;
+    border: 2px solid var(--offwhite);
+    border-radius: 20px;
+    height: 100dvh;
+    overflow: hidden;
+}
+.heading {
+    position: relative;
+    display: grid;
+    place-content: center;
+    height: 60px;
+    width: 100%;
+    color: white;
+    background-color: var(--blue);
+}
+
+ .pwd-reset-form {
+    padding: 20px;
+}
+.info {
+    font-family: var(--roboto);
+    text-align: center;
+    font-size: 1.04rem;
+    margin-bottom: 50px;
+}
+.pwd-icon i {
+    margin-left: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+label{
+    font-family: var(--roboto);
+    font-weight: 600;
+}
+.form-btn {
+    width: 100%;
+    display: grid;
+    place-content: center;
+    margin-top: 50px;
+}
+.form-btn .btn{
+    color: white;
+    background-color: var(--blue);
+    width: 230px;
+    border-radius: 20px;
+    font-family: var(--roboto);
+    font-weight: 600;
+}
+.expired-token {
+    margin-top: 70px;
+    color: white;
+    padding: 20px;
+}
+/*.input-box {
+    position: relative;
+    width: 100%;
+    height: 45px;
+}
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    font-family: var(--roboto);
+    pointer-events: none;
+    transition: 0.3s;
+}
+.input-box input:focus{
+    box-shadow: none;
+}
+.input-box input:focus~label,
+.input-box input:valid~label{  
+    font-size: 1rem;
+    color: rgb(201, 200, 202);
+    top: -10px;
+}
+.input-box .form-control {
+    font-size: 1.2rem;
+    font-family: var(--roboto);
+    padding-right: 50px;
+    padding-left: 10px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid gold;
+    border-radius: 0px;
+}
+.input-box .icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.2rem;
+    color: gold;
+    line-height: 57%;
+} */

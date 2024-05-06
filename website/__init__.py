@@ -6,7 +6,7 @@ from flask_mail import Mail
 
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+DB_NAME = "TradeNest.db"
 mail = Mail()
 
 def create_all():
@@ -14,9 +14,14 @@ def create_all():
 
     app.config['SECRET_KEY'] = 'princess'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    # app.config['SQLALCHEMY_BINDS'] = {
-    # 'old_db': 'sqlite:///database3.db'
-    # }
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USE_TLS'] =False
+    app.config['MAIL_USE_SSL'] = True
+    app.config['MAIL_USERNAME'] = 'tradenestxchange@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'qnmuhtpiobsntnyp'
+    app.config['MAIL_DEFAULT_SENDER'] = 'TradeNestXchange@gmail.com'
+   
     db.init_app(app)
     mail.init_app(app)
 
@@ -41,9 +46,6 @@ def create_all():
     @login_manager.user_loader
     def load_user(id):
         user = User.query.get(int(id))
-        #if no user is gotten from the user table, the admin table is queried
-        # if not user:
-        #     user = Admin.query.get(int(id))
         return user
     
 

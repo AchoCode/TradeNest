@@ -12,7 +12,7 @@
         <div class="transaction">
             <div class="total-bal">
                 <h5> Earnings </h5>
-                <p>{{usr.Total_balance}}0 <span>USD</span></p>
+                <p>{{usr.Earnings}} <span>USD</span></p>
             </div>
         </div>
     </div>
@@ -20,6 +20,25 @@
 
 <section class="deposit-details">
 
+    <div class="withdraw-form-wrapper">
+        <div class="withdraw-form">
+            <form method="POST">
+                <div class="withdraw-input-box mb-1">
+                    <input type="text" class="form-control"  name="amount" id="deposit-amount" required>
+                        <label for="amount">Enter amount</label>
+                </div>
+
+                <div class="next-btn">
+                    <button type='button' class="btn" onclick="proceedDeposit()" > Proceed </button>
+                </div>
+                <div class="deposit-info">
+                    <h5>Fund your Trading account with Zero fees</h5>
+                    <p><i>Please note that Deposits may take up to 24hours to reflect in your account balance</i></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <div class="wrapper ">
         <div class="form-box">
                 <h4>BTC Trading Address</h4>
@@ -28,14 +47,14 @@
                 <p> If another cryptocurrencey is sent to this address. The funds wont be recoverable</p>
             </div>
             <div class="address">
-                <p id="deposit-address">3A1fNzGyUYKdmDWne5CXVXRwGWoBLcvsRh</p>
+                <p id="deposit-address">{{btc.Wallet}}</p>
             </div>
-            <button class="btn" id="copy" onclick="copyText()" onclick="user({{usr.id}})">Copy <i class="fa-regular fa-copy"></i></button>
+            <button class="btn" id="copy" onclick="copyText({{usr.id}})">Copy <i class="fa-regular fa-copy"></i></button>
                 <p><i>Ensure to copy the correct trading address to avoid lost of funds</i></p>
         </div>
     </div>
     
-    <div class="copy-alert">
+    <div class="bg-secondary pt-1 copy-alert">
         <p>wallet copied!</p>
     </div>
 </section>

@@ -1,0 +1,77 @@
+{% extends 'ProfileBase.html' %}
+{% block title %} Secure account {% endblock %}
+{% block content %}
+
+<div class="transactions-info profile-settings">
+    <a href="/settings">    
+        <span class="text-dark ml-3">      
+            <i class="fa-solid fa-arrow-left"></i>          
+        </span>
+    </a>
+    <h3 class="mr-3">Security</h3>
+</div>
+<div class="transactions setting-links">
+    <ul >
+        <li class="btn" onclick="pwdActive()">
+           Create new password
+        </li>
+        <div class="Security-form" id="pwd-form">
+            <div class="password-change">
+                <div class="heading mb-3">
+                    <h5>Create a new secure password</h5>
+                </div>
+                <form method="post">
+                    <input type="hidden" name="form-type" value="pwd-change-form">
+                    <div class="form-group">
+                        <input type="text" name="c-pwd" class="form-control mb-2" placeholder="Current password">
+                        <input type="text" name="n-pwd" class="form-control mt-2" placeholder="New password">
+                    </div>
+                    <div class="action-btn">
+                        <button type="submit" class="btn">Change</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <li class="btn text-center" onclick="pinActive()">
+            Change user pin
+        </li>
+        <div class="Security-form" id="pin-form">
+            <div class="pin-change">
+                <div class="heading mb-3">
+                    <p><i>Default pin is 0000</i></p>
+                </div>
+                <form method="post">
+                    <input type="hidden" name="form-type" value="pin-change-form">
+                    <div class="form-group">
+                        <input type="text" name="c-pin" id="" class="form-control mb-2" placeholder="Current pin">
+                        <input type="text" name="n-pin" id="" class="form-control mt-2" placeholder="New pin">
+                    </div>
+                    <div class="action-btn">
+                        <button type="submit" class="btn">Change</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <li class="email-verify" {% if usr.is_verified == False %} onclick="verifyEmail('{{usr.Email}}')" {% endif %}>
+            {% if usr.is_verified == False %}
+                <p>Verification <i class="mr-3">(Email)</i> <span class="ml-5" > Verify </p>    
+            {% else %}
+                <p>Verification <i class="mr-3">(Email)</i> <span class="ml-5" > Verified    
+                <i class="fa-solid fa-circle-check"></i></span></p>
+            {% endif %}
+           
+        </li>
+        <div class="email-msg mt-4 show" id="alert-msg">
+            A confirmation link has been sent to your email
+        </div>
+        <li class="btn">
+           Cashout Equity
+        </li>
+    </ul>
+    <div class="scroll"></div>
+</div>
+
+
+{% endblock %}

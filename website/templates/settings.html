@@ -1,12 +1,12 @@
 {% extends "ProfileBase.html" %}
-{% block title %} Me {% endblock %}
+{% block title %} Profile {% endblock %}
 
 {% block content %}
 
 <div class="Account-setting">
-    <div class="acct-name">
+    <div class="acct-name ml-3">
         <span><i class="fa-regular fa-user"></i></span>
-        <h4><i>{{usr.First_name}}</i></h4>
+        <h4><i>{{usr.First_name}} {{usr.Last_name}}</i></h4>
     </div>
     <div class="nav">
         <ul>
@@ -23,20 +23,19 @@
                 </li>
                 <li>
                     <a href="/notifications">
-                        <span class="icon"><i class="fa-regular fa-bell"></i></span>
-                        <span class="badge"></span>
+                        <span class="icon"><i data-count="{{number_of_notices}}" class="fa-regular fa-bell {% if number_of_notices == 0 %} inactive {% endif %}"></i></span>
                     </a>
                 </li>
             </div>
         </ul>
     </div>
     <div class="details">
-        <div class="balance">
-            <h5> Total Balance </h5>
-            <p>{{usr.Total_balance}}0 <span>USD</span></p>
+        <div class="balance ml-2">
+            <h5> Profile equity </h5>
+            <p><span><i class="fa-solid fa-dollar-sign"></i>{{usr.Total_balance}}0</span></p>
         </div>
-        <div class="transaction">
-            <h5>Subscription Plan</h5>
+        <div class="transaction mr-3">
+            <h5>Subscription</h5>
             {% if usr.Subscription_plan == 'Bronze' %}
                 <p id="bronze">{{usr.Subscription_plan}}</p>
             {% else %}
@@ -55,31 +54,26 @@
 <div class="setting-wrapper">
     <div class="setting-links">
         <ul>
-            <li>
-                <a href="/history">
-                    Transaction History
-                </a>
-            </li>
-            <li>
-                <a href="/withdraw-request">
-                    Withdrawal
-                </a>
-            </li>
-            <li>
-                <a href="/upgrade">
-                    Upgrade Subscription
-                </a>
-            </li>
-            <li>
-                <a href="/faq">
-                    FAQ
-                </a>
-            </li>
-            <li>
-                <a href="/logout">
-                    Logout
-                </a>
-            </li>
+            <a href="/profile-security">
+                <li>
+                    <i class="fa-solid fa-shield mr-3"></i>Security
+                </li>
+            </a>
+            <a href="/withdraw-request">
+                <li>
+                    <i class="fa-solid fa-money-bill-transfer mr-3"></i> Withdrawal
+                </li>
+            </a>
+            <a href="/faq">
+                <li>
+                    <i class="fa-solid fa-circle-question mr-3"></i>Help
+                </li>
+            </a>
+            <a href="/logout">
+                <li>
+                    Sign Out
+                </li>
+            </a>
         </ul>
     </div>
 </div>

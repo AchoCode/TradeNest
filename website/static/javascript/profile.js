@@ -1,6 +1,25 @@
 // TODO: write a javascript function that deletes notifications and transactions  after a certain period of time
+let alertMsg = document.getElementById('alert-msg')
+if(alertMsg){
+    setTimeout(()=>{
+        alertMsg.classList.remove('show')
+    },2000)
+}
+let dates = document.querySelectorAll('.dates')
+dates.forEach(date=>{
+    const newdate = new Date(date.textContent)
+    let options ={
+        year: '2-digit', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: 'numeric', 
+        minute: 'numeric', 
+        // second: 'numeric', 
+    }
 
-
+    let formattedDate = newdate.toLocaleDateString('en-US', options)
+    date.textContent = formattedDate
+})
 //------------------PROFILE NAVIGAITON CHANGE----------------------
 
 const list = document.querySelectorAll('.list');
@@ -27,16 +46,32 @@ dashBtn.forEach((btn)=>{
 
 // -------------------------Deposit overlay---------------------------
 
-const depositSection = document.querySelectorAll('.deposit-details');
-const Wrapper = document.querySelector('.wrapper');
-const depositForm = document.querySelector('.deposit-details .withdraw-form-wrapper')
+let amountInput = document.querySelector('#deposit-amount')
+function proceedDeposit(){
+    const Wrapper = document.querySelector('.wrapper');
+    const depositForm = document.querySelector('.deposit-details .withdraw-form-wrapper')
 
-function copyText() {
-    // fetch('/deposit',{
-    //     method: 'POST',
-    //     body: JSON.stringify({usrId: usrId})
-    // })
-    // console.log(usrId)
+    if (amountInput.value ===''){
+        event.preventDefault()
+    }else{
+        Wrapper.classList.add('active')
+        depositForm.classList.add('inactive')
+    }
+
+}
+function copyText(usrId) {
+    fetch('/deposit',{
+        method: 'POST',
+        body: JSON.stringify({usrId: usrId,
+                              Amount: amountInput.value})
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Parse the JSON response
+        return response.json();
+    })
     var copyText = document.getElementById("deposit-address")
     let alert = document.querySelector('.copy-alert')
     navigator.clipboard.writeText(copyText.innerHTML).then(function() {
@@ -49,19 +84,6 @@ function copyText() {
     });
 }
   
-function user(usrId){
-    fetch('/deposit',{
-        method: 'POST',
-        body: JSON.stringify({usrId: usrId})
-    })    
-    .then(response => {
-        if(!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        // Parse the JSON response
-        return response.json();
-    })
-}
 function Active(){
     const PwdInput = document.querySelector('.password-input');
     const detailBox = document.querySelector('.pwd-wrapper .details');
@@ -75,7 +97,7 @@ function Active(){
 
     }, 900)
 }
-
+const Overlay = document.querySelector('.Overlay')
 const popUp = document.querySelector('.pop-up');
 function PopUpAlert(){
 
@@ -88,14 +110,49 @@ function CloseAlert(){
     Overlay.classList.remove('Blurred')
 
 }
-// function deposit() {
-//     let depositAmount = document.querySelector('#deposit-amount')
-//     if(depositAmount.value === ""){
 
-//     }else{
-//         event.preventDefault()
-//         Wrapper.classList.add('active');
-//         depositForm.classList.add('inactive')
-//     }
-// }
+let withdrawalInput = document.getElementById('w-amount')
+withdrawalInput.addEventListener('blur', ()=>{
+    let inputValue = withdrawalInput.value
+    if(inputValue.includes('.')){
+        withdrawalInput.style.border = '2px solid red'
+        document.getElementById('w-btn').disabled = true
+        document.getElementById('w-label').style.color = 'red'
+        document.getElementById('float').style.display = 'block'
+        document.getElementById('w-address').disabled = true
+    }else{
+        withdrawalInput.style.border = ''
+        document.getElementById('w-btn').disabled = false
+        document.getElementById('w-label').style.color = ''
+        document.getElementById('float').style.display = 'none'
+        document.getElementById('w-address').disabled = false
 
+    }
+})
+
+function pinActive(){
+    document.getElementById('pin-form').classList.toggle('active')
+    document.getElementById('pwd-form').classList.remove('active')
+
+}
+function pwdActive(){
+    document.getElementById('pwd-form').classList.toggle('active')
+    document.getElementById('pin-form').classList.remove('active')
+}
+
+function verifyEmail(usrEmail){
+    fetch('/verify-email', {
+        method: 'POST',
+        body: JSON.stringify({usrEmail:usrEmail})
+    }).then(response =>{
+            if(!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            // Parse the JSON response
+            return response.json();
+    })
+    document.querySelector('.email-msg').classList.add('active')
+    setTimeout(()=>{
+        document.querySelector('.email-msg').classList.remove('active')
+    },2500)
+}

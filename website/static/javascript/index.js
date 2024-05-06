@@ -1,4 +1,16 @@
+let alertMsg = document.getElementById('alert-msg')
+if(alertMsg){
+    setTimeout(()=>{
+        alertMsg.classList.remove('show')
+        alertMsg.style.display = 'none'
+    },3000)
+} 
+// -----------------------------LOGIN / PWD RESET PAGE------------------------------
 
+function pwdFormToggle(){
+    document.querySelector('.form-box.login').classList.toggle('active')
+    document.querySelector('.form-box.forgot-pwd').classList.toggle('active')
+}
 //---------BACK TO TOP BUTTON------------
 const backToTop = document.querySelector('#backToTopBtn');
 
@@ -25,21 +37,33 @@ window.addEventListener('scroll', ()=>{
 const ModalLoginBtn = document.querySelector('#login-link');
 const Modalregistertn = document.querySelector('#signup-link');
 
-const loginForm = document.querySelector('.login');
-const SignupForm = document.querySelector('.register');
+const registerBox1 = document.querySelector('.register-box1');
+const registerBox2 = document.querySelector('.register-box2');
 
 const FormPopup = document.querySelector('.form-wrapper');
 
+let overlay = document.querySelector('.Overlay')
+let loadSpinner = document.querySelector('.spinner-border')
 function Modal(){
-    loginForm.classList.toggle('hide');
-    SignupForm.classList.toggle('active');
-    FormPopup.classList.toggle('register');
-
+    overlay.classList.add('blurred')
+    loadSpinner.classList.add('active')
+    setTimeout(()=>{
+        overlay.classList.remove('blurred')
+        loadSpinner.classList.remove('active')
+        registerBox1.classList.toggle('hide');
+        registerBox2.classList.toggle('active');
+        FormPopup.classList.toggle('register');
+    
+    }, 2500)
 }
 function HidePassword(){
     let passwordInput = document.querySelectorAll('.pwd');
     passwordInput.forEach(pwd =>{
-        pwd.type = 'password';
+        if (pwd.type == 'password'){
+            pwd.type = 'text'
+        }else{
+            pwd.type = 'password'
+        }
     })
 }
 
@@ -186,6 +210,10 @@ window.addEventListener('scroll',()=>{
         AUcontent2.classList.add('slide')
     }
 });
+
+function relocate(plan){
+    window.location.href = '/register?plan=' + plan
+}
 
 //------------------HERO CONTENT CHANGE----------------------
 
